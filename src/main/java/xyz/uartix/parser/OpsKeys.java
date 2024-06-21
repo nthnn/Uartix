@@ -1,0 +1,25 @@
+package xyz.uartix.parser;
+
+import java.util.Arrays;
+import java.util.List;
+
+public final class OpsKeys {
+    public static List<String> operators = Arrays.asList(
+        "+", "-", "*", "/",
+        "!", "!=", "&", "&&",
+        "|", "||", "^", "%",
+        "(", ")", "[", "]",
+        "{", "}", "=", "==",
+        ":", ";", "'", "\"",
+        "<", "<<", "<=", ">",
+        ">>", ">=", ",", ".",
+        "::", "?"
+    );
+
+    public static List<String> keywords = Arrays.asList(
+        "while", "do", "for", "foreach",
+        "unless", "if", "else", "when",
+        "break", "continue", "random", "as",
+        "func"
+    );
+}
