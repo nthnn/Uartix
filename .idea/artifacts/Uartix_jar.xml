@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Uartix:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Uartix_jar</output-path>
+    <root id="archive" name="Uartix.jar">
+      <element id="module-output" name="Uartix" />
+      <element id="extracted-dir" path="/usr/share/java/RXTXcomm-2.2.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
