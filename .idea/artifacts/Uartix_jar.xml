@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Uartix_jar</output-path>
     <root id="archive" name="Uartix.jar">
       <element id="module-output" name="Uartix" />
-      <element id="extracted-dir" path="/usr/share/java/RXTXcomm-2.2.0.jar" path-in-jar="/" />
+      <element id="library" level="project" name="fazecast.jSerialComm" />
     </root>
   </artifact>
 </component>
