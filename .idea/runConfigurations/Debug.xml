@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Debug" type="Application" factoryName="Application">
+    <envs>
+      <env name="LD_LIBRARY_PATH" value="/usr/lib/jni" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="xyz.uartix.Main" />
+    <module name="Uartix" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="xyz.uartix.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
