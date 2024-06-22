@@ -1,4 +1,4 @@
-package xyz.uartix.util;
+package xyz.uartix.uart;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
