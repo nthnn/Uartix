@@ -17,9 +17,9 @@ public final class OpsKeys {
     );
 
     public static List<String> keywords = Arrays.asList(
-        "while", "do", "for", "foreach",
+        "while", "do", "loop", "each",
         "unless", "if", "else", "when",
-        "break", "continue", "random", "as",
-        "func"
+        "break", "continue", "random",
+        "func", "ret"
     );
 }
