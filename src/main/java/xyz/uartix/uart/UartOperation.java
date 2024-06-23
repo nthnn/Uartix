@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public final class UartOperation {
     private static double compute(
-        UartArithmeticCommand command,
+        UartCommand command,
         double x, double y
     ) throws IOException {
         Uart.write(new byte[] { command.getCommand() });
@@ -16,101 +16,123 @@ public final class UartOperation {
         return Convert.toDouble(Uart.read());
     }
 
+    private static double compute(
+            UartCommand command,
+            double v
+    ) throws IOException {
+        Uart.write(new byte[] { command.getCommand() });
+        Uart.write(Convert.toBytes(v));
+
+        return Convert.toDouble(Uart.read());
+    }
+
     public static double add(double x, double y) throws IOException {
         return UartOperation.compute(
-            UartArithmeticCommand.ADD,
+            UartCommand.ADD,
             x, y
         );
     }
 
     public static double sub(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.SUB,
+                UartCommand.SUB,
                 x, y
         );
     }
 
     public static double div(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.DIV,
+                UartCommand.DIV,
                 x, y
         );
     }
 
     public static double mul(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.MUL,
+                UartCommand.MUL,
                 x, y
         );
     }
 
     public static double and(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.AND,
+                UartCommand.AND,
                 x, y
         );
     }
 
     public static double or(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.OR,
+                UartCommand.OR,
                 x, y
         );
     }
 
     public static double rem(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.REM,
+                UartCommand.REM,
                 x, y
         );
     }
 
     public static double pow(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.POW,
+                UartCommand.POW,
                 x, y
         );
     }
 
     public static double gt(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.GT,
+                UartCommand.GT,
                 x, y
         );
     }
 
     public static double ge(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.GE,
+                UartCommand.GE,
                 x, y
         );
     }
 
     public static double lt(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.LT,
+                UartCommand.LT,
                 x, y
         );
     }
 
     public static double le(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.LE,
+                UartCommand.LE,
                 x, y
         );
     }
 
     public static double shl(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.SHL,
+                UartCommand.SHL,
                 x, y
         );
     }
 
     public static double shr(double x, double y) throws IOException {
         return UartOperation.compute(
-                UartArithmeticCommand.SHR,
+                UartCommand.SHR,
                 x, y
         );
+    }
+
+    public static double pos(double v) throws IOException {
+        return UartOperation.compute(UartCommand.POS, v);
+    }
+
+    public static double neg(double v) throws IOException {
+        return UartOperation.compute(UartCommand.NEG, v);
+    }
+
+    public static double not(double v) throws IOException {
+        return UartOperation.compute(UartCommand.NOT, v);
     }
 }
