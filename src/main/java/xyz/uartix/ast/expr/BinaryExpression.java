@@ -3,7 +3,7 @@ package xyz.uartix.ast.expr;
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
 import xyz.uartix.parser.Token;
-import xyz.uartix.uart.UartArithmetic;
+import xyz.uartix.uart.UartOperation;
 import xyz.uartix.util.MiscUtil;
 
 import java.io.IOException;
@@ -24,6 +24,11 @@ public class BinaryExpression implements Expression {
     }
 
     public Object visit() throws ASTVisitException, IOException {
+        ASTVisitException invalidVisit = new ASTVisitException(
+            this,
+            "Invalid binary expression operation."
+        );
+
         String operator = this.operator.getImage();
         Object leftValue = this.left.visit(),
             rightValue = this.right.visit();
@@ -31,7 +36,7 @@ public class BinaryExpression implements Expression {
         if(Objects.equals(operator, "+"))
             return switch (leftValue) {
                 case Double _ when rightValue instanceof Double ->
-                    UartArithmetic.add((double) leftValue, (double) rightValue);
+                    UartOperation.add((double) leftValue, (double) rightValue);
 
                 case Double _ when rightValue instanceof String ->
                     ((double) leftValue) + rightValue.toString();
@@ -43,12 +48,12 @@ public class BinaryExpression implements Expression {
                     leftValue.toString() + rightValue;
 
                 case null, default ->
-                    throw new ASTVisitException(this, "Invalid binary expression operation.");
+                    throw invalidVisit;
             };
         else if(Objects.equals(operator, "*"))
             return switch (leftValue) {
                 case Double _ when rightValue instanceof Double ->
-                    UartArithmetic.mul((double) leftValue, (double) rightValue);
+                    UartOperation.mul((double) leftValue, (double) rightValue);
 
                 case Double _ when rightValue instanceof String ->
                     MiscUtil.multiply(rightValue.toString(), (int) (double) leftValue);
@@ -57,18 +62,96 @@ public class BinaryExpression implements Expression {
                     MiscUtil.multiply(leftValue.toString(), (int) (double) rightValue);
 
                 case null, default ->
-                    throw new ASTVisitException(this, "Invalid binary expression operation.");
+                    throw invalidVisit;
             };
         else if(Objects.equals(operator, "-")) {
             if(leftValue instanceof Double && rightValue instanceof Double)
-                return UartArithmetic.sub((double) leftValue, (double) rightValue);
-            else throw new ASTVisitException(this, "Invalid binary expression operation.");
+                return UartOperation.sub((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
         }
         else if(Objects.equals(operator, "/")) {
             if(leftValue instanceof Double && rightValue instanceof Double)
-                return UartArithmetic.div((double) leftValue, (double) rightValue);
-            else throw new ASTVisitException(this, "Invalid binary expression operation.");
+                return UartOperation.div((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
         }
+        else if(Objects.equals(operator, "&")) {
+            if(leftValue instanceof Double && rightValue instanceof Double)
+                return UartOperation.and((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, "|")) {
+            if(leftValue instanceof Double && rightValue instanceof Double)
+                return UartOperation.or((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, "%")) {
+            if(leftValue instanceof Double && rightValue instanceof Double)
+                return UartOperation.rem((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, "^")) {
+            if(leftValue instanceof Double && rightValue instanceof Double)
+                return UartOperation.pow((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, "<")) {
+            if(leftValue instanceof Double && rightValue instanceof Double)
+                return UartOperation.lt((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, "<=")) {
+            if(leftValue instanceof Double && rightValue instanceof Double)
+                return UartOperation.le((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, ">")) {
+            if(leftValue instanceof Double && rightValue instanceof Double)
+                return UartOperation.gt((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, ">=")) {
+            if(leftValue instanceof Double && rightValue instanceof Double)
+                return UartOperation.ge((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, "<<")) {
+            if(leftValue instanceof Double && rightValue instanceof Double)
+                return UartOperation.shl((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, ">>")) {
+            if(leftValue instanceof Double && rightValue instanceof Double)
+                return UartOperation.shr((double) leftValue, (double) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, "&&")) {
+            if(leftValue instanceof Boolean && rightValue instanceof Boolean)
+                return ((boolean) leftValue) && ((boolean) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, "||")) {
+            if(leftValue instanceof Boolean || rightValue instanceof Boolean)
+                return ((boolean) leftValue) || ((boolean) rightValue);
+
+            throw invalidVisit;
+        }
+        else if(Objects.equals(operator, "!="))
+            return leftValue != rightValue;
+        else if(Objects.equals(operator, "=="))
+            return leftValue == rightValue;
 
         return null;
     }
