@@ -2,6 +2,7 @@ package xyz.uartix.ast.expr;
 
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
+import xyz.uartix.core.TerminativeSignal;
 import xyz.uartix.parser.Token;
 import xyz.uartix.uart.UartOperation;
 import xyz.uartix.util.MiscUtil;
@@ -23,7 +24,7 @@ public class BinaryExpression implements Expression {
         return this.operator;
     }
 
-    public Object visit() throws ASTVisitException, IOException {
+    public Object visit() throws ASTVisitException, IOException, TerminativeSignal {
         ASTVisitException invalidVisit = new ASTVisitException(
             this,
             "Invalid binary expression operation."
