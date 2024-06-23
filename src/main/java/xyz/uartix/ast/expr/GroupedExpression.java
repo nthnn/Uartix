@@ -2,6 +2,7 @@ package xyz.uartix.ast.expr;
 
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
+import xyz.uartix.core.SymbolTable;
 import xyz.uartix.core.TerminativeSignal;
 import xyz.uartix.parser.Token;
 
@@ -20,7 +21,10 @@ public class GroupedExpression implements Expression {
         return this.address;
     }
 
-    public Object visit() throws ASTVisitException, IOException, TerminativeSignal {
-        return this.child.visit();
+    public Object visit(SymbolTable symtab)
+        throws ASTVisitException,
+            IOException,
+            TerminativeSignal {
+        return this.child.visit(symtab);
     }
 }

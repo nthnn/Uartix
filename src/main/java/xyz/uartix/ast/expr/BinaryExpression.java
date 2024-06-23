@@ -2,6 +2,7 @@ package xyz.uartix.ast.expr;
 
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
+import xyz.uartix.core.SymbolTable;
 import xyz.uartix.core.TerminativeSignal;
 import xyz.uartix.parser.Token;
 import xyz.uartix.uart.UartOperation;
@@ -24,15 +25,18 @@ public class BinaryExpression implements Expression {
         return this.operator;
     }
 
-    public Object visit() throws ASTVisitException, IOException, TerminativeSignal {
+    public Object visit(SymbolTable symtab)
+        throws ASTVisitException,
+            IOException,
+            TerminativeSignal {
         ASTVisitException invalidVisit = new ASTVisitException(
             this,
             "Invalid binary expression operation."
         );
 
         String operator = this.operator.getImage();
-        Object leftValue = this.left.visit(),
-            rightValue = this.right.visit();
+        Object leftValue = this.left.visit(symtab),
+            rightValue = this.right.visit(symtab);
 
         if(Objects.equals(operator, "+"))
             return switch (leftValue) {

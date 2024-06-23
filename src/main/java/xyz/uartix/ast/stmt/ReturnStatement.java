@@ -3,6 +3,7 @@ package xyz.uartix.ast.stmt;
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
 import xyz.uartix.ast.Statement;
+import xyz.uartix.core.SymbolTable;
 import xyz.uartix.core.TerminatoryObject;
 import xyz.uartix.core.TerminativeSignal;
 import xyz.uartix.parser.Token;
@@ -22,7 +23,10 @@ public class ReturnStatement implements Statement {
         return this.address;
     }
 
-    public Object visit() throws TerminativeSignal, ASTVisitException, IOException {
-        throw new TerminatoryObject(this.value.visit());
+    public Object visit(SymbolTable symtab)
+        throws TerminativeSignal,
+            ASTVisitException,
+            IOException {
+        throw new TerminatoryObject(this.value.visit(symtab));
     }
 }

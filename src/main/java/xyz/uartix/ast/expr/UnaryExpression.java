@@ -2,6 +2,7 @@ package xyz.uartix.ast.expr;
 
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
+import xyz.uartix.core.SymbolTable;
 import xyz.uartix.core.TerminativeSignal;
 import xyz.uartix.parser.Token;
 import xyz.uartix.uart.UartOperation;
@@ -21,8 +22,11 @@ public class UnaryExpression implements Expression {
         return this.operator;
     }
 
-    public Object visit() throws ASTVisitException, IOException, TerminativeSignal {
-        Object value = this.expression.visit();
+    public Object visit(SymbolTable symtab)
+        throws ASTVisitException,
+            IOException,
+            TerminativeSignal {
+        Object value = this.expression.visit(symtab);
 
         switch(this.operator.getImage()) {
             case "+" -> {
