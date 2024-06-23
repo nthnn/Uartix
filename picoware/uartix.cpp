@@ -219,6 +219,34 @@ inline void uartix_shr() {
     uartix_write_number((double) (dx >> dy));
 }
 
+inline void uartix_pos() {
+    byte v[8];
+
+    uartix_wait_for_data(8);
+    uartix_read_number(v);
+    uartix_write_number(
+        fabs(uartix_b82d(v))
+    );
+}
+
+inline void uartix_neg() {
+    byte v[8];
+
+    uartix_wait_for_data(8);
+    uartix_read_number(v);
+    uartix_write_number(-uartix_b82d(v));
+}
+
+inline void uartix_not() {
+    byte v[8];
+
+    uartix_wait_for_data(8);
+    uartix_read_number(v);
+    uartix_write_number(
+        ~((long) floor(uartix_b82d(v)))
+    );
+}
+
 uartix_action uartix_actions[] = {
     [UARTIX_CMD_ADD] = uartix_add,
     [UARTIX_CMD_SUB] = uartix_sub,
@@ -232,6 +260,9 @@ uartix_action uartix_actions[] = {
     [UARTIX_CMD_GE]  = uartix_ge,
     [UARTIX_CMD_LT]  = uartix_lt,
     [UARTIX_CMD_LE]  = uartix_le,
-    [UARTIX_CMD_SHL]  = uartix_shl,
-    [UARTIX_CMD_SHR]  = uartix_shr,
+    [UARTIX_CMD_SHL] = uartix_shl,
+    [UARTIX_CMD_SHR] = uartix_shr,
+    [UARTIX_CMD_POS] = uartix_pos,
+    [UARTIX_CMD_NEG] = uartix_neg,
+    [UARTIX_CMD_NOT] = uartix_not
 };
