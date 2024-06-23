@@ -27,14 +27,6 @@ public final class Uart {
         return serialPortList;
     }
 
-    public static void connect() throws SerialPortIOException {
-        List<String> ports = Uart.listSerialPorts();
-        if(ports.isEmpty())
-            throw new SerialPortIOException("No available serial port device.");
-
-        Uart.connect(ports.getFirst());
-    }
-
     public static void connect(String commPort) throws SerialPortIOException {
         Uart.serialPort = SerialPort.getCommPort(commPort);
         if(Uart.serialPort == null)
