@@ -147,6 +147,78 @@ inline void uartix_pow() {
     uartix_write_number((double) (dx ^ dy));
 }
 
+inline void uartix_gt() {
+    byte x[8], y[8];
+
+    uartix_wait_for_data(16);
+    uartix_read_number(x);
+    uartix_read_number(y);
+
+    double dx = uartix_b82d(x),
+        dy = uartix_b82d(y);
+    uartix_write_number(dx > dy);
+}
+
+inline void uartix_ge() {
+    byte x[8], y[8];
+
+    uartix_wait_for_data(16);
+    uartix_read_number(x);
+    uartix_read_number(y);
+
+    double dx = uartix_b82d(x),
+        dy = uartix_b82d(y);
+    uartix_write_number(dx >= dy);
+}
+
+inline void uartix_lt() {
+    byte x[8], y[8];
+
+    uartix_wait_for_data(16);
+    uartix_read_number(x);
+    uartix_read_number(y);
+
+    double dx = uartix_b82d(x),
+        dy = uartix_b82d(y);
+    uartix_write_number(dx < dy);
+}
+
+inline void uartix_le() {
+    byte x[8], y[8];
+
+    uartix_wait_for_data(16);
+    uartix_read_number(x);
+    uartix_read_number(y);
+
+    double dx = uartix_b82d(x),
+        dy = uartix_b82d(y);
+    uartix_write_number(dx <= dy);
+}
+
+inline void uartix_shl() {
+    byte x[8], y[8];
+
+    uartix_wait_for_data(16);
+    uartix_read_number(x);
+    uartix_read_number(y);
+
+    long dx = (long) floor(uartix_b82d(x)),
+        dy = (long) floor(uartix_b82d(y));
+    uartix_write_number((double) (dx << dy));
+}
+
+inline void uartix_shr() {
+    byte x[8], y[8];
+
+    uartix_wait_for_data(16);
+    uartix_read_number(x);
+    uartix_read_number(y);
+
+    long dx = (long) floor(uartix_b82d(x)),
+        dy = (long) floor(uartix_b82d(y));
+    uartix_write_number((double) (dx >> dy));
+}
+
 uartix_action uartix_actions[] = {
     [UARTIX_CMD_ADD] = uartix_add,
     [UARTIX_CMD_SUB] = uartix_sub,
@@ -155,5 +227,11 @@ uartix_action uartix_actions[] = {
     [UARTIX_CMD_AND] = uartix_and,
     [UARTIX_CMD_OR]  = uartix_or,
     [UARTIX_CMD_POW] = uartix_pow,
-    [UARTIX_CMD_REM] = uartix_rem
+    [UARTIX_CMD_REM] = uartix_rem,
+    [UARTIX_CMD_GT]  = uartix_gt,
+    [UARTIX_CMD_GE]  = uartix_ge,
+    [UARTIX_CMD_LT]  = uartix_lt,
+    [UARTIX_CMD_LE]  = uartix_le,
+    [UARTIX_CMD_SHL]  = uartix_shl,
+    [UARTIX_CMD_SHR]  = uartix_shr,
 };
