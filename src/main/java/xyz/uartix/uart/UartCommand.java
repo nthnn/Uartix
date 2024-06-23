@@ -1,6 +1,6 @@
 package xyz.uartix.uart;
 
-public enum UartArithmeticCommand {
+public enum UartCommand {
     ADD((byte) 0x00),
     SUB((byte) 0x01),
     DIV((byte) 0x02),
@@ -14,11 +14,14 @@ public enum UartArithmeticCommand {
     LT((byte) 0x0a),
     LE((byte) 0x0b),
     SHL((byte) 0x0c),
-    SHR((byte) 0x0d);
+    SHR((byte) 0x0d),
+    POS((byte) 0x0e),
+    NEG((byte) 0x0f),
+    NOT((byte) 0x10);
 
     private final byte command;
 
-    UartArithmeticCommand(byte command) {
+    UartCommand(byte command) {
         this.command = command;
     }
 
