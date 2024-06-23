@@ -1,15 +1,15 @@
 package xyz.uartix.util;
 
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+import java.util.List;
+
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
-import xyz.uartix.Main;
-import xyz.uartix.uart.Uart;
 
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import java.util.List;
+import xyz.uartix.uart.Uart;
 
 public class RuntimeArgumentParser {
     private String selectedPort;
@@ -23,15 +23,15 @@ public class RuntimeArgumentParser {
     public boolean parse() {
         ArgumentParser parser = null;
         try {
-            String jarName = Paths.get(Main.class
-                            .getProtectionDomain()
-                            .getCodeSource()
-                            .getLocation()
-                            .toURI()
-                            .getPath()
-                    ).getFileName()
-                    .toString();
             List<String> serialPorts = Uart.listSerialPorts();
+            String jarName = Paths.get(this.getClass()
+                .getProtectionDomain()
+                .getCodeSource()
+                .getLocation()
+                .toURI()
+                .getPath()
+            ).getFileName()
+                .toString();
 
             parser = ArgumentParsers.newFor(jarName).build()
                     .defaultHelp(true)
