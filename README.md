@@ -7,4 +7,3 @@ A strange dynamic programming language that performs mathematical computations o
 
 > [!NOTE]
 > Uartix is still underdevelopment. No further information available.
-
