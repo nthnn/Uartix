@@ -1,5 +1,5 @@
 /*
- * This file is part of the Arduino dynaconfig library (https://github.com/nthnn/dynaconfig).
+ * This file is part of the Uartix programming language (https://github.com/nthnn/Uartix).
  * Copyright (c) 2024 Nathanne Isip.
  *
  * This program is free software: you can redistribute it and/or modify
