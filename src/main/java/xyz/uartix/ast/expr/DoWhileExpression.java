@@ -34,11 +34,11 @@ public class DoWhileExpression implements Expression {
         throws ASTVisitException,
             IOException,
             TerminativeSignal {
-        Object cond = null;
+        Object cond = null, value = null;
 
         do {
             try {
-                this.body.visit(symtab);
+                value = this.body.visit(symtab);
             }
             catch(TerminativeBreak _) {
                 break;
@@ -51,6 +51,7 @@ public class DoWhileExpression implements Expression {
         } while((cond instanceof Boolean && (boolean) cond) ||
             (cond instanceof Double && ((double) cond) > 0.0) ||
             (cond instanceof String));
-        return null;
+
+        return value;
     }
 }
