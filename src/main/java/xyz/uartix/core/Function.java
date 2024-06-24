@@ -9,18 +9,15 @@ import java.util.List;
 
 public class Function {
     private final Token address;
-    private final String name;
     private final List<String> parameters;
     private final Statement body;
 
     public Function(
         Token address,
-        String name,
         List<String> parameters,
         Statement body
     ) {
         this.address = address;
-        this.name = name;
         this.parameters = parameters;
         this.body = body;
     }
