@@ -17,9 +17,10 @@ public final class OpsKeys {
     );
 
     public static List<String> keywords = Arrays.asList(
-        "while", "do", "loop", "each",
+        "while", "do", "loop", "render",
         "unless", "if", "else", "when",
         "break", "continue", "random",
-        "func", "ret"
+        "func", "ret", "true", "false",
+        "nil"
     );
 }
