@@ -2,6 +2,7 @@ package xyz.uartix.ast.expr;
 
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
+import xyz.uartix.core.Function;
 import xyz.uartix.core.SymbolTable;
 import xyz.uartix.core.TerminativeSignal;
 import xyz.uartix.parser.Token;
@@ -27,7 +28,12 @@ public class RenderExpression implements Expression {
             TerminativeSignal {
         Object value = this.expression.visit(symtab);
 
-        System.out.println(value == null ? "nil" : value.toString());
+        if(value instanceof Function) {
+            System.out.print("<func [" + value.hashCode() + "]>");
+            return value;
+        }
+
+        System.out.print(value == null ? "nil" : value.toString());
         return value;
     }
 }
