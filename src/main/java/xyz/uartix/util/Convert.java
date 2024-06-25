@@ -50,4 +50,36 @@ public final class Convert {
 
         return bytes;
     }
+
+    public static double translateDigit(String image) {
+        if(image == null || image.isEmpty())
+            throw new IllegalArgumentException("Input string is null or empty");
+
+        if(image.startsWith("0b"))
+            return Convert.parseBinary(image.substring(2));
+        else if(image.startsWith("0t"))
+            return Convert.parseBase3(image.substring(2));
+        else if(image.startsWith("0c"))
+            return Convert.parseOctal(image.substring(2));
+        else if(image.startsWith("0x"))
+            return Convert.parseHex(image.substring(2));
+
+        return Double.parseDouble(image);
+    }
+
+    private static double parseBinary(String str) {
+        return Double.parseDouble(Integer.toString(Integer.parseInt(str, 2)));
+    }
+
+    private static double parseBase3(String str) {
+        return Double.parseDouble(Integer.toString(Integer.parseInt(str, 3)));
+    }
+
+    private static double parseOctal(String str) {
+        return Double.parseDouble(Integer.toString(Integer.parseInt(str, 8)));
+    }
+
+    private static double parseHex(String str) {
+        return Double.parseDouble(Integer.toString(Integer.parseInt(str, 16)));
+    }
 }
