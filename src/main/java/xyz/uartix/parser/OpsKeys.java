@@ -38,6 +38,7 @@ public final class OpsKeys {
         "unless", "if", "else", "when",
         "break", "continue", "random",
         "func", "ret", "true", "false",
-        "nil", "catch", "handle", "throw"
+        "nil", "catch", "handle", "throw",
+        "maybe"
     );
 }
