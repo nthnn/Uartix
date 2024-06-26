@@ -19,7 +19,6 @@ package xyz.uartix.ast.expr;
 
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
-import xyz.uartix.ast.Statement;
 import xyz.uartix.core.SymbolTable;
 import xyz.uartix.core.TerminativeSignal;
 import xyz.uartix.core.TerminativeThrow;
@@ -29,14 +28,14 @@ import java.io.IOException;
 
 public class CatchHandleExpression implements Expression {
     private final Token address, handle;
-    private final BlockExpression catchBlock, handleBlock, finalStmt;
+    private final Expression catchBlock, handleBlock, finalStmt;
 
     public CatchHandleExpression(
         Token address,
-        BlockExpression catchBlock,
+        Expression catchBlock,
         Token handle,
-        BlockExpression handleBlock,
-        BlockExpression finalStmt
+        Expression handleBlock,
+        Expression finalStmt
     ) {
         this.address = address;
         this.catchBlock = catchBlock;
