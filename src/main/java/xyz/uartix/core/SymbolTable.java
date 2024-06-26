@@ -29,15 +29,18 @@ public class SymbolTable {
     }
 
     public boolean has(String name) {
-        if(this.parent != null)
+        if(this.parent != null && this.parent.has(name))
             return this.parent.has(name);
 
         return this.table.containsKey(name);
     }
 
     public Object get(String name) {
-        if(this.parent != null)
-            return this.parent.get(name);
+        if(this.parent != null) {
+            Object value = this.parent.get(name);
+            if(value != null)
+                return value;
+        }
 
         return this.table.get(name);
     }
