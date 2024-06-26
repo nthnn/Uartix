@@ -19,6 +19,8 @@
 #include "uartix.h"
 
 void setup() {
+    uartix_init_rng();
+
     Serial.begin(16375000);
     while(!Serial);
 }
