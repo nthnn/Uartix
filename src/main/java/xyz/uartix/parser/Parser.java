@@ -331,6 +331,26 @@ public final class Parser {
         );
     }
 
+    private Expression exprFunc() throws ParserException {
+        Token address = this.consume("func");
+        this.consume("(");
+
+        List<Token> parameters = new ArrayList<>();
+        while(!this.isNext(")")) {
+            if(!parameters.isEmpty())
+                this.consume(",");
+
+            parameters.add(this.consume(TokenType.IDENTIFIER));
+        }
+
+        this.consume(")");
+        return new FunctionDeclarationExpression(
+            address,
+            parameters,
+            this.expression()
+        );
+    }
+
     private Expression exprBlock() throws ParserException {
         Token address = this.consume("{");
         List<Statement> statements = new ArrayList<>();
@@ -473,6 +493,8 @@ public final class Parser {
             expr = this.exprUnless();
         else if(this.isNext("when"))
             expr = this.exprWhen();
+        else if(this.isNext("func"))
+            expr = this.exprFunc();
         else expr = this.exprLiteral();
 
         return expr;
