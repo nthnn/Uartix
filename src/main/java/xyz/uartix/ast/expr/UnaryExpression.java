@@ -59,9 +59,11 @@ public class UnaryExpression implements Expression {
                 throw new ASTVisitException(this, "Invalid negate unary operation.");
             }
             case "~" -> {
-                if (value instanceof Double)
+                if(value instanceof Double)
                     return UartOperation.not((double) value);
-                else if (value instanceof String)
+                else if(value instanceof Boolean)
+                    return !((boolean) value);
+                else if(value instanceof String)
                     return new StringBuilder(value.toString())
                         .reverse()
                         .toString();
