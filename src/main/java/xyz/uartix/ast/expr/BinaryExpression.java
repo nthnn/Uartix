@@ -52,8 +52,11 @@ public class BinaryExpression implements Expression {
         );
 
         String operator = this.operator.getImage();
-        Object leftValue = this.left.visit(symtab),
-            rightValue = this.right.visit(symtab);
+        Object rightValue = this.right.visit(symtab),
+            leftValue = null;
+
+        if(!(this.left instanceof IdentifierExpression))
+            leftValue = this.left.visit(symtab);
 
         if(Objects.equals(operator, "+"))
             return switch (leftValue) {
