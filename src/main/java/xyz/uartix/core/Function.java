@@ -18,7 +18,7 @@
 package xyz.uartix.core;
 
 import xyz.uartix.ast.ASTVisitException;
-import xyz.uartix.ast.Statement;
+import xyz.uartix.ast.Expression;
 import xyz.uartix.parser.Token;
 
 import java.io.IOException;
@@ -27,12 +27,12 @@ import java.util.List;
 public class Function {
     private final Token address;
     private final List<String> parameters;
-    private final Statement body;
+    private final Expression body;
 
     public Function(
         Token address,
         List<String> parameters,
-        Statement body
+        Expression body
     ) {
         this.address = address;
         this.parameters = parameters;
@@ -54,5 +54,15 @@ public class Function {
         for(int i = 0; i < this.parameters.size(); i++)
             symtab.set(this.parameters.get(i), arguments.get(i));
         return this.body.visit(symtab);
+    }
+
+    @Override
+    public String toString() {
+        String params = String.join(", ", this.parameters);
+
+        return "<func(" + params +
+            ") [line " + this.address.getLine() +
+            ", column " + this.address.getColumn() +
+            "]>";
     }
 }

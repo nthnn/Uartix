@@ -45,11 +45,6 @@ public class RenderExpression implements Expression {
             TerminativeSignal {
         Object value = this.expression.visit(symtab);
 
-        if(value instanceof Function) {
-            System.out.print("<func [" + value.hashCode() + "]>");
-            return value;
-        }
-
         System.out.print(value == null ? "nil" : value.toString());
         return value;
     }
