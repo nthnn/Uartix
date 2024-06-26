@@ -19,7 +19,6 @@ package xyz.uartix.ast.expr;
 
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
-import xyz.uartix.ast.Statement;
 import xyz.uartix.core.SymbolTable;
 import xyz.uartix.core.TerminativeBreak;
 import xyz.uartix.core.TerminativeContinue;
@@ -30,13 +29,12 @@ import java.io.IOException;
 
 public class DoWhileExpression implements Expression {
     private final Token address;
-    private final Expression condition;
-    private final Statement body;
+    private final Expression condition, body;
 
     public DoWhileExpression(
             Token address,
             Expression condition,
-            Statement body
+            Expression body
     ) {
         this.address = address;
         this.condition = condition;
