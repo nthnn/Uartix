@@ -27,13 +27,12 @@ import java.io.IOException;
 
 public class WhileExpression implements Expression {
     private final Token address;
-    private final Expression condition;
-    private final Statement body;
+    private final Expression condition, body;
 
     public WhileExpression(
         Token address,
         Expression condition,
-        Statement body
+        Expression body
     ) {
         this.address = address;
         this.condition = condition;
