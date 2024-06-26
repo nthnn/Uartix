@@ -114,16 +114,16 @@ public final class Parser {
         LiteralExpression expr = null;
 
         if(this.isNext("true"))
-            expr = new LiteralExpression(this.consume(TokenType.KEYWORD), true);
+            expr = new LiteralExpression(this.consume("true"), true);
         else if(this.isNext("false"))
-            expr = new LiteralExpression(this.consume(TokenType.KEYWORD), false);
+            expr = new LiteralExpression(this.consume("false"), false);
         else if(this.isNext("maybe"))
             expr = new LiteralExpression(
-                this.consume(TokenType.KEYWORD),
+                this.consume("maybe"),
                 new Random().nextBoolean()
             );
         else if(this.isNext("nil"))
-            expr = new LiteralExpression(this.consume(TokenType.KEYWORD), null);
+            expr = new LiteralExpression(this.consume("nil"), null);
         else if(this.peek().getType() == TokenType.STRING) {
             Token stringToken = this.consume(TokenType.STRING);
             expr = new LiteralExpression(stringToken, stringToken.getImage());
@@ -501,7 +501,28 @@ public final class Parser {
     }
 
     private Expression expression() throws ParserException {
-        return this.exprLogic();
+        Expression expr = this.exprLogic();
+
+        while(this.isNext("(")) {
+            Token address = this.consume("(");
+
+            List<Expression> args = new ArrayList<>();
+            while(!this.isNext(")")) {
+                if(!args.isEmpty())
+                    this.consume(",");
+
+                args.add(this.expression());
+            }
+
+            this.consume(")");
+            expr = new FunctionCallExpression(
+                address,
+                expr,
+                args
+            );
+        }
+
+        return expr;
     }
 
     private Statement statement() throws ParserException {
