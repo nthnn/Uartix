@@ -19,10 +19,7 @@ package xyz.uartix.parser;
 
 import xyz.uartix.ast.Expression;
 import xyz.uartix.ast.Statement;
-import xyz.uartix.ast.expr.IdentifierExpression;
-import xyz.uartix.ast.expr.LiteralExpression;
-import xyz.uartix.ast.expr.TypeExpression;
-import xyz.uartix.ast.expr.UnaryExpression;
+import xyz.uartix.ast.expr.*;
 import xyz.uartix.ast.stmt.*;
 import xyz.uartix.util.Convert;
 
@@ -62,11 +59,17 @@ public final class Parser {
         this.index++;
     }
 
-    private Token peek() {
+    private Token peek() throws ParserException {
+        if(this.isAtEnd())
+            throw new ParserException("Encountered end-of-file.");
+
         return this.tokens.get(this.index);
     }
 
-    private boolean isNext(String image) {
+    private boolean isNext(String image) throws ParserException {
+        if(this.isAtEnd())
+            throw new ParserException("Encountered end-of-file.");
+
         return Objects.equals(this.peek().getImage(), image);
     }
 
@@ -149,7 +152,115 @@ public final class Parser {
         );
     }
 
-    private Expression expression() throws ParserException {
+    private Expression exprRender() throws ParserException {
+        return new RenderExpression(
+            this.consume("render"),
+            this.expression()
+        );
+    }
+
+    private Expression exprBlock() throws ParserException {
+        Token address = this.consume("{");
+        List<Statement> statements = new ArrayList<>();
+
+        while(this.isNext("}"))
+            statements.add(this.statement());
+        this.consume("}");
+
+        return new BlockExpression(
+            address,
+            statements
+        );
+    }
+
+    private Expression exprLogic() throws ParserException {
+        Expression expr = this.exprNullCoalescing();
+
+        while(this.isNext("&&") || this.isNext("||"))
+            expr = new BinaryExpression(
+                expr,
+                this.consume(TokenType.OPERATOR),
+                this.expression()
+            );
+
+        return expr;
+    }
+
+    private Expression exprNullCoalescing() throws ParserException {
+        Expression expr = this.exprEquality();
+
+        while(this.isNext("?"))
+            expr = new NulllCoalescingExpression(
+                this.consume(TokenType.OPERATOR),
+                expr,
+                this.expression()
+            );
+
+        return expr;
+    }
+
+    private Expression exprEquality() throws ParserException {
+        Expression expr = this.exprComparison();
+
+        while(this.isNext("==") ||
+            this.isNext("!=") ||
+            this.isNext("=")
+        )
+            expr = new BinaryExpression(
+                expr,
+                this.consume(TokenType.OPERATOR),
+                this.expression()
+            );
+
+        return expr;
+    }
+
+    private Expression exprComparison() throws ParserException {
+        Expression expr = this.exprTerm();
+
+        while(this.isNext("<") ||
+            this.isNext("<=") ||
+            this.isNext(">") ||
+            this.isNext(">=")
+        )
+            expr = new BinaryExpression(
+                expr,
+                this.consume(TokenType.OPERATOR),
+                this.expression()
+            );
+
+        return expr;
+    }
+
+    private Expression exprTerm() throws ParserException {
+        Expression expr = this.exprFactor();
+
+        while(this.isNext("+") || this.isNext("-"))
+            expr = new BinaryExpression(
+                expr,
+                this.consume(TokenType.OPERATOR),
+                this.expression()
+            );
+
+        return expr;
+    }
+
+    private Expression exprFactor() throws ParserException {
+        Expression expr = this.exprPrimary();
+
+        while(this.isNext("*") ||
+            this.isNext("/") ||
+            this.isNext("%"))
+            expr = new BinaryExpression(
+                expr,
+                this.consume(TokenType.OPERATOR),
+                this.expression()
+            );
+
+        return expr;
+    }
+
+    private Expression exprPrimary() throws ParserException {
         Expression expr = null;
 
         if(this.isNext("+") || this.isNext("-") || this.isNext("~"))
@@ -157,13 +268,30 @@ public final class Parser {
                 this.consume(TokenType.OPERATOR),
                 this.expression()
             );
+        else if(this.isNext("(")) {
+            Token address = this.consume("(");
+            expr = new GroupedExpression(
+                    address,
+                    this.expression()
+            );
+
+            this.consume(")");
+        }
         else if(this.peek().getType() == TokenType.IDENTIFIER)
             expr = new IdentifierExpression(this.consume(TokenType.IDENTIFIER));
         else if(this.isNext("type"))
             expr = this.exprType();
+        else if(this.isNext("{"))
+            expr = this.exprBlock();
+        else if(this.isNext("render"))
+            expr = this.exprRender();
         else expr = this.exprLiteral();
 
         return expr;
+    }
+
+    private Expression expression() throws ParserException {
+        return this.exprLogic();
     }
 
     private Statement statement() throws ParserException {
