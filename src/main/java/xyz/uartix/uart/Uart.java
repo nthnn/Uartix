@@ -44,6 +44,10 @@ public final class Uart {
         return serialPortList;
     }
 
+    public static boolean hasNoPortAvailable() {
+        return Uart.listSerialPorts().isEmpty();
+    }
+
     public static void connect(String commPort) throws SerialPortIOException {
         Uart.serialPort = SerialPort.getCommPort(commPort);
         if(Uart.serialPort == null)
