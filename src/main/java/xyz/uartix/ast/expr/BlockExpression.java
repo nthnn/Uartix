@@ -45,11 +45,12 @@ public class BlockExpression implements Expression {
         throws TerminativeSignal,
             ASTVisitException,
             IOException {
+        SymbolTable childTab = new SymbolTable(symtab);
         for(Statement statement : this.statements) {
             if(statement instanceof ReturnStatement)
-                return statement.visit(symtab);
+                return statement.visit(childTab);
 
-            statement.visit(symtab);
+            statement.visit(childTab);
         }
 
         return null;
