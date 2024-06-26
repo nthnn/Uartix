@@ -28,14 +28,13 @@ import java.io.IOException;
 
 public class IfExpression implements Expression {
     private final Token address;
-    private final Expression condition;
-    private final Statement then, elseStatement;
+    private final Expression condition, then, elseStatement;
 
     public IfExpression(
         Token address,
         Expression condition,
-        Statement then,
-        Statement elseStatement
+        Expression then,
+        Expression elseStatement
     ) {
         this.address = address;
         this.condition = condition;
