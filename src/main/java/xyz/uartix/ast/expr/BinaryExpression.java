@@ -174,6 +174,16 @@ public class BinaryExpression implements Expression {
             return leftValue != rightValue;
         else if(Objects.equals(operator, "=="))
             return leftValue == rightValue;
+        else if(Objects.equals(operator, "=")) {
+            if(!(this.left instanceof IdentifierExpression))
+                throw new ASTVisitException(
+                    this.left,
+                    "Cannot assign value to non identifier."
+                );
+
+            symtab.set(this.left.getAddress().getImage(), rightValue);
+            return rightValue;
+        }
 
         return null;
     }
