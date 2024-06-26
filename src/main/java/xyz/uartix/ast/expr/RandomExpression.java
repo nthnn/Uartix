@@ -29,12 +29,12 @@ import java.util.Random;
 
 public class RandomExpression implements Expression {
     private final Token address;
-    private final Statement then, elseStatement;
+    private final Expression then, elseStatement;
 
     public RandomExpression(
             Token address,
-            Statement then,
-            Statement elseStatement
+            Expression then,
+            Expression elseStatement
     ) {
         this.address = address;
         this.then = then;
