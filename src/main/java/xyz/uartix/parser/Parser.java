@@ -24,10 +24,7 @@ import xyz.uartix.ast.stmt.*;
 import xyz.uartix.util.Convert;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public final class Parser {
     private final List<Statement> globalStatements;
@@ -159,11 +156,186 @@ public final class Parser {
         );
     }
 
+    private Expression exprCatch() throws ParserException {
+        Token address = this.consume("catch");
+        Expression catchExpr = this.expression();
+        this.consume("handle");
+
+        Token handle = this.consume(TokenType.IDENTIFIER);
+        Expression handleExpr = this.expression();
+
+        BlockExpression finalBlock = null;
+        if(this.isNext("then")) {
+            this.consume("then");
+            finalBlock = (BlockExpression) this.expression();
+        }
+
+        return new CatchHandleExpression(
+            address,
+            catchExpr,
+            handle,
+            handleExpr,
+            finalBlock
+        );
+    }
+
+    private Expression exprDo() throws ParserException {
+        Token address = this.consume("do");
+        Expression body = this.expression();
+
+        this.consume("while");
+        this.consume("(");
+
+        Expression condition = this.expression();
+        this.consume(")");
+
+        return new DoWhileExpression(
+            address,
+            condition,
+            body
+        );
+    }
+
+    private Expression exprWhile() throws ParserException {
+        Token address = this.consume("while");
+        this.consume("(");
+
+        Expression condition = this.expression();
+        this.consume(")");
+
+        return new WhileExpression(
+            address,
+            condition,
+            this.expression()
+        );
+    }
+
+    private Expression exprIf() throws ParserException {
+        Token address = this.consume("if");
+        this.consume("(");
+
+        Expression condition = this.expression();
+        this.consume(")");
+
+        Expression then = this.expression(), otherwise = null;
+        if(this.isNext("else")) {
+            this.consume("else");
+            otherwise = this.expression();
+        }
+
+        return new IfExpression(
+            address,
+            condition,
+            then,
+            otherwise
+        );
+    }
+
+    private Expression exprRandom() throws ParserException {
+        Token address = this.consume("random");
+        Expression then = this.expression(), otherwise = null;
+
+        if(this.isNext("else")) {
+            this.consume("else");
+            otherwise = this.expression();
+        }
+
+        return new RandomExpression(
+            address,
+            then,
+            otherwise
+        );
+    }
+
+    private Expression exprLoop() throws ParserException {
+        Token address = this.consume("loop");
+        this.consume("(");
+
+        Expression initial = this.expression();
+        this.consume(";");
+
+        Expression condition = this.expression();
+        this.consume(";");
+
+        Expression postExpr = this.expression();
+        this.consume(")");
+
+        return new LoopExpression(
+            address,
+            initial,
+            condition,
+            postExpr,
+            this.expression()
+        );
+    }
+
+    private Expression exprUnless() throws ParserException {
+        Token address = this.consume("unless");
+        this.consume("(");
+
+        Expression condition = this.expression();
+        this.consume(")");
+
+        Expression then = this.expression(), otherwise = null;
+        if(this.isNext("else")) {
+            this.consume("else");
+            otherwise = this.expression();
+        }
+
+        return new UnlessExpression(
+                address,
+                condition,
+                then,
+                otherwise
+        );
+    }
+
+    private Expression exprWhen() throws ParserException {
+        Token address = this.consume("when");
+        this.consume("(");
+
+        Expression expr = this.expression();
+        this.consume(")");
+        this.consume("{");
+
+        List<AbstractMap.SimpleEntry<Expression, Expression>> cases = new ArrayList<>();
+        Expression defaultCase = null;
+
+        while(!this.isNext("}")) {
+            if(!cases.isEmpty())
+                this.consume(",");
+
+            if(this.isNext("if")) {
+                this.consume("if");
+                this.consume("(");
+
+                Expression value = this.expression();
+                this.consume(")");
+
+                cases.add(new AbstractMap.SimpleEntry<>(value, this.expression()));
+            }
+            else if(this.isNext("else")) {
+                if(defaultCase != null)
+                    throw new ParserException("Cannot have more than one (1) else for when expression.");
+
+                defaultCase = this.expression();
+            }
+        }
+
+        this.consume("}");
+        return new WhenExpression(
+            address,
+            expr,
+            cases,
+            defaultCase
+        );
+    }
+
     private Expression exprBlock() throws ParserException {
         Token address = this.consume("{");
         List<Statement> statements = new ArrayList<>();
 
-        while(this.isNext("}"))
+        while(!this.isNext("}"))
             statements.add(this.statement());
         this.consume("}");
 
@@ -285,6 +457,22 @@ public final class Parser {
             expr = this.exprBlock();
         else if(this.isNext("render"))
             expr = this.exprRender();
+        else if(this.isNext("catch"))
+            expr = this.exprCatch();
+        else if(this.isNext("do"))
+            expr = this.exprDo();
+        else if(this.isNext("while"))
+            expr = this.exprWhile();
+        else if(this.isNext("if"))
+            expr = this.exprIf();
+        else if(this.isNext("random"))
+            expr = this.exprRandom();
+        else if(this.isNext("loop"))
+            expr = this.exprLoop();
+        else if(this.isNext("unless"))
+            expr = this.exprUnless();
+        else if(this.isNext("when"))
+            expr = this.exprWhen();
         else expr = this.exprLiteral();
 
         return expr;
