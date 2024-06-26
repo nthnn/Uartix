@@ -26,6 +26,16 @@ union uartix_d2b8_u {
     byte bytes[8];
 };
 
+void uartix_init_rng() {
+    analogReadResolution(12);
+    randomSeed(analogReadTemp());
+    randomSeed(random() + analogReadTemp());
+    randomSeed(random() + analogRead(26));
+    randomSeed(random() + analogRead(27));
+    randomSeed(random() + analogRead(28));
+    randomSeed(random());
+}
+
 inline void uartix_d2b8(double value, byte bytes[8]) {
     uartix_d2b8_u a_data;
 

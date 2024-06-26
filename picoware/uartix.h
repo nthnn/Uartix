@@ -47,6 +47,8 @@ enum uartix_commands {
 typedef void (*uartix_action)();
 extern uartix_action uartix_actions[];
 
+void uartix_init_rng();
+
 inline void uartix_overclock_sys() {
     vreg_set_voltage(VREG_VOLTAGE_MAX);
     set_sys_clock_khz(262000, true);
