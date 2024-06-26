@@ -32,12 +32,12 @@ import java.util.List;
 public class FunctionDeclarationExpression implements Expression {
     private final Token address;
     private final List<Token> parameters;
-    private final Statement body;
+    private final Expression body;
 
     public FunctionDeclarationExpression(
         Token address,
         List<Token> parameters,
-        Statement body
+        Expression body
     ) {
         this.address = address;
         this.parameters = parameters;
