@@ -28,17 +28,18 @@ import java.io.IOException;
 
 public class UnlessExpression implements Expression {
     private final Token address;
-    private final Expression condition;
-    private final Statement then;
+    private final Expression condition, then, elseBlock;
 
     public UnlessExpression(
         Token address,
         Expression condition,
-        Statement then
+        Expression then,
+        Expression elseBlock
     ) {
         this.address = address;
         this.condition = condition;
         this.then = then;
+        this.elseBlock = elseBlock;
     }
 
     public Token getAddress() {
@@ -55,6 +56,10 @@ public class UnlessExpression implements Expression {
             (cond instanceof Boolean && !((boolean) cond)) ||
             !(cond instanceof String))
             return this.then.visit(symtab);
+        else {
+            if(this.elseBlock != null)
+                return this.elseBlock.visit(symtab);
+        }
 
         return null;
     }
