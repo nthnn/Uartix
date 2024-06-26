@@ -30,15 +30,15 @@ import java.io.IOException;
 
 public class LoopExpression implements Expression {
     private final Token address;
-    private final Expression initial, condition, postExpression;
-    private final Statement body;
+    private final Expression initial,
+            condition, postExpression, body;
 
     public LoopExpression(
         Token address,
         Expression initial,
         Expression condition,
         Expression postExpression,
-        Statement body
+        Expression body
     ) {
         this.address = address;
         this.initial = initial;
