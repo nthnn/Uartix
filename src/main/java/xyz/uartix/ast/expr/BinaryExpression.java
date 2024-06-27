@@ -26,6 +26,7 @@ import xyz.uartix.uart.UartOperation;
 import xyz.uartix.util.MiscUtil;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 public class BinaryExpression implements Expression {
@@ -42,6 +43,7 @@ public class BinaryExpression implements Expression {
         return this.operator;
     }
 
+    @SuppressWarnings("unchecked")
     public Object visit(SymbolTable symtab)
         throws ASTVisitException,
             IOException,
@@ -178,13 +180,28 @@ public class BinaryExpression implements Expression {
         else if(Objects.equals(operator, "=="))
             return leftValue == rightValue;
         else if(Objects.equals(operator, "=")) {
-            if(!(this.left instanceof IdentifierExpression))
+            if(!(this.left instanceof IdentifierExpression) &&
+                !(this.left instanceof ArrayAccessExpression))
                 throw new ASTVisitException(
                     this.left,
-                    "Cannot assign value to non identifier."
+                    "Cannot assign value to non-identifier and non-array access expression."
                 );
 
-            symtab.set(this.left.getAddress().getImage(), rightValue);
+            if(this.left instanceof IdentifierExpression)
+                symtab.set(this.left.getAddress().getImage(), rightValue);
+            else {
+                ArrayAccessExpression access = (ArrayAccessExpression) this.left;
+                Object objs = access.getOrigin().visit(symtab),
+                    index = access.getIndex().visit(symtab);
+
+                if(!(objs instanceof List<?>))
+                    throw new ASTVisitException(this, "Setting value on non-array value.");
+
+                if(!(index instanceof Double))
+                    throw new ASTVisitException(this, "Array access index is not a number");
+
+                ((List<Object>) objs).set((int) (double) index, rightValue);
+            }
             return rightValue;
         }
 

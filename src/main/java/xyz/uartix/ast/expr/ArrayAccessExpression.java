@@ -44,6 +44,14 @@ public class ArrayAccessExpression implements Expression {
         return this.address;
     }
 
+    public Expression getOrigin() {
+        return this.origin;
+    }
+
+    public Expression getIndex() {
+        return this.index;
+    }
+
     @SuppressWarnings("unchecked")
     public Object visit(SymbolTable symtab)
         throws ASTVisitException,
