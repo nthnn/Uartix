@@ -48,6 +48,8 @@ public class TypeExpression implements Expression {
             return "bool";
         else if(value instanceof Double)
             return "number";
+        else if(value instanceof String)
+            return "string";
         else if(value instanceof Function)
             return "function";
 
