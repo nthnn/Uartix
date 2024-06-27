@@ -22,10 +22,15 @@ use std::process::Command;
 
 fn main() {
     let args: Vec<String> = env::args().skip(1).collect();
+
+    #[cfg(target_os = "windows")]
+    let jar = "C:\\uartix\\bin\\uartix.jar";
+
+    #[cfg(not(target_os = "windows"))]
     let jar: &str = "/opt/uartix/Uartix.jar";
 
     if !fs::metadata(jar).is_ok() {
-        println!("\u{001b}[31mError\u{001b}[0m: /opt/uartix/Uartix.jar file not found.");
+        println!("\u{001b}[31mError\u{001b}[0m: {} file not found.", jar);
         process::exit(-1);
     }
 
