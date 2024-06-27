@@ -51,7 +51,12 @@ public class FunctionCallExpression implements Expression {
         throws ASTVisitException,
             IOException,
             TerminativeSignal {
-        Object origin = this.callOrigin.visit(symtab);
+        Object origin = null;
+
+        if(this.callOrigin instanceof IdentifierExpression)
+            origin = symtab.get(this.callOrigin.getAddress().getImage());
+        else origin = this.callOrigin.visit(symtab);
+
         if(!(origin instanceof Function))
             throw new ASTVisitException(this, "Expression value is not of function instance.");
 

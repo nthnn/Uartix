@@ -57,11 +57,12 @@ public class BinaryExpression implements Expression {
         Object rightValue = this.right.visit(symtab),
             leftValue = null;
 
-        if(!(this.left instanceof IdentifierExpression))
+        if(!(this.left instanceof IdentifierExpression) ||
+            !this.operator.getImage().equals("="))
             leftValue = this.left.visit(symtab);
 
         if(Objects.equals(operator, "+"))
-            return switch (leftValue) {
+            return switch(leftValue) {
                 case Double _ when rightValue instanceof Double ->
                     UartOperation.add((double) leftValue, (double) rightValue);
 
