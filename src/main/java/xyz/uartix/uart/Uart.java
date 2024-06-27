@@ -30,7 +30,7 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 import com.fazecast.jSerialComm.SerialPortIOException;
 
 public final class Uart {
-    private static boolean hasNewData = false;
+    private static boolean hasNewData = false, isConnected = false;
     private static SerialPort serialPort = null;
     private static OutputStream serialOutputStream = null;
     private static InputStream serialInputStream = null;
@@ -80,9 +80,14 @@ public final class Uart {
                 catch(IOException _) { }
             }
         });
+
+        Uart.isConnected = true;
     }
 
     public static void disconnect() throws IOException {
+        if(!Uart.isConnected)
+            return;
+
         Uart.hasNewData = false;
         Uart.data.reset();
 
