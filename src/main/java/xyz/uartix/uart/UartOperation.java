@@ -43,6 +43,11 @@ public final class UartOperation {
         return Convert.toDouble(Uart.read());
     }
 
+    private static double compute(UartCommand command) throws IOException {
+        Uart.write(new byte[] { command.getCommand() });
+        return Convert.toDouble(Uart.read());
+    }
+
     public static double add(double x, double y) throws IOException {
         return UartOperation.compute(
             UartCommand.ADD,
@@ -151,5 +156,13 @@ public final class UartOperation {
 
     public static double not(double v) throws IOException {
         return UartOperation.compute(UartCommand.NOT, v);
+    }
+
+    public static double rnd() throws IOException {
+        return UartOperation.compute(UartCommand.RND);
+    }
+
+    public static boolean rnb() throws IOException {
+        return UartOperation.compute(UartCommand.RNB) == 1.0;
     }
 }
