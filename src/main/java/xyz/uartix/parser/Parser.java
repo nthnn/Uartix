@@ -66,7 +66,7 @@ public final class Parser {
 
     private boolean isNext(String image) throws ParserException {
         if(this.isAtEnd())
-            throw new ParserException("Encountered end-of-file.");
+            return false;
 
         return Objects.equals(this.peek().getImage(), image);
     }
@@ -314,6 +314,7 @@ public final class Parser {
                 if(defaultCase != null)
                     throw new ParserException("Cannot have more than one (1) else for when expression.");
 
+                this.consume("else");
                 defaultCase = this.expression();
             }
         }
