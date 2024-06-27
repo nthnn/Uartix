@@ -59,19 +59,24 @@ public class RuntimeArgumentParser {
                     .setDefault(serialPorts.isEmpty() ? "null" : serialPorts.getFirst())
                     .help("Serial port device of the co-processor.");
 
-            parser.addArgument("files").nargs("*")
-                    .help("List of files to execute.");
+            parser.addArgument("files")
+                    .nargs("*")
+                    .help("List of files to execute.")
+                    .required(true);
 
             Namespace ns = parser.parseArgs(this.args);
             this.selectedPort = ns.get("port");
             this.inputFiles = ns.get("files");
+
+            if(this.inputFiles.isEmpty())
+                throw new ArgumentParserException("No input file(s).", parser);
         }
         catch(ArgumentParserException e) {
             parser.handleError(e);
             return false;
         }
         catch(URISyntaxException e) {
-            System.out.println(e.getMessage());
+            System.out.println("\u001b[31mInternal Error\u001b[0m: " + e.getMessage());
             return false;
         }
 
