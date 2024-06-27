@@ -34,5 +34,5 @@ fn main() {
         .arg(jar)
         .args(&args)
         .status()
-        .expect("Failed to execute JAR file");
+        .expect("\u{001b}[31mError\u{001b}[0m: Failed to execute JAR file");
 }
