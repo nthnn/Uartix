@@ -17,8 +17,6 @@
 
 package xyz.uartix.util;
 
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
 import java.util.List;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
@@ -41,16 +39,8 @@ public class RuntimeArgumentParser {
         ArgumentParser parser = null;
         try {
             List<String> serialPorts = Uart.listSerialPorts();
-            String jarName = Paths.get(this.getClass()
-                .getProtectionDomain()
-                .getCodeSource()
-                .getLocation()
-                .toURI()
-                .getPath()
-            ).getFileName()
-                .toString();
 
-            parser = ArgumentParsers.newFor(jarName).build()
+            parser = ArgumentParsers.newFor("uartix").build()
                     .defaultHelp(true)
                     .description("Execute Uartix script files.");
 
@@ -73,10 +63,6 @@ public class RuntimeArgumentParser {
         }
         catch(ArgumentParserException e) {
             parser.handleError(e);
-            return false;
-        }
-        catch(URISyntaxException e) {
-            System.out.println("\u001b[31mInternal Error\u001b[0m: " + e.getMessage());
             return false;
         }
 
