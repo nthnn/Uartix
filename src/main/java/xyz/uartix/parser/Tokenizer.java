@@ -135,11 +135,69 @@ public final class Tokenizer {
                     int currentColumn = column;
 
                     while(!this.isAtEnd() && this.source.charAt(index) != '"') {
-                        if(this.source.charAt(index) == '\n')
-                            throw new LexicalAnalysisException("Found new line inside string literal.");
+                        char curr = this.source.charAt(index);
 
-                        string.append(this.source.charAt(index++));
-                        column++;
+                        if(curr == '\n')
+                            throw new LexicalAnalysisException("Found new line inside string literal." +
+                                    "(line " + line + ", column " + column + ")");
+                        else if(curr == '\\') {
+                            string.append(curr);
+                            index++;
+                            column++;
+
+                            if(this.isAtEnd())
+                                throw new LexicalAnalysisException("Expecting escape character, encountered end-of-file "+
+                                    "(line " + line + ", column " + column + ")");
+
+                            curr = this.source.charAt(index);
+                            switch(curr) {
+                                case 'r':
+                                case 'n':
+                                case 't':
+                                case 'b':
+                                case 'f':
+                                case '"':
+                                case '\\':
+                                    string.append(curr);
+
+                                    index++;
+                                    column++;
+
+                                    break;
+
+                                case 'u':
+                                    string.append(curr);
+
+                                    index++;
+                                    column++;
+
+                                    for(int count = 0; count < 4; count++) {
+                                        if(this.isAtEnd())
+                                            throw new LexicalAnalysisException("Expecting hexadecimal value, encountered end-of-file." +
+                                                "(line " + line + ", column " + column + ")");
+
+                                        char hex = this.source.charAt(index);
+                                        if(!Tokenizer.isHexadecimalDigit(hex))
+                                            throw new LexicalAnalysisException("Invalid hexadecimal character: " + hex + "." +
+                                                "(line " + line + ", column " + column + ")");
+
+                                        string.append(hex);
+                                        index++;
+                                        column++;
+                                    }
+
+                                    break;
+
+                                default:
+                                    throw new LexicalAnalysisException("Unknown string escape character. " +
+                                        "(line " + line + ", column " + column + ")");
+                            }
+                        }
+                        else {
+                            string.append(curr);
+                            index++;
+                            column++;
+                        }
 
                         if(this.isAtEnd())
                             throw new LexicalAnalysisException("Unterminated string literal on line " + line + ".");

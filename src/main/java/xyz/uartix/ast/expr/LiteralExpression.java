@@ -20,6 +20,7 @@ package xyz.uartix.ast.expr;
 import xyz.uartix.ast.Expression;
 import xyz.uartix.core.SymbolTable;
 import xyz.uartix.parser.Token;
+import xyz.uartix.util.MiscUtil;
 
 public class LiteralExpression implements Expression {
     private final Token address;
@@ -35,6 +36,9 @@ public class LiteralExpression implements Expression {
     }
 
     public Object visit(SymbolTable symtab) {
+        if(this.value instanceof String)
+            return MiscUtil.unescapeCharacters(this.value.toString());
+
         return this.value;
     }
 }
