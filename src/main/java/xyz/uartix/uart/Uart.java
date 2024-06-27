@@ -58,6 +58,9 @@ public final class Uart {
             SerialPort.NO_PARITY);
         Uart.serialPort.openPort();
 
+        Uart.serialOutputStream = Uart.serialPort.getOutputStream();
+        Uart.serialInputStream = Uart.serialPort.getInputStream();
+
         Uart.serialPort.addDataListener(new SerialPortDataListener() {
             @Override
             public int getListeningEvents() {
@@ -77,9 +80,6 @@ public final class Uart {
                 catch(IOException _) { }
             }
         });
-
-        Uart.serialOutputStream = Uart.serialPort.getOutputStream();
-        Uart.serialInputStream = Uart.serialPort.getInputStream();
     }
 
     public static void disconnect() throws IOException {
