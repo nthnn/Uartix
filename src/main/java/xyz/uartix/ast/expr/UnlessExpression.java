@@ -53,8 +53,9 @@ public class UnlessExpression implements Expression {
 
         if((cond instanceof Double && ((double) cond) <= 0) ||
             (cond instanceof Boolean && !((boolean) cond)) ||
-            !(cond instanceof String))
+            (cond instanceof String && ((String) cond).isEmpty())) {
             return this.then.visit(symtab);
+        }
         else {
             if(this.elseBlock != null)
                 return this.elseBlock.visit(symtab);
