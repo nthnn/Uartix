@@ -24,6 +24,7 @@ import xyz.uartix.ast.stmt.*;
 import xyz.uartix.util.Convert;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public final class Parser {
@@ -110,18 +111,13 @@ public final class Parser {
         return this.globalStatements;
     }
 
-    private Expression exprLiteral() throws ParserException {
+    private Expression exprLiteral() throws ParserException, IOException {
         LiteralExpression expr = null;
 
         if(this.isNext("true"))
             expr = new LiteralExpression(this.consume("true"), true);
         else if(this.isNext("false"))
             expr = new LiteralExpression(this.consume("false"), false);
-        else if(this.isNext("maybe"))
-            expr = new LiteralExpression(
-                this.consume("maybe"),
-                new Random().nextBoolean()
-            );
         else if(this.isNext("nil"))
             expr = new LiteralExpression(this.consume("nil"), null);
         else if(this.peek().getType() == TokenType.STRING) {
@@ -142,21 +138,21 @@ public final class Parser {
         return expr;
     }
 
-    private Expression exprType() throws ParserException {
+    private Expression exprType() throws ParserException, IOException {
         return new TypeExpression(
             this.consume("type"),
             this.expression()
         );
     }
 
-    private Expression exprRender() throws ParserException {
+    private Expression exprRender() throws ParserException, IOException {
         return new RenderExpression(
             this.consume("render"),
             this.expression()
         );
     }
 
-    private Expression exprCatch() throws ParserException {
+    private Expression exprCatch() throws ParserException, IOException {
         Token address = this.consume("catch");
         Expression catchExpr = this.expression();
         this.consume("handle");
@@ -179,7 +175,7 @@ public final class Parser {
         );
     }
 
-    private Expression exprDo() throws ParserException {
+    private Expression exprDo() throws ParserException, IOException {
         Token address = this.consume("do");
         Expression body = this.expression();
 
@@ -196,7 +192,7 @@ public final class Parser {
         );
     }
 
-    private Expression exprWhile() throws ParserException {
+    private Expression exprWhile() throws ParserException, IOException {
         Token address = this.consume("while");
         this.consume("(");
 
@@ -210,7 +206,7 @@ public final class Parser {
         );
     }
 
-    private Expression exprIf() throws ParserException {
+    private Expression exprIf() throws ParserException, IOException {
         Token address = this.consume("if");
         this.consume("(");
 
@@ -231,7 +227,7 @@ public final class Parser {
         );
     }
 
-    private Expression exprRandom() throws ParserException {
+    private Expression exprRandom() throws ParserException, IOException {
         Token address = this.consume("random");
         Expression then = this.expression(), otherwise = null;
 
@@ -247,7 +243,7 @@ public final class Parser {
         );
     }
 
-    private Expression exprLoop() throws ParserException {
+    private Expression exprLoop() throws ParserException, IOException {
         Token address = this.consume("loop");
         this.consume("(");
 
@@ -269,7 +265,7 @@ public final class Parser {
         );
     }
 
-    private Expression exprUnless() throws ParserException {
+    private Expression exprUnless() throws ParserException, IOException {
         Token address = this.consume("unless");
         this.consume("(");
 
@@ -290,7 +286,7 @@ public final class Parser {
         );
     }
 
-    private Expression exprWhen() throws ParserException {
+    private Expression exprWhen() throws ParserException, IOException {
         Token address = this.consume("when");
         this.consume("(");
 
@@ -331,7 +327,7 @@ public final class Parser {
         );
     }
 
-    private Expression exprFunc() throws ParserException {
+    private Expression exprFunc() throws ParserException, IOException {
         Token address = this.consume("func");
         this.consume("(");
 
@@ -351,7 +347,11 @@ public final class Parser {
         );
     }
 
-    private Expression exprBlock() throws ParserException {
+    private Expression exprMaybe() throws ParserException, IOException {
+        return new MaybeExpression(this.consume("maybe"));
+    }
+
+    private Expression exprBlock() throws ParserException, IOException {
         Token address = this.consume("{");
         List<Statement> statements = new ArrayList<>();
 
@@ -365,7 +365,7 @@ public final class Parser {
         );
     }
 
-    private Expression exprLogic() throws ParserException {
+    private Expression exprLogic() throws ParserException, IOException {
         Expression expr = this.exprNullCoalescing();
 
         while(this.isNext("&&") || this.isNext("||"))
@@ -378,7 +378,7 @@ public final class Parser {
         return expr;
     }
 
-    private Expression exprNullCoalescing() throws ParserException {
+    private Expression exprNullCoalescing() throws ParserException, IOException {
         Expression expr = this.exprEquality();
 
         while(this.isNext("?"))
@@ -391,7 +391,7 @@ public final class Parser {
         return expr;
     }
 
-    private Expression exprEquality() throws ParserException {
+    private Expression exprEquality() throws ParserException, IOException {
         Expression expr = this.exprComparison();
 
         while(this.isNext("==") ||
@@ -407,7 +407,7 @@ public final class Parser {
         return expr;
     }
 
-    private Expression exprComparison() throws ParserException {
+    private Expression exprComparison() throws ParserException, IOException {
         Expression expr = this.exprTerm();
 
         while(this.isNext("<") ||
@@ -424,7 +424,7 @@ public final class Parser {
         return expr;
     }
 
-    private Expression exprTerm() throws ParserException {
+    private Expression exprTerm() throws ParserException, IOException {
         Expression expr = this.exprFactor();
 
         while(this.isNext("+") || this.isNext("-"))
@@ -437,7 +437,7 @@ public final class Parser {
         return expr;
     }
 
-    private Expression exprFactor() throws ParserException {
+    private Expression exprFactor() throws ParserException, IOException {
         Expression expr = this.exprPrimary();
 
         while(this.isNext("*") ||
@@ -452,7 +452,7 @@ public final class Parser {
         return expr;
     }
 
-    private Expression exprPrimary() throws ParserException {
+    private Expression exprPrimary() throws ParserException, IOException {
         Expression expr = null;
 
         if(this.isNext("+") || this.isNext("-") || this.isNext("~"))
@@ -495,12 +495,14 @@ public final class Parser {
             expr = this.exprWhen();
         else if(this.isNext("func"))
             expr = this.exprFunc();
+        else if(this.isNext("maybe"))
+            expr = this.exprMaybe();
         else expr = this.exprLiteral();
 
         return expr;
     }
 
-    private Expression expression() throws ParserException {
+    private Expression expression() throws ParserException, IOException {
         Expression expr = this.exprLogic();
 
         while(this.isNext("(")) {
@@ -525,7 +527,7 @@ public final class Parser {
         return expr;
     }
 
-    private Statement statement() throws ParserException {
+    private Statement statement() throws ParserException, IOException {
         Statement stmt = null;
 
         if(this.isNext("break")) {
@@ -572,7 +574,7 @@ public final class Parser {
         return stmt;
     }
 
-    public void parse() throws ParserException {
+    public void parse() throws ParserException, IOException {
         while(!this.isAtEnd())
             this.globalStatements.add(this.statement());
     }
