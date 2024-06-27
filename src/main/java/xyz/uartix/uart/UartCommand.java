@@ -34,7 +34,9 @@ public enum UartCommand {
     SHR((byte) 0x0d),
     POS((byte) 0x0e),
     NEG((byte) 0x0f),
-    NOT((byte) 0x10);
+    NOT((byte) 0x10),
+    RND((byte) 0x11),
+    RNB((byte) 0x12);
 
     private final byte command;
 
