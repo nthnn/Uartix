@@ -257,6 +257,16 @@ inline void uartix_not() {
     );
 }
 
+inline void uartix_rand_num() {
+    uartix_write_number((double) random());
+}
+
+inline void uartix_rand_bool() {
+    uartix_write_number(
+        (random() % 2 == 0) ? 1.0 : 0.0
+    );
+}
+
 uartix_action uartix_actions[] = {
     [UARTIX_CMD_ADD] = uartix_add,
     [UARTIX_CMD_SUB] = uartix_sub,
@@ -274,5 +284,7 @@ uartix_action uartix_actions[] = {
     [UARTIX_CMD_SHR] = uartix_shr,
     [UARTIX_CMD_POS] = uartix_pos,
     [UARTIX_CMD_NEG] = uartix_neg,
-    [UARTIX_CMD_NOT] = uartix_not
+    [UARTIX_CMD_NOT] = uartix_not,
+    [UARTIX_CMD_RND] = uartix_rand_num,
+    [UARTIX_CMD_RNB] = uartix_rand_bool
 };
