@@ -19,13 +19,12 @@ package xyz.uartix.ast.expr;
 
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
-import xyz.uartix.ast.Statement;
 import xyz.uartix.core.SymbolTable;
 import xyz.uartix.core.TerminativeSignal;
 import xyz.uartix.parser.Token;
+import xyz.uartix.uart.UartOperation;
 
 import java.io.IOException;
-import java.util.Random;
 
 public class RandomExpression implements Expression {
     private final Token address;
@@ -49,7 +48,7 @@ public class RandomExpression implements Expression {
         throws ASTVisitException,
             IOException,
             TerminativeSignal {
-        if(new Random().nextBoolean())
+        if(UartOperation.rnb())
             return this.then.visit(symtab);
         else if(this.elseStatement != null)
             return this.elseStatement.visit(symtab);
