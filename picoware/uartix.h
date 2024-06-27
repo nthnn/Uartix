@@ -41,7 +41,9 @@ enum uartix_commands {
     UARTIX_CMD_SHR = 0x0d,
     UARTIX_CMD_POS = 0x0e,
     UARTIX_CMD_NEG = 0x0f,
-    UARTIX_CMD_NOT = 0x10
+    UARTIX_CMD_NOT = 0x10,
+    UARTIX_CMD_RND = 0x11,
+    UARTIX_CMD_RNB = 0x12
 };
 
 typedef void (*uartix_action)();
