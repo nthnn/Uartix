@@ -251,14 +251,50 @@ public final class Tokenizer {
                                 index++;
                                 column++;
                             }
+
+                            if(!this.isAtEnd() && this.source.charAt(index) == '.') {
+                                digit.append(this.source.charAt(index));
+                                index++;
+                                column++;
+
+                                if(this.isAtEnd() || !Tokenizer.isDigit(this.source.charAt(index)))
+                                    throw new LexicalAnalysisException("Expecting decimal digits. " +
+                                            "(line " + line + ", column " + column + ")");
+
+                                while (!this.isAtEnd() &&
+                                        Tokenizer.isDigit(this.source.charAt(index))) {
+                                    digit.append(this.source.charAt(index));
+                                    index++;
+                                    column++;
+                                }
+                            }
                             break;
                     }
                 }
-                else while(!this.isAtEnd() &&
-                    Tokenizer.isDigit(this.source.charAt(index))) {
-                    digit.append(this.source.charAt(index));
-                    index++;
-                    column++;
+                else {
+                    while(!this.isAtEnd() &&
+                            Tokenizer.isDigit(this.source.charAt(index))) {
+                        digit.append(this.source.charAt(index));
+                        index++;
+                        column++;
+                    }
+
+                    if(!this.isAtEnd() && this.source.charAt(index) == '.') {
+                        digit.append(this.source.charAt(index));
+                        index++;
+                        column++;
+
+                        if(this.isAtEnd() || !Tokenizer.isDigit(this.source.charAt(index)))
+                            throw new LexicalAnalysisException("Expecting decimal digits. " +
+                                "(line " + line + ", column " + column + ")");
+
+                        while(!this.isAtEnd() &&
+                                Tokenizer.isDigit(this.source.charAt(index))) {
+                            digit.append(this.source.charAt(index));
+                            index++;
+                            column++;
+                        }
+                    }
                 }
 
                 this.tokens.add(new Token(
