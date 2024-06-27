@@ -1,11 +1,13 @@
-rm -rf dist
-
-mvn clean install
-cd launcher && cargo build --release && cd ..
+rm -rf dist launcher/target
 
 mkdir -p dist/uartix_0.1.0-1_amd64/opt/uartix
 mkdir -p dist/uartix_0.1.0-1_amd64/usr/local/bin
 mkdir -p dist/uartix_0.1.0-1_amd64/DEBIAN
+
+cd launcher
+cargo build --release
+cargo build --release --target x86_64-pc-windows-gnu
+cd ..
 
 cp out/artifacts/Uartix_jar/Uartix.jar dist/uartix_0.1.0-1_amd64/opt/uartix/
 cp launcher/target/release/uartix dist/uartix_0.1.0-1_amd64/usr/local/bin/
@@ -19,4 +21,14 @@ echo "Description: Strange dynamic programming language that performs mathematic
 
 cd dist
 dpkg-deb --build uartix_0.1.0-1_amd64
+rm -rf uartix_0.1.0-1_amd64
 cd ..
+
+mkdir -p dist/uartix_0.1.0-1_x86_64/bin
+cp out/artifacts/Uartix_jar/Uartix.jar dist/uartix_0.1.0-1_x86_64/bin
+cp launcher/target/x86_64-pc-windows-gnu/release/uartix.exe dist/uartix_0.1.0-1_x86_64/bin
+cd dist/uartix_0.1.0-1_x86_64
+zip -5 -r ../uartix_0.1.0-1_x86_64.zip *
+
+cd ../..
+rm -rf dist/uartix_0.1.0-1_x86_64
