@@ -58,7 +58,7 @@ public class BinaryExpression implements Expression {
             leftValue = null;
 
         if(!(this.left instanceof IdentifierExpression) ||
-            !this.operator.getImage().equals("="))
+                !this.operator.getImage().equals("="))
             leftValue = this.left.visit(symtab);
 
         if(Objects.equals(operator, "+"))
@@ -177,9 +177,9 @@ public class BinaryExpression implements Expression {
             throw invalidVisit;
         }
         else if(Objects.equals(operator, "!="))
-            return leftValue != rightValue;
+            return leftValue != null && !leftValue.equals(rightValue);
         else if(Objects.equals(operator, "=="))
-            return leftValue == rightValue;
+            return leftValue != null && leftValue.equals(rightValue);
         else if(Objects.equals(operator, "=")) {
             if(!(this.left instanceof IdentifierExpression) &&
                 !(this.left instanceof ArrayAccessExpression))

@@ -70,6 +70,7 @@ public class LoopExpression implements Expression {
                 break;
             }
             catch(TerminativeContinue _) {
+                this.postExpression.visit(symtab);
                 value = null;
                 continue;
             }

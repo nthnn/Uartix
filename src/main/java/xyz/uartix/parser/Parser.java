@@ -82,7 +82,7 @@ public final class Parser {
 
         if(!peekedImg.equals(image))
             throw new ParserException(
-                "Expecting \"" + image + "\", encountered \"" + peekedImg + "\"."
+                "Expecting \"" + image + "\", encountered " + peeked
             );
 
         this.index++;
@@ -100,7 +100,7 @@ public final class Parser {
 
         if(peekedType != type)
             throw new ParserException(
-                    "Expecting " + type + ", encountered " + peekedType + "."
+                    "Expecting " + type + ", encountered " + peeked
             );
 
         this.index++;
@@ -133,7 +133,7 @@ public final class Parser {
         }
 
         if(expr == null)
-            throw new ParserException("Expecting expression.");
+            throw new ParserException("Expecting expression, encountered " + this.peek());
 
         return expr;
     }
@@ -384,14 +384,66 @@ public final class Parser {
         );
     }
 
-    private Expression exprLogic() throws ParserException, IOException {
-        Expression expr = this.exprNullCoalescing();
+    private Expression exprLogicOr() throws ParserException, IOException {
+        Expression expr = this.exprLogicAnd();
 
-        while(this.isNext("&&") || this.isNext("||"))
+        while(this.isNext("||"))
             expr = new BinaryExpression(
                 expr,
                 this.consume(TokenType.OPERATOR),
-                this.expression()
+                this.exprLogicAnd()
+            );
+
+        return expr;
+    }
+
+    private Expression exprLogicAnd() throws ParserException, IOException {
+        Expression expr = this.exprBitwiseOr();
+
+        while(this.isNext("&&"))
+            expr = new BinaryExpression(
+                    expr,
+                    this.consume(TokenType.OPERATOR),
+                    this.exprBitwiseOr()
+            );
+
+        return expr;
+    }
+
+    private Expression exprBitwiseOr() throws ParserException, IOException {
+        Expression expr = this.exprBitwiseXor();
+
+        while(this.isNext("|"))
+            expr = new BinaryExpression(
+                    expr,
+                    this.consume(TokenType.OPERATOR),
+                    this.exprBitwiseXor()
+            );
+
+        return expr;
+    }
+
+    private Expression exprBitwiseXor() throws ParserException, IOException {
+        Expression expr = this.exprBitwiseAnd();
+
+        while(this.isNext("^"))
+            expr = new BinaryExpression(
+                    expr,
+                    this.consume(TokenType.OPERATOR),
+                    this.exprBitwiseAnd()
+            );
+
+        return expr;
+    }
+
+    private Expression exprBitwiseAnd() throws ParserException, IOException {
+        Expression expr = this.exprNullCoalescing();
+
+        while(this.isNext("&"))
+            expr = new BinaryExpression(
+                    expr,
+                    this.consume(TokenType.OPERATOR),
+                    this.exprNullCoalescing()
             );
 
         return expr;
@@ -404,7 +456,7 @@ public final class Parser {
             expr = new NulllCoalescingExpression(
                 this.consume(TokenType.OPERATOR),
                 expr,
-                this.expression()
+                this.exprEquality()
             );
 
         return expr;
@@ -420,14 +472,14 @@ public final class Parser {
             expr = new BinaryExpression(
                 expr,
                 this.consume(TokenType.OPERATOR),
-                this.expression()
+                this.exprComparison()
             );
 
         return expr;
     }
 
     private Expression exprComparison() throws ParserException, IOException {
-        Expression expr = this.exprTerm();
+        Expression expr = this.exprShift();
 
         while(this.isNext("<") ||
             this.isNext("<=") ||
@@ -437,7 +489,20 @@ public final class Parser {
             expr = new BinaryExpression(
                 expr,
                 this.consume(TokenType.OPERATOR),
-                this.expression()
+                this.exprShift()
+            );
+
+        return expr;
+    }
+
+    private Expression exprShift() throws ParserException, IOException {
+        Expression expr = this.exprTerm();
+
+        while(this.isNext("<<") || this.isNext(">>"))
+            expr = new BinaryExpression(
+                    expr,
+                    this.consume(TokenType.OPERATOR),
+                    this.exprTerm()
             );
 
         return expr;
@@ -450,7 +515,7 @@ public final class Parser {
             expr = new BinaryExpression(
                 expr,
                 this.consume(TokenType.OPERATOR),
-                this.expression()
+                this.exprFactor()
             );
 
         return expr;
@@ -465,7 +530,7 @@ public final class Parser {
             expr = new BinaryExpression(
                 expr,
                 this.consume(TokenType.OPERATOR),
-                this.expression()
+                this.exprPrimary()
             );
 
         return expr;
@@ -572,7 +637,7 @@ public final class Parser {
             expr = this.exprMaybe();
         else if(this.isNext("["))
             expr = this.exprArray();
-        else expr = this.exprLogic();
+        else expr = this.exprLogicOr();
 
         return expr;
     }
