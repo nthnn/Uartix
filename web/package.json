@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "dev": "parcel index.pug"
+        "dev": "parcel index.pug",
+        "build": "parcel build index.pug --no-source-maps"
     },
     "keywords": [],
     "author": "",
