@@ -1,0 +1,91 @@
+doctype html
+html(lang="en")
+  head
+    title Uartix | Language Constructs
+
+    meta(name="description", content="Uartix Official Documentation")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+    link(href="styles/customvars.sass", rel="stylesheet")
+    link(href="node_modules/bootswatch/dist/yeti/bootstrap.min.css", rel="stylesheet")
+    link(href="styles/global.sass", rel="stylesheet")
+
+  body(class="bg-secondary")
+    div(class="container")
+      br
+      br
+
+      div(class="bg-white border border-primary shadow-lg")
+        br
+        br
+
+        div(align="center", class="mt-4 mb-4")
+          div(class="col-lg-7 col-10")
+            img(src="assets/uartix.png", class="shadow", width="160")
+            br
+            br
+            h1(class="mb-2 fw-bold") Uartix Programming Language
+            p(class="lead") /wor&middot;tiks/
+            blockquote(class="text-muted") Strange dynamic programming and scripting language that performs mathematical computations on a connected Raspberry Pi Pico (RP2040) through UART connectivity.
+
+        br
+        br
+
+        header(class="header sticky-top")
+          nav(class="navbar navbar-expand-lg bg-primary", data-bs-theme="dark")
+            div(class="container-fluid")
+              a(class="navbar-fluid", href="#")
+              div(class="w-100 mobile-only", align="center")
+                button(
+                  class="navbar-toggler",
+                  type="button",
+                  data-bs-toggle="collapse",
+                  data-bs-target="#main-navbar",
+                  aria-controls="main-navbar",
+                  aria-expanded="false",
+                  aria-label="Toggle navigation")
+                  span(class="navbar-toggler-icon")
+              button(
+                class="navbar-toggler desktop-only",
+                type="button",
+                data-bs-toggle="collapse",
+                data-bs-target="#main-navbar",
+                aria-controls="main-navbar",
+                aria-expanded="false",
+                aria-label="Toggle navigation")
+                span(class="navbar-toggler-icon")
+              div(class="collapse navbar-collapse", id="main-navbar", align="center")
+                br(class="mobile-only")
+                ul(class="navbar-nav me-auto mb-2 mb-lg-0 d-md-flex d-block flex-row mx-md-auto mx-0")
+                  li(class="nav-item")
+                    a(class="nav-link active", href="index.pug") Home
+                  li(class="nav-item")
+                    a(class="nav-link", href="#") Getting Started
+                  li(class="nav-item")
+                    a(class="nav-link", href="grammar.pug") Grammar Definition
+                  li(class="nav-item")
+                    a(class="nav-link", href="constructs.pug") Language Constructs
+                  li(class="nav-item")
+                    a(class="nav-link", href="https://github.com/nthnn/Uartix", target="_blank") GitHub
+
+        br(class="desktop-only")
+        br
+
+        div(class="container")
+          div(class="row")
+            div(class="col-lg-2")
+
+            div(class="col-lg-8")
+              h4(class="border-bottom pb-2 fw-bold") Language Constructs
+
+            div(class="col-lg-2")
+
+        br
+        br
+
+      br
+      div(align="center")
+        small Copyright 2024 &copy; <a href="https://github.com/nthnn" target="_blank" class="text-decoration-none">Nathanne Isip</a>
+      br
+
+    script(src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js")
