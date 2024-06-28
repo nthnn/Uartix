@@ -6,6 +6,7 @@ html(lang="en")
     meta(name="description", content="Uartix Official Documentation")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
+    link(href="styles/customvars.sass", rel="stylesheet")
     link(href="node_modules/bootswatch/dist/yeti/bootstrap.min.css", rel="stylesheet")
     link(href="styles/global.sass", rel="stylesheet")
 
@@ -110,27 +111,27 @@ html(lang="en")
                   | greet(<span class="text-warning">&quot;world&quot;</span>);
 
               p
-                | The line <code class="d-inline text-dark border border-dark p-1">greet = <span class="text-primary">func</span>(name)</code> defines a function named <code class="d-inline text-dark border border-dark p-1">greet</code> that takes a single
-                | parameter, <code class="d-inline text-dark border border-dark p-1">name</code>. In Uartix, the func keyword is used to declare a function. The
-                | assignment <code class="d-inline text-dark border border-dark p-1">greet = <span class="text-primary">func</span>(name)</code> binds this function to the identifier <code class="d-inline text-dark border border-dark p-1">greet</code>,
-                | allowing it to be called later in the program. The parameter <code class="d-inline text-dark border border-dark p-1">name</code> represents the
+                | The line <code class="d-inline text-dark border border-dark px-1">greet = <span class="text-primary">func</span>(name)</code> defines a function named <code class="d-inline text-dark border border-dark px-1">greet</code> that takes a single
+                | parameter, <code class="d-inline text-dark border border-dark px-1">name</code>. In Uartix, the func keyword is used to declare a function. The
+                | assignment <code class="d-inline text-dark border border-dark px-1">greet = <span class="text-primary">func</span>(name)</code> binds this function to the identifier <code class="d-inline text-dark border border-dark px-1">greet</code>,
+                | allowing it to be called later in the program. The parameter <code class="d-inline text-dark border border-dark px-1">name</code> represents the
                 | input that the function will receive when it is called.
 
               p 
                 | Within the function body, which is indicated by the indentation following the
-                | function definition, there is a single statement: <code class="d-inline text-dark border border-dark p-1"><span class="text-primary">render</span> <span class="text-warning">&quot;Hello, &quot;</span> + name;</code>.
-                | This line uses the <code class="d-inline text-dark border border-dark p-1"><span class="text-primary">render</span></code> keyword, which is a command in Uartix to output text
-                | to the console or display. The expression <code class="d-inline text-dark border border-dark p-1"><span class="text-warning">&quot;Hello, &quot;</span> + name</code> demonstrates string
-                | concatenation, where the literal string <code class="d-inline text-dark border border-dark p-1"><span class="text-warning">&quot;Hello, &quot;</span></code> is combined with the value of
-                | the <code class="d-inline text-dark border border-dark p-1">name</code> parameter. The resulting string is then rendered or displayed as the
+                | function definition, there is a single statement: <code class="d-inline text-dark border border-dark px-1"><span class="text-primary">render</span> <span class="text-warning">&quot;Hello, &quot;</span> + name;</code>.
+                | This line uses the <code class="d-inline text-dark border border-dark px-1"><span class="text-primary">render</span></code> keyword, which is a command in Uartix to output text
+                | to the console or display. The expression <code class="d-inline text-dark border border-dark px-1"><span class="text-warning">&quot;Hello, &quot;</span> + name</code> demonstrates string
+                | concatenation, where the literal string <code class="d-inline text-dark border border-dark px-1"><span class="text-warning">&quot;Hello, &quot;</span></code> is combined with the value of
+                | the <code class="d-inline text-dark border border-dark px-1">name</code> parameter. The resulting string is then rendered or displayed as the
                 | output of the function.
 
               p
-                | Finally, the line <code class="d-inline text-dark border border-dark p-1">greet(<span class="text-warning">&quot;world&quot;</span>);</code> calls the <code class="d-inline text-dark border border-dark p-1">greet</code> function with the argument
-                | <code class="d-inline text-dark border border-dark p-1"><span class="text-warning">&quot;world&quot;</span></code>. When this line is executed, the function <code class="d-inline text-dark border border-dark p-1">greet</code> is invoked, and the
-                | string <code class="d-inline text-dark border border-dark p-1"><span class="text-warning">&quot;world&quot;</span></code> is passed as the parameter <code class="d-inline text-dark border border-dark p-1">name</code>. Inside the function, this
-                | parameter is used to create the greeting message. Consequently, the <code class="d-inline text-dark border border-dark p-1"><span class="text-primary">render</span></code>
-                | statement outputs the concatenated string <code class="d-inline text-dark border border-dark p-1"><span class="text-warning">&quot;Hello, world&quot;</span></code>, which is the final
+                | Finally, the line <code class="d-inline text-dark border border-dark px-1">greet(<span class="text-warning">&quot;world&quot;</span>);</code> calls the <code class="d-inline text-dark border border-dark px-1">greet</code> function with the argument
+                | <code class="d-inline text-dark border border-dark px-1"><span class="text-warning">&quot;world&quot;</span></code>. When this line is executed, the function <code class="d-inline text-dark border border-dark px-1">greet</code> is invoked, and the
+                | string <code class="d-inline text-dark border border-dark px-1"><span class="text-warning">&quot;world&quot;</span></code> is passed as the parameter <code class="d-inline text-dark border border-dark px-1">name</code>. Inside the function, this
+                | parameter is used to create the greeting message. Consequently, the <code class="d-inline text-dark border border-dark px-1"><span class="text-primary">render</span></code>
+                | statement outputs the concatenated string <code class="d-inline text-dark border border-dark px-1"><span class="text-warning">&quot;Hello, world&quot;</span></code>, which is the final
                 | result of the program.
               br
 
