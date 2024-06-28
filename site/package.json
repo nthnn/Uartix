@@ -4,7 +4,8 @@
     "description": "",
     "scripts": {
         "dev": "parcel index.pug",
-        "build": "parcel build index.pug --no-source-maps"
+        "build": "parcel build index.pug --no-source-maps",
+        "clean": "rm -rf dist .parcel-cache"
     },
     "keywords": [],
     "author": "",
