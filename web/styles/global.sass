@@ -1,0 +1,33 @@
+$null: 0
+$breakpoint: 770px
+
+%no-spacing
+    margin: $null
+    padding: $null
+
+html, body
+    @extend %no-spacing
+    -webkit-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+
+html::-webkit-scrollbar
+    width: 8px
+
+html::-webkit-scrollbar-track
+    background-color: var(--bs-white)
+
+html::-webkit-scrollbar-thumb
+    background-color: var(--bs-primary)
+
+.desktop-only
+    display: block
+
+    @media only screen and (max-width: $breakpoint + 1)
+        display: none
+
+.mobile-only
+    display: none
+
+    @media only screen and (max-width: $breakpoint + 1)
+        display: block
