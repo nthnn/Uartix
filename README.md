@@ -37,52 +37,73 @@ Despite its unconventional and dynamic behavior, as well as its lack of fundamen
 
 ## Getting Started
 
-Before installing Uartix, ensure you have JDK 22 (or OpenJDK) installed on your system.
+Before installing Uartix, make sure you have JDK 22 (or OpenJDK) installed on your system. Follow the steps below to get started on different operating systems and to build various components from the source.
 
-### Linux
+### Installing Uartix
 
-On Ubuntu and other Linux distro with `dpkg`, you can simply download the `*.deb` file from [release page](https://github.com/nthnn/Uartix/releases) and install Uartix with the following command:
+#### Linux
 
-```shell
-sudo dpkg -i uartix_*.deb
-```
+1. **Download the `.deb` File**: Visit the [release page](https://github.com/nthnn/Uartix/releases) and download the latest `*.deb` file for Uartix.
+2. **Install Uartix**: Open your terminal and navigate to the directory where the `.deb` file is located. Run the following command to install Uartix:
 
-### Windows
+   ```shell
+   sudo dpkg -i uartix_*.deb
+   ```
 
-Download the `.zip` file from the [release page](https://github.com/nthnn/Uartix/releases) for Windows. Extract it to `C:\` and add `C:\uartix\bin` to your Environment Path variables.
+3. **Running Uartix**: After successfully install the `.deb` package, you can now run the command `uartix` on your terminal.
 
-## Building from Source
+#### Windows
 
-To build Uartix from source on Ubuntu, run the following commands to automate the build process for `*.deb` and `*.zip` files, excluding the build process for the interpreter:
+1. **Download the .zip File**: Go to the [release page](https://github.com/nthnn/Uartix/releases) and download the latest `.zip` file for Uartix.
 
-```shell
-chmod +x ./build.sh
-./build.sh
-```
+2. **Extract the File**: Extract the contents of the `.zip` file to `C:\uartix`.
 
-## Interpreter
+3. **Set Environment Path**: Add `C:\uartix\bin` to your Environment Path variables to ensure you can run Uartix from any command prompt.
 
-To build the interpreter, open this repository in IntelliJ. From the menu, click `Build` and select `Build Artifacts > Build`.
+#### Firmware Installation
 
-## Launcher
+To install the Uartix firmware on your Raspberry Pi Pico, follow these steps:
 
-To build the Uartix launcher, ensure you have Rust and cargo installed on your system. Also, install the MinGW and Rust toolchain for Windows target with the following commands:
+1. **Enter Flash Mode**: Connect your Raspberry Pi Pico to your system while holding the `BOOTSEL` button to enter flash mode.
 
-```shell
-sudo apt-get install mingw-w64
-rustup target add x86_64-pc-windows-gnu
-```
+2. **Download the UF2 Binary**: Download the UF2 binary of the Uartix firmware from the [release page](https://github.com/nthnn/Uartix/releases).
 
-Then, build the launcher with:
+3. **Install the Firmware**: Drag and drop the downloaded UF2 file into the Raspberry Pi Pico storage that appears on your computer.
 
-```shell
-cargo build --release
-cargo build --release --target x86_64-pc-windows-gnu
-```
+### Building from Source
 
-## Firmware
+#### Interpreter
 
-To install the firmware on your Raspberry Pi Pico, connect the device to your system in flash mode. Download the UF2 binary of the Uartix firmware from the [release page](https://github.com/nthnn/Uartix/releases) and drag and drop it to your Raspberry Pi Pico storage.
+To build the interpreter:
+
+1. **Open in IntelliJ**: Open the Uartix repository in IntelliJ IDEA.
+2. **Build Artifacts**: From the menu, go to `Build` menu item and select `Build Artifacts > Build`.
+
+#### Launcher
+
+On Ubuntu, to build the Uartix launcher, ensure you have Rust and cargo installed on your system. Follow these steps:
+
+1. **Install Dependencies**:
+
+   ```shell
+   sudo apt-get install mingw-w64
+   rustup target add x86_64-pc-windows-gnu
+   ```
+
+2. **Build the Launcher**: Run the following commands to build the launcher:
+
+   ```shell
+   cargo build --release
+   cargo build --release --target x86_64-pc-windows-gnu
+   ```
+
+#### Firmware
+
+To build the Uartix firmware from source, simply follow the steps below.
+
+1. **Installing Raspberry Pi Pico on Arduino IDE**: Install the Raspberry Pi Pico boards on your Arduino IDE by following the steps [here](https://randomnerdtutorials.com/programming-raspberry-pi-pico-w-arduino-ide/).
+2. **Open in Arduino IDE:**: Open the file [launcher/picoware.ino](launcher/picoware.ino) in your Arduino IDE.
+3. **Build & Upload**: Connect your Raspberry Pi Pico board on flash mode then upload and build the Picoware on your Arduino IDE.
 
 ## Development Support
 
