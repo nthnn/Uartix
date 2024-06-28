@@ -27,6 +27,8 @@ See the complete documentation [here](https://uartix.vercel.app).
 
 ## Why Uartix?
 
+Despite its unconventional and dynamic behavior, as well as its lack of fundamental APIs, Uartix can still serve as a general-purpose programming and scripting language. The following points outline the reasons behind the development of Uartix:
+
 - The Raspberry Pi Pico, with its dual-core ARM Cortex-M0+ processor, offers a powerful yet affordable platform for hardware-level computation.
 - Uartix provides a specialized environment where developers can perform complex mathematical operations directly on the hardware.
 - Compared to many external co-processors, Uartix running on a Raspberry Pi Pico presents a highly cost-effective solution. The affordability of the Pico reduces overall project costs while still delivering substantial computational power for a variety of applications.
