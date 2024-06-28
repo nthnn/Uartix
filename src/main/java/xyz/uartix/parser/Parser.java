@@ -503,7 +503,48 @@ public final class Parser {
                 );
             }
         }
-        else if(this.isNext("type"))
+        else expr = this.exprLiteral();
+
+        while(this.isNext("(") || this.isNext("[")) {
+            while(this.isNext("(")) {
+                Token address = this.consume("(");
+
+                List<Expression> args = new ArrayList<>();
+                while(!this.isNext(")")) {
+                    if(!args.isEmpty())
+                        this.consume(",");
+
+                    args.add(this.expression());
+                }
+
+                this.consume(")");
+                expr = new FunctionCallExpression(
+                        address,
+                        expr,
+                        args
+                );
+            }
+
+            while(this.isNext("[")) {
+                Token address = this.consume("[");
+                Expression indexExpr = this.expression();
+
+                this.consume("]");
+                expr = new ArrayAccessExpression(
+                        address,
+                        expr,
+                        indexExpr
+                );
+            }
+        }
+
+        return expr;
+    }
+
+    private Expression expression() throws ParserException, IOException {
+        Expression expr = null;
+
+        if(this.isNext("type"))
             expr = this.exprType();
         else if(this.isNext("{"))
             expr = this.exprBlock();
@@ -531,46 +572,7 @@ public final class Parser {
             expr = this.exprMaybe();
         else if(this.isNext("["))
             expr = this.exprArray();
-        else expr = this.exprLiteral();
-
-        return expr;
-    }
-
-    private Expression expression() throws ParserException, IOException {
-        Expression expr = this.exprLogic();
-
-        while(this.isNext("(") || this.isNext("[")) {
-            while(this.isNext("(")) {
-                Token address = this.consume("(");
-
-                List<Expression> args = new ArrayList<>();
-                while(!this.isNext(")")) {
-                    if(!args.isEmpty())
-                        this.consume(",");
-
-                    args.add(this.expression());
-                }
-
-                this.consume(")");
-                expr = new FunctionCallExpression(
-                    address,
-                    expr,
-                    args
-                );
-            }
-
-            while(this.isNext("[")) {
-                Token address = this.consume("[");
-                Expression indexExpr = this.expression();
-
-                this.consume("]");
-                expr = new ArrayAccessExpression(
-                        address,
-                        expr,
-                        indexExpr
-                );
-            }
-        }
+        else expr = this.exprLogic();
 
         return expr;
     }

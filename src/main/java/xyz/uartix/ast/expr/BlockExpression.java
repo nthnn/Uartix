@@ -23,6 +23,7 @@ import xyz.uartix.ast.Statement;
 import xyz.uartix.ast.stmt.ReturnStatement;
 import xyz.uartix.core.SymbolTable;
 import xyz.uartix.core.TerminativeSignal;
+import xyz.uartix.core.TerminatoryObject;
 import xyz.uartix.parser.Token;
 
 import java.io.IOException;
@@ -46,13 +47,20 @@ public class BlockExpression implements Expression {
             ASTVisitException,
             IOException {
         SymbolTable childTab = new SymbolTable(symtab);
-        for(Statement statement : this.statements) {
-            if(statement instanceof ReturnStatement)
-                return statement.visit(childTab);
+        Object value = null;
 
-            statement.visit(childTab);
+        try {
+            for (Statement statement : this.statements) {
+                if (statement instanceof ReturnStatement)
+                    statement.visit(childTab);
+
+                value = statement.visit(childTab);
+            }
+        }
+        catch(TerminatoryObject obj) {
+            return obj.getObject();
         }
 
-        return null;
+        return value;
     }
 }
