@@ -1,0 +1,5 @@
+#!/usr/local/bin/uartix
+# Get the type of variable x.
+
+x = type "Hello!";
+render x;

@@ -1,0 +1,9 @@
+#!/usr/local/bin/uartix
+# Block example as variable value.
+
+message = {
+    hello = "Hello";
+    hello + ", world!";
+};
+
+render message + "\r\n";

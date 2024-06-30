@@ -1,0 +1,8 @@
+#!/usr/local/bin/uartix
+# Block example as function body.
+
+add = func(x, y) {
+    ret x + y;
+};
+
+render add(5, 10);
