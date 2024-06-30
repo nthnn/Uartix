@@ -80,7 +80,7 @@ public final class Tokenizer {
 
     private static boolean isAlphabet(char ch) {
         return (ch >= 'a' && ch <= 'z') ||
-            (ch >= 'A' && ch <= 'Z');
+            (ch >= 'A' && ch <= 'Z') || ch == '_';
     }
 
     private static boolean isOperator(char ch) {
