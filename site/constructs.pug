@@ -91,13 +91,13 @@ html(lang="en")
                 p(class="text-white m-0 ms-2") example_01.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
-                  | # Get the type of variable x.
+                  | <span class="text-success"><i># Get the type of variable x.</i></span>
                   |
-                  | x = type "Hello!";
-                  | render x + "\r\n";
+                  | x = <span class="text-primary">type</span> <span class="text-warning">&quot;Hello!&quot;</span>;
+                  | <span class="text-primary">render</span> x + <span class="text-warning">&quot;\r\n&quot;</span>;
                   |
-                  | y = type 3.14;
-                  | render y + "\r\n";
+                  | y = <span class="text-primary">type</span> 3.14;
+                  | <span class="text-primary">render</span> y + <span class="text-warning">&quot;\r\n&quot;</span>;
               br
 
               b(class="pb-2") Block Expressions
@@ -107,26 +107,26 @@ html(lang="en")
                 p(class="text-white m-0 ms-2") example_02.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
-                  | # Block example as function body.
+                  | <span class="text-success"><i># Block example as function body.</i></span>
                   |
-                  | add = func(x, y) {
-                  |     ret x + y;
+                  | add = <span class="text-primary">func</span>(x, y) {
+                  |     <span class="text-primary">ret</span> x + y;
                   | };
                   |
-                  | render add(5, 10);
+                  | <span class="text-primary">render</span> add(5, 10);
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_03.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
-                  | # Block example as variable value.
+                  | <span class="text-success"><i># Block example as variable value.</i></span>
                   |
                   | message = {
-                  |     hello = "Hello";
-                  |     hello + ", world!";
+                  |     hello = <span class="text-warning">&quot;Hello&quot;</span>;
+                  |     hello + <span class="text-warning">&quot;, world!&quot;</span>;
                   | };
                   |
-                  | render message + "\r\n";
+                  | <span class="text-primary">render</span> message + <span class="text-warning">&quot;\r\n&quot;</span>;
               br
 
               b(class="pb-2") Render Expression
@@ -136,10 +136,10 @@ html(lang="en")
                 p(class="text-white m-0 ms-2") example_04.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
-                  | # Render expression examples.
+                  | <span class="text-success"><i># Render expression examples.</i></span>
                   |
-                  | render "Hello, world!\r\n";
-                  | render 3.14;
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;Hello, world!\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> 3.14;
               br
 
               b(class="pb-2") Catch Expression
@@ -149,16 +149,16 @@ html(lang="en")
                 p(class="text-white m-0 ms-2") example_05.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
-                  | # Throw and catch example
+                  | <span class="text-success"><i># Throw and catch example</i></span>
                   |
-                  | catch {
-                  |     throw "This is an error.";
+                  | <span class="text-primary">catch</span> {
+                  |     <span class="text-primary">throw</span> <span class="text-warning">&quot;This is an error.&quot;</span>;
                   | }
-                  | handle e {
-                  |     render "Error: " + e + "\r\n";
+                  | <span class="text-primary">handle</span> e {
+                  |     <span class="text-primary">render</span> <span class="text-warning">&quot;Error: &quot;</span> + e + <span class="text-warning">&quot;\r\n&quot;</span>;
                   | }
-                  | then {
-                  |     render "Error was caught.\r\n";
+                  | <span class="text-primary">then</span> {
+                  |     <span class="text-primary">render</span> <span class="text-warning">&quot;Error was caught.\r\n&quot;</span>;
                   | };
               br
 
@@ -169,13 +169,13 @@ html(lang="en")
                 p(class="text-white m-0 ms-2") example_06.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
-                  | # Increment count variable using do
+                  | <span class="text-success"><i># Increment count variable using do</i></span>
                   |
                   | count = 0;
-                  | do {
-                  |     render count + "\r\n";
+                  | <span class="text-primary">do</span> {
+                  |     <span class="text-primary">render</span> count + <span class="text-warning">&quot;\r\n&quot;</span>;
                   |     count = count + 1;
-                  | } while(count < 5);
+                  | } <span class="text-primary">while</span>(count < 5);
 
             div(class="col-lg-2")
 
