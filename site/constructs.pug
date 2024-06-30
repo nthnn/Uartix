@@ -445,6 +445,46 @@ html(lang="en")
                   | };
               br
 
+              b(class="pb-2") Return Statement 
+              p The return statement exits a function and optionally returns a value. If a block is a non-function, do not use return statement instead just put the return value inside an expression statement.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_24.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Return value from a function.</i></span>
+                  |
+                  | add = <span class="text-primary">func</span>(x, y) {
+                  |     <span class="text-primary">ret</span> x + y;
+                  | };
+                  |
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;The sum of x and y is &quot;</span> + add(8, 9);
+              br
+
+              b(class="pb-2") Throw Statement 
+              p The throw statement raises an exception that can be caught by a catch-handle expression.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_25.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Throw with string expression example.</i></span>
+                  |
+                  | check_value = <span class="text-primary">func</span>(value) {
+                  |     <span class="text-primary">if</span>(value &lt; 0) {
+                  |         <span class="text-primary">throw</span> <span class="text-warning">&quot;Negative value not allowed!&quot;</span>;
+                  |     };
+                  |
+                  |     <span class="text-primary">ret</span> value;
+                  | };
+                  |
+                  | <span class="text-primary">catch</span> {
+                  |     check_value(-1);
+                  | }
+                  | <span class="text-primary">handle</span> error {
+                  |     <span class="text-primary">render</span> <span class="text-warning">&quot;Error: &quot;</span> + error + <span class="text-warning">&quot;\r\n&quot;</span>;
+                  | };
+
             div(class="col-lg-2")
 
         br
