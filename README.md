@@ -102,7 +102,7 @@ On Ubuntu, to build the Uartix launcher, ensure you have Rust and cargo installe
 To build the Uartix firmware from source, simply follow the steps below.
 
 1. **Installing Raspberry Pi Pico on Arduino IDE**: Install the Raspberry Pi Pico boards on your Arduino IDE by following the steps [here](https://randomnerdtutorials.com/programming-raspberry-pi-pico-w-arduino-ide/).
-2. **Open in Arduino IDE:**: Open the file [launcher/picoware.ino](launcher/picoware.ino) in your Arduino IDE.
+2. **Open in Arduino IDE**: Open the file [picoware/picoware.ino](picoware/picoware.ino) in your Arduino IDE.
 3. **Build & Upload**: Connect your Raspberry Pi Pico board on flash mode then upload and build the Picoware on your Arduino IDE.
 
 ## Development Support
