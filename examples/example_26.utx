@@ -1,0 +1,5 @@
+#!/usr/local/bin/uartix
+# String operation example.
+
+render (~"Hello") + "\r\n";
+render "Go! " * 3;
