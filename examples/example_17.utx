@@ -5,3 +5,4 @@ render (true || false) +  "\r\n"; # Logical or
 render (true && false) +  "\r\n"; # Logical and
 render (8 | 9) +  "\r\n";         # Bitwise or
 render (8 & 9) +  "\r\n";         # Bitwise and
+render (8 ^ 9) + "\r\n";          # Bitwise xor

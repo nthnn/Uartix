@@ -1,0 +1,9 @@
+#!/usr/local/bin/uartix
+# Comparison operator examples.
+
+render (8 == 9) +  "\r\n";   # Equals
+render (8 != 9) +  "\r\n";   # Not equals
+render (8 < 9) +  "\r\n";    # Less than equals
+render (8 > 9) +  "\r\n";    # Greater than equals
+render (8 <= 9) +  "\r\n";   # Less than equals
+render (8 >= 9) +  "\r\n";   # Greater than equals

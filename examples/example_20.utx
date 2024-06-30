@@ -1,0 +1,8 @@
+#!/usr/local/bin/uartix
+# Term and factor operator examples.
+
+render (8 + 9) +  "\r\n";  # Add
+render (8 - 9) +  "\r\n";  # Subtract
+render (8 / 9) +  "\r\n";  # Divide
+render (8 * 9) +  "\r\n";  # Multiply
+render (8 % 9) +  "\r\n";  # Reminder/Modulus

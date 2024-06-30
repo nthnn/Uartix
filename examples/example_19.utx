@@ -1,0 +1,5 @@
+#!/usr/local/bin/uartix
+# Shift operator examples.
+
+render (8 << 9) + "\r\n"; # Left shift expression
+render (8 >> 9) + "\r\n"; # Right shift expression
