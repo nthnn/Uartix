@@ -10,6 +10,7 @@ cargo build --release --target x86_64-pc-windows-gnu
 cd ..
 
 cp out/artifacts/Uartix_jar/Uartix.jar dist/uartix_0.1.0-1_amd64/opt/uartix/
+cp -r examples dist/uartix_0.1.0-1_amd64/opt/uartix/
 cp launcher/target/release/uartix dist/uartix_0.1.0-1_amd64/usr/local/bin/
 
 touch dist/uartix_0.1.0-1_amd64/DEBIAN/control
@@ -27,6 +28,7 @@ cd ..
 mkdir -p dist/uartix_0.1.0-1_win_x86_64/bin
 cp out/artifacts/Uartix_jar/Uartix.jar dist/uartix_0.1.0-1_win_x86_64/bin
 cp launcher/target/x86_64-pc-windows-gnu/release/uartix.exe dist/uartix_0.1.0-1_win_x86_64/bin
+cp -r examples dist/uartix_0.1.0-1_win_x86_64/examples
 cd dist/uartix_0.1.0-1_win_x86_64
 zip -5 -r ../uartix_0.1.0-1_win_x86_64.zip *
 
