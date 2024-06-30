@@ -80,7 +80,7 @@ html(lang="en")
               p This documentation provides a comprehensive guide to the expression and statement constructs in Uartix, based on its Backus-Naur Form (BNF) grammar definition. Each construct is explained in detail with examples to illustrate their usage.
               br
 
-              h5(class="border-bottom pb-2 fw-bold") Expression 
+              h5(class="border-bottom pb-2 fw-bold") Expressions
               p Expressions in Uartix are the building blocks for creating and manipulating data. They can range from simple literals to complex operations involving multiple constructs.
               br
 
@@ -383,11 +383,66 @@ html(lang="en")
                 pre(class="border border-primary p-2")
                   | <span class="text-success"><i># Term and factor operator examples.</i></span>
                   |
-                  | <span class="text-primary">render</span> (8 + 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Add</i></span>
-                  | <span class="text-primary">render</span> (8 - 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Subtract</i></span>
-                  | <span class="text-primary">render</span> (8 / 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Divide</i></span>
-                  | <span class="text-primary">render</span> (8 * 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Multiply</i></span>
-                  | <span class="text-primary">render</span> (8 % 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Reminder/Modulus</i></span>
+                  | <span class="text-primary">render</span> (8 + 9) + <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Add</i></span>
+                  | <span class="text-primary">render</span> (8 - 9) + <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Subtract</i></span>
+                  | <span class="text-primary">render</span> (8 / 9) + <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Divide</i></span>
+                  | <span class="text-primary">render</span> (8 * 9) + <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Multiply</i></span>
+                  | <span class="text-primary">render</span> (8 % 9) + <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Reminder/Modulus</i></span>
+              br
+
+              b(class="pb-2") Literal Expressions 
+              p These represent constant values in the language.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_21.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Literal expression examples.</i></span>
+                  |
+                  | <span class="text-primary">render</span> 3.14 + <span class="text-warning">&quot;\r\n&quot;</span>;   <span class="text-success"><i># Number</i></span>
+                  | <span class="text-primary">render</span> <span class="text-primary">true</span> + <span class="text-warning">&quot;\r\n&quot;</span>;   <span class="text-success"><i># True</i></span>
+                  | <span class="text-primary">render</span> <span class="text-primary">false</span> + <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># False</i></span>
+                  | <span class="text-primary">render</span> <span class="text-primary">nil</span>;             <span class="text-success"><i># Nil expression</i></span>
+              br
+
+              h5(class="border-bottom pb-2 fw-bold") Statements
+              p Statements in Uartix are instructions that perform actions. They can control the flow of execution, declare variables, or perform expressions.
+              br
+
+              b(class="pb-2") Break Statement 
+              p The break statement exits the nearest enclosing loop.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_22.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Break loop if i is 5.</i></span>
+                  |
+                  | <span class="text-primary">loop</span>(i = 0; i &lt; 10; i = i + 1) {
+                  |     <span class="text-primary">if</span>(i == 5) {
+                  |         <span class="text-primary">break</span>;
+                  |     };
+                  |
+                  |     <span class="text-primary">render</span> i + <span class="text-warning">&quot;\r\n&quot;;
+                  | };
+              br
+
+              b(class="pb-2") Continue Statement
+              p The continue statement skips the current iteration of the nearest enclosing loop and proceeds with the next iteration.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_23.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Skip loop iteration if i is even number.</i></span>
+                  |
+                  | <span class="text-primary">loop</span>(i = 0; i &lt; 10; i = i + 1) {
+                  |     <span class="text-primary">if</span>(i % 2 == 0) {
+                  |         <span class="text-primary">continue</span>;
+                  |     };
+                  |
+                  |     <span class="text-primary">render</span> i + <span class="text-warning">&quot;\r\n&quot;;
+                  | };
               br
 
             div(class="col-lg-2")
