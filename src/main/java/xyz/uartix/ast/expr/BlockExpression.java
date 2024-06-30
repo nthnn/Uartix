@@ -53,7 +53,7 @@ public class BlockExpression implements Expression {
             if (statement instanceof ReturnStatement)
                 statement.visit(childTab);
 
-            statement.visit(childTab);
+            value = statement.visit(childTab);
         }
 
         return value;
