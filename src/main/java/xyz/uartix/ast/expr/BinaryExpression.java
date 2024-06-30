@@ -136,25 +136,25 @@ public class BinaryExpression implements Expression {
         }
         else if(Objects.equals(operator, "<")) {
             if(leftValue instanceof Double && rightValue instanceof Double)
-                return UartOperation.lt((double) leftValue, (double) rightValue);
+                return UartOperation.lt((double) leftValue, (double) rightValue) == 1.0;
 
             throw invalidVisit;
         }
         else if(Objects.equals(operator, "<=")) {
             if(leftValue instanceof Double && rightValue instanceof Double)
-                return UartOperation.le((double) leftValue, (double) rightValue);
+                return UartOperation.le((double) leftValue, (double) rightValue) == 1.0;
 
             throw invalidVisit;
         }
         else if(Objects.equals(operator, ">")) {
             if(leftValue instanceof Double && rightValue instanceof Double)
-                return UartOperation.gt((double) leftValue, (double) rightValue);
+                return UartOperation.gt((double) leftValue, (double) rightValue) == 1.0;
 
             throw invalidVisit;
         }
         else if(Objects.equals(operator, ">=")) {
             if(leftValue instanceof Double && rightValue instanceof Double)
-                return UartOperation.ge((double) leftValue, (double) rightValue);
+                return UartOperation.ge((double) leftValue, (double) rightValue) == 1.0;
 
             throw invalidVisit;
         }
