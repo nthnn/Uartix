@@ -2,4 +2,7 @@
 # Get the type of variable x.
 
 x = type "Hello!";
-render x;
+render x + "\r\n";
+
+y = type 3.14;
+render y + "\r\n";

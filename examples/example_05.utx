@@ -1,0 +1,12 @@
+#!/usr/local/bin/uartix
+# Throw and catch example
+
+catch {
+    throw "This is an error.";
+}
+handle e {
+    render "Error: " + e + "\r\n";
+}
+then {
+    render "Error was caught.\r\n";
+};

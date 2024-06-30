@@ -1,0 +1,5 @@
+#!/usr/local/bin/uartix
+# Render expression examples.
+
+render "Hello, world!\r\n";
+render 3.14;
