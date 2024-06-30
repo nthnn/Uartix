@@ -49,16 +49,11 @@ public class BlockExpression implements Expression {
         SymbolTable childTab = new SymbolTable(symtab);
         Object value = null;
 
-        try {
-            for (Statement statement : this.statements) {
-                if (statement instanceof ReturnStatement)
-                    statement.visit(childTab);
+        for (Statement statement : this.statements) {
+            if (statement instanceof ReturnStatement)
+                statement.visit(childTab);
 
-                value = statement.visit(childTab);
-            }
-        }
-        catch(TerminatoryObject obj) {
-            return obj.getObject();
+            statement.visit(childTab);
         }
 
         return value;

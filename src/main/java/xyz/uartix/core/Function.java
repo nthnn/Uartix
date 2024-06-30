@@ -53,7 +53,16 @@ public class Function {
 
         for(int i = 0; i < this.parameters.size(); i++)
             symtab.set(this.parameters.get(i), arguments.get(i));
-        return this.body.visit(symtab);
+
+        Object value = null;
+        try {
+            value = this.body.visit(symtab);
+        }
+        catch(TerminatoryObject obj) {
+            value = obj.getObject();
+        }
+
+        return value;
     }
 
     @Override
