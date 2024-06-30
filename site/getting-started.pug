@@ -76,7 +76,38 @@ html(lang="en")
             div(class="col-lg-2")
 
             div(class="col-lg-8")
-              h4(class="border-bottom pb-2 fw-bold") Prequesites
+              h4(class="border-bottom pb-2 fw-bold") Getting Started 
+              p Before installing Uartix, make sure you have JDK 22 (or OpenJDK) installed on your system. Follow the steps below to get started on different operating systems and to build various components from the source.
+              br
+
+              h5(class="border-bottom pb-2 fw-bold") Installing Uartix
+
+              b(class="pb-2") Linux
+              ol
+                li <b>Download the <code class="d-inline text-dark border border-dark px-1 fw-normal">.deb</code> File</b>: Go to the <a href="https://github.com/nthnn/Uartix/releases" class="text-decoration-none" target="_blank">release page</a> and download the latest <code class="d-inline text-dark border border-dark px-1">*.deb</code> file for Uartix.
+                li
+                  p <b>Install Uartix</b>: Open your terminal and navigate to the directory where the <code class="d-inline text-dark border border-dark px-1 fw-normal">.deb</code> file is located. Run the following command to install Uartix:
+                  div(class="bg-primary w-100")
+                    p(class="text-white m-0 ms-2") Terminal
+                  code(class="text-dark")
+                    pre(class="border border-primary p-2")
+                      | sudo dpkg -i uartix_*.deb
+                li <b>Running Uartix</b>: After successfully install the <code class="d-inline text-dark border border-dark px-1 fw-normal">.deb</code> package, you can now run the command uartix on your terminal.
+              br
+
+              b(class="pb-2") Windows
+              ol 
+                li <b>Download the <code class="d-inline text-dark border border-dark px-1 fw-normal">.zip</code> File</b>: Go to the <a href="https://github.com/nthnn/Uartix/releases" class="text-decoration-none" target="_blank">release page</a> and download the latest <code class="d-inline text-dark border border-dark px-1">.zip</code> file for Windows.
+                li <b>Extract the File</b>: Extract the contents of the <code class="d-inline text-dark border border-dark px-1">.zip</code> file to <code class="d-inline text-dark border border-dark px-1">C:\uartix</code>.
+                li <b>Set Environment Path</b> Add <code class="d-inline text-dark border border-dark px-1">C:\uartix\bin</code> to your Environment Path variables to ensure you can run Uartix from any command prompt.
+              br
+
+              b(class="pb-2") Firmware Installation 
+              p To install the Uartix firmware on your Raspberry Pi Pico, follow these steps:
+              ol
+                li <b>Enter Flash Mode</b>: Connect your Raspberry Pi Pico to your system while holding the <code class="d-inline text-dark border border-dark px-1">BOOTSEL</code> button to enter flash mode.
+                li <b>Download the UF2 Binary</b>: Download the UF2 binary of the Uartix firmware from the <a href="https://github.com/nthnn/Uartix/releases" class="text-decoration-none" target="_blank">release page</a>.
+                li <b>Install the Firmware</b>: Drag and drop the downloaded UF2 file into the Raspberry Pi Pico storage that appears on your computer.
 
             div(class="col-lg-2")
 
