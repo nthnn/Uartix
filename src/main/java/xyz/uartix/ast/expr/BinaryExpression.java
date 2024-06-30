@@ -75,6 +75,12 @@ public class BinaryExpression implements Expression {
                 case String _ when rightValue instanceof String ->
                     leftValue.toString() + rightValue;
 
+                case String _ when rightValue instanceof Boolean ->
+                    leftValue + (((boolean) rightValue) ? "true" : "false");
+
+                case Boolean _ when rightValue instanceof String ->
+                    (((boolean) leftValue) ? "true" : "false") + rightValue;
+
                 case null, default ->
                     throw invalidVisit;
             };
