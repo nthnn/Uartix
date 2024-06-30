@@ -553,6 +553,34 @@ public final class Parser {
 
             this.consume(")");
         }
+        else if(this.isNext("type"))
+            expr = this.exprType();
+        else if(this.isNext("{"))
+            expr = this.exprBlock();
+        else if(this.isNext("render"))
+            expr = this.exprRender();
+        else if(this.isNext("catch"))
+            expr = this.exprCatch();
+        else if(this.isNext("do"))
+            expr = this.exprDo();
+        else if(this.isNext("while"))
+            expr = this.exprWhile();
+        else if(this.isNext("if"))
+            expr = this.exprIf();
+        else if(this.isNext("random"))
+            expr = this.exprRandom();
+        else if(this.isNext("loop"))
+            expr = this.exprLoop();
+        else if(this.isNext("unless"))
+            expr = this.exprUnless();
+        else if(this.isNext("when"))
+            expr = this.exprWhen();
+        else if(this.isNext("func"))
+            expr = this.exprFunc();
+        else if(this.isNext("maybe"))
+            expr = this.exprMaybe();
+        else if(this.isNext("["))
+            expr = this.exprArray();
         else if(this.peek().getType() == TokenType.IDENTIFIER) {
             expr = new IdentifierExpression(this.consume(TokenType.IDENTIFIER));
 
@@ -607,39 +635,7 @@ public final class Parser {
     }
 
     private Expression expression() throws ParserException, IOException {
-        Expression expr = null;
-
-        if(this.isNext("type"))
-            expr = this.exprType();
-        else if(this.isNext("{"))
-            expr = this.exprBlock();
-        else if(this.isNext("render"))
-            expr = this.exprRender();
-        else if(this.isNext("catch"))
-            expr = this.exprCatch();
-        else if(this.isNext("do"))
-            expr = this.exprDo();
-        else if(this.isNext("while"))
-            expr = this.exprWhile();
-        else if(this.isNext("if"))
-            expr = this.exprIf();
-        else if(this.isNext("random"))
-            expr = this.exprRandom();
-        else if(this.isNext("loop"))
-            expr = this.exprLoop();
-        else if(this.isNext("unless"))
-            expr = this.exprUnless();
-        else if(this.isNext("when"))
-            expr = this.exprWhen();
-        else if(this.isNext("func"))
-            expr = this.exprFunc();
-        else if(this.isNext("maybe"))
-            expr = this.exprMaybe();
-        else if(this.isNext("["))
-            expr = this.exprArray();
-        else expr = this.exprLogicOr();
-
-        return expr;
+        return this.exprLogicOr();
     }
 
     private Statement statement() throws ParserException, IOException {
