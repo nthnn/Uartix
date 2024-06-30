@@ -484,6 +484,65 @@ html(lang="en")
                   | <span class="text-primary">handle</span> error {
                   |     <span class="text-primary">render</span> <span class="text-warning">&quot;Error: &quot;</span> + error + <span class="text-warning">&quot;\r\n&quot;</span>;
                   | };
+              br
+
+              h5(class="border-bottom pb-2 fw-bold") Strings
+              p In Uartix, strings are sequences of characters enclosed in double quotes (&quot;). Strings are used to represent text and can contain a variety of characters, including letters, numbers, punctuation, and special characters.
+              p Additionally, strings can be concatenated using the + operator and can also be reversed with the ~ unary operator. The multiplication (*) operator can also multiply a string.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_26.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># String operation example.</i></span>
+                  |
+                  | <span class="text-primary">render</span> (~<span class="text-warning">&quot;Hello&quot;</span>) + "\r\n";
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;Go! &quot;</span> * 3;
+              br
+
+              b(class="pb-2") Escape Sequences 
+              p Escape sequences are used in strings to represent special characters that cannot be directly included in the string. An escape sequence begins with a backslash (\) followed by one or more characters. Uartix supports several escape sequences:
+
+              ul
+                li
+                  b Newline (\n)
+                  p Represents a newline character, which moves the cursor to the beginning of the next line.
+                li
+                  b Carriage Return (\r)
+                  p Represents a carriage return character, which moves the cursor to the beginning of the current line.
+                li
+                  b Tab (\t)
+                  p Represents a tab character, which moves the cursor to the next tab stop.
+                li
+                  b Backspace (\b)
+                  p Represents a backspace character, which moves the cursor one position to the left.
+                li
+                  b Form Feed (\f)
+                  p Represents a form feed character, which moves the cursor to the beginning of the next page.
+                li
+                  b Double Quote (\")
+                  p Represents a double quote character, allowing double quotes to be included within strings.
+                li 
+                  b Backslash (\\)
+                  p Represents a backslash character, allowing backslashes to be included within strings.
+                li
+                  b Unicode (\uXXXX)
+                  p Represents a Unicode character, where XXXX is a four-digit hexadecimal number corresponding to the Unicode code point.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_27.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># String escape sequence examples.</i></span>
+                  |
+                  | render "Hello,\nWorld!\r\n";
+                  | render "Hello,\rWorld!\r\n";
+                  | render "Hello,\tWorld!\r\n";
+                  | render "Hello,\bWorld!\r\n";
+                  | render "Hello,\fWorld!\r\n";
+                  | render "They say, \"Hello, World!\"\r\n";
+                  | render "This is a backslash: \\\r\n";
+                  | render "Smiley face: \u263A\r\n";
 
             div(class="col-lg-2")
 
