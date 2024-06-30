@@ -1,0 +1,7 @@
+#!/usr/local/bin/uartix
+# Literal expression examples.
+
+render 3.14 + "\r\n";   # Number
+render true + "\r\n";   # True
+render false + "\r\n";  # False
+render nil;             # Nil expression
