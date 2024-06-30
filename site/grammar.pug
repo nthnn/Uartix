@@ -158,9 +158,9 @@ html(lang="en")
                   | render_expr			:= &quot;render&quot; expression
                   |
                   | catch_expr			:=
-                  | 	&quot;catch&quot; expression
-                  | 	&quot;handle&quot; &lt;IDENTIFIER&gt; expression
-                  | 	&quot;then&quot; expression
+                  | 	&quot;catch&quot; block_expr
+                  | 	&quot;handle&quot; &lt;IDENTIFIER&gt; block_expr
+                  | 	&quot;then&quot; block_expr
                   |
                   | do_expr				:=
                   | 	&quot;do&quot; expression

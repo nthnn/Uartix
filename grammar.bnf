@@ -49,9 +49,9 @@ block_expr			:= "{" (statement)* "}"
 render_expr			:= "render" expression
 
 catch_expr			:=
-	"catch" expression
-	"handle" <IDENTIFIER> expression
-	"then" expression
+	"catch" block_expr
+	"handle" <IDENTIFIER> block_expr
+	"then" block_expr
 
 do_expr				:=
 	"do" expression
