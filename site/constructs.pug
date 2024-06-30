@@ -497,7 +497,7 @@ html(lang="en")
                 pre(class="border border-primary p-2")
                   | <span class="text-success"><i># String operation example.</i></span>
                   |
-                  | <span class="text-primary">render</span> (~<span class="text-warning">&quot;Hello&quot;</span>) + "\r\n";
+                  | <span class="text-primary">render</span> (~<span class="text-warning">&quot;Hello&quot;</span>) + <span class="text-warning">&quot;\r\n&quot;</span>;
                   | <span class="text-primary">render</span> <span class="text-warning">&quot;Go! &quot;</span> * 3;
               br
 
@@ -536,14 +536,14 @@ html(lang="en")
                 pre(class="border border-primary p-2")
                   | <span class="text-success"><i># String escape sequence examples.</i></span>
                   |
-                  | render "Hello,\nWorld!\r\n";
-                  | render "Hello,\rWorld!\r\n";
-                  | render "Hello,\tWorld!\r\n";
-                  | render "Hello,\bWorld!\r\n";
-                  | render "Hello,\fWorld!\r\n";
-                  | render "They say, \"Hello, World!\"\r\n";
-                  | render "This is a backslash: \\\r\n";
-                  | render "Smiley face: \u263A\r\n";
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;Hello,\nWorld!\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;Hello,\rWorld!\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;Hello,\tWorld!\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;Hello,\bWorld!\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;Hello,\fWorld!\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;They say, \&quot;Hello, World!\&quot;\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;This is a backslash: \\\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;Smiley face: \u263A\r\n&quot;</span>;
               br
 
               h5(class="border-bottom pb-2 fw-bold") Digits and Numbers
@@ -577,10 +577,10 @@ html(lang="en")
                   | octal_num   = 0c17;
                   | hex_num     = 0xf;
                   |
-                  | render binary_num + "\r\n";
-                  | render trinary_num + "\r\n";
-                  | render octal_num + "\r\n";
-                  | render hex_num + "\r\n";
+                  | <span class="text-primary">render</span> binary_num + <span class="text-warning">&quot;\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> trinary_num + <span class="text-warning">&quot;\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> octal_num + <span class="text-warning">&quot;\r\n&quot;</span>;
+                  | <span class="text-primary">render</span> hex_num + <span class="text-warning">&quot;\r\n&quot;</span>;
 
             div(class="col-lg-2")
 
