@@ -176,6 +176,113 @@ html(lang="en")
                   |     <span class="text-primary">render</span> count + <span class="text-warning">&quot;\r\n&quot;</span>;
                   |     count = count + 1;
                   | } <span class="text-primary">while</span>(count < 5);
+              br
+
+              b(class="pb-2") While Expression 
+              p While expressions execute a block of code as long as a condition is true.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_07.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Increment i variable using while</i></span>
+                  |
+                  | i = 0;
+                  | <span class="text-primary">while</span>(i < 10) {
+                  |     <span class="text-primary">render</span> i + <span class="text-warning">&quot;\r\n&quot;</span>;
+                  |     i = i + 1;
+                  | };
+              br
+
+              b(class="pb-2") If-else Expression 
+              p If expressions evaluate a condition and execute a block of code if the condition is true. Optionally, an else block can be provided for when the condition is false.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_08.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Checking x if positive or negative number with if-else</i></span>
+                  |
+                  | x = 10;
+                  | <span class="text-primary">if</span>(x &gt; 0)
+                  |     <span class="text-primary">render</span> <span class="text-warning">&quot;x is a positive number&quot;</span>
+                  | <span class="text-primary">else</span> <span class="text-primary">render</span> <span class="text-warning">&quot;x is a negative number&quot;</span>;
+              br
+
+              b(class="pb-2") Random Expression
+              p Random expressions execute a block of code randomly, with an optional else block for when the condition is not met.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_09.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Execute a render expression randomly.</i></span>
+                  |
+                  | <span class="text-primary">random</span>
+                  |     <span class="text-primary">render</span> <span class="text-warning">&quot;Randomly rendered string.\r\n&quot;</span>
+                  | <span class="text-primary">else</span> <span class="text-primary">render</span> <span class="text-warning">&quot;Executing the else-clause.\r\n&quot;</span>;
+              br
+
+              b(class="pb-2") Loop Expression 
+              p Loop expressions define a traditional for-loop structure.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_10.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Loop expression example equivalent to for-loop in other languages.</i></span>
+                  |
+                  | <span class="text-primary">loop</span>(i = 0; i < 10; i = i + 1)
+                  |     <span class="text-primary">render</span> i + <span class="text-warning">&quot;\r\n&quot;</span>;
+              br
+
+              b(class="pb-2") Unless Expression 
+              p Unless expressions execute a block of code if a condition is false, with an optional else block for when the condition is true.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_11.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Execute unless expression if x is not 0.</i></span>
+                  |
+                  | x = 3.14;
+                  | <span class="text-primary">unless</span>(x == 0)
+                  |     <span class="text-primary">render</span> <span class="text-warning">&quot;x is not zero.\r\n&quot;</span>
+                  | <span class="text-primary">else</span> <span class="text-primary">render</span> <span class="text-warning">&quot;x is zero\r\n&quot;</span>;
+
+              b(class="pb-2") When Expression 
+              p When expressions are used for pattern matching and conditional execution based on multiple conditions. The concept for this expression is same as the switch statement on other programming languages such as C/C++, Java, or C#.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_12.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># When expression to render equivalent day for a number.</i></span>
+                  |
+                  | day = 1;
+                  | <span class="text-primary">when</span>(day) {
+                  |     <span class="text-primary">if</span>(0) <span class="text-primary">render</span> <span class="text-warning">&quot;Monday&quot;</span>,
+                  |     <span class="text-primary">if</span>(1) <span class="text-primary">render</span> <span class="text-warning">&quot;Tuesday&quot;</span>,
+                  |     <span class="text-primary">if</span>(2) <span class="text-primary">render</span> <span class="text-warning">&quot;Wednesday&quot;</span>,
+                  |     <span class="text-primary">if</span>(3) <span class="text-primary">render</span> <span class="text-warning">&quot;Thursday&quot;</span>,
+                  |     <span class="text-primary">if</span>(4) <span class="text-primary">render</span> <span class="text-warning">&quot;Friday&quot;</span>,
+                  |     <span class="text-primary">else</span>  <span class="text-primary">render</span> <span class="text-warning">&quot;Weekday&quot;</span>
+                  | };
+              br
+
+              b(class="pb-2") Maybe Expression 
+              p The maybe expression in Uartix is a boolean value. However, it only acquires a boolean value on runtime with either true or false randomly from the Raspberry Pi Pico.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_13.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Print a string if the maybe has a true value.</i></span>
+                  |
+                  | should_print = <span class="text-primary">maybe</span>;
+                  | <span class="text-primary">if</span>(should_print)
+                  |     <span class="text-primary">render</span> <span class="text-warning">&quot;Maybe had a true value.&quot;</span>
+                  | <span class="text-primary">else</span> <span class="text-primary">render</span> <span class="text-warning">&quot;Maybe had a false value.&quot;</span>;
 
             div(class="col-lg-2")
 
