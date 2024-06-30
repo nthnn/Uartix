@@ -24,11 +24,11 @@ dpkg-deb --build uartix_0.1.0-1_amd64
 rm -rf uartix_0.1.0-1_amd64
 cd ..
 
-mkdir -p dist/uartix_0.1.0-1_x86_64/bin
-cp out/artifacts/Uartix_jar/Uartix.jar dist/uartix_0.1.0-1_x86_64/bin
-cp launcher/target/x86_64-pc-windows-gnu/release/uartix.exe dist/uartix_0.1.0-1_x86_64/bin
-cd dist/uartix_0.1.0-1_x86_64
-zip -5 -r ../uartix_0.1.0-1_x86_64.zip *
+mkdir -p dist/uartix_0.1.0-1_win_x86_64/bin
+cp out/artifacts/Uartix_jar/Uartix.jar dist/uartix_0.1.0-1_win_x86_64/bin
+cp launcher/target/x86_64-pc-windows-gnu/release/uartix.exe dist/uartix_0.1.0-1_win_x86_64/bin
+cd dist/uartix_0.1.0-1_win_x86_64
+zip -5 -r ../uartix_0.1.0-1_win_x86_64.zip *
 
 cd ../..
-rm -rf dist/uartix_0.1.0-1_x86_64
+rm -rf dist/uartix_0.1.0-1_win_x86_64
