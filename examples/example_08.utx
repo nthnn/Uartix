@@ -1,0 +1,7 @@
+#!/usr/local/bin/uartix
+# Checking x if positive or negative number with if-else
+
+x = 10;
+if(x > 0)
+    render "x is a positive number\r\n"
+else render "x is a negative number\r\n";

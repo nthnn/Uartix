@@ -1,0 +1,7 @@
+#!/usr/local/bin/uartix
+# Print a string if the maybe has a true value.
+
+should_print = maybe;
+if(should_print)
+    render "Maybe had a true value.\r\n"
+else render "Maybe had a false value.\r\n";

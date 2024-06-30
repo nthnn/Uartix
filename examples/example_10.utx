@@ -1,0 +1,5 @@
+#!/usr/local/bin/uartix
+# Loop expression example equivalent to for-loop in other languages.
+
+loop(i = 0; i < 10; i = i + 1)
+    render i+ "\r\n";

@@ -1,0 +1,7 @@
+#!/usr/local/bin/uartix
+# Execute unless expression if x is not 0.
+
+x = 3.14;
+unless(x == 0)
+    render "x is not zero.\r\n"
+else render "x is zero\r\n";

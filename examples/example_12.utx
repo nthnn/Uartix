@@ -1,0 +1,12 @@
+#!/usr/local/bin/uartix
+# When expression to render equivalent day for a number.
+
+day = 1;
+when(day) {
+    if(0) render "Monday",
+    if(1) render "Tuesday",
+    if(2) render "Wednesday",
+    if(3) render "Thursday",
+    if(4) render "Friday",
+    else  render "Weekday"
+};

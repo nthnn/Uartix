@@ -1,0 +1,6 @@
+#!/usr/local/bin/uartix
+# Execute a render expression randomly.
+
+random
+    render "Randomly rendered string.\r\n"
+else render "Executing the else-clause.\r\n";
