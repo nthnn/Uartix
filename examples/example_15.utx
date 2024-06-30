@@ -1,0 +1,5 @@
+#!/usr/local/bin/uartix
+# Simple array example.
+
+array = ["Hello", "Kamusta", "Konnichiwa"];
+render array[1] + "\r\n";
