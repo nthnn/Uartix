@@ -543,6 +543,43 @@ html(lang="en")
                   | render "They say, \"Hello, World!\"\r\n";
                   | render "This is a backslash: \\\r\n";
                   | render "Smiley face: \u263A\r\n";
+              br
+
+              h5(class="border-bottom pb-2 fw-bold") Digits and Numbers
+              p In Uartix, numbers are a fundamental data type used for arithmetic operations, comparisons, and other numerical computations. Uartix supports a variety of numerical formats, including standard decimal numbers, as well as binary, trinary, octal, and hexadecimal numbers. This allows developers to work with different numerical bases efficiently.
+
+              ul
+                li
+                  b Decimal Numbers
+                  p Decimal numbers are the most commonly used numerical format. They can include integer values or floating-point values with decimals. Uartix uses double-precision floating-point representation for numbers with decimals, ensuring high accuracy for mathematical computations.
+                li
+                  b Binary Numbers
+                  p Binary numbers in Uartix are prefixed with <code class="d-inline text-dark border border-dark px-1">0b</code> and consist of the digits 0 and 1. This format is useful for low-level programming, bitwise operations, and when working with binary data.
+                li
+                  b Trinary Numbers
+                  p Trinary numbers are prefixed with <code class="d-inline text-dark border border-dark px-1">0t</code> and can include the digits 0, 1, and 2. While less common than other bases, trinary can be useful in specific computational contexts.
+                li
+                  b Octal Numbers
+                  p Octal numbers are prefixed with <code class="d-inline text-dark border border-dark px-1">0c</code> and use the digits 0 through 7. Octal representation is often used in computing for compact binary representation, as each octal digit corresponds to three binary digits.
+                li
+                  b Hexadecimal Numbers
+                  p Hexadecimal numbers are prefixed with <code class="d-inline text-dark border border-dark px-1">0x</code> and can include the digits 0 through 9 and the letters a through f (or A through F). Hexadecimal is widely used in computing for memory addresses, color codes, and other applications requiring a compact representation of binary data.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_28.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Different number bases examples.</i></span>
+                  |
+                  | binary_num  = 0b1101;
+                  | trinary_num = 0t102;
+                  | octal_num   = 0c17;
+                  | hex_num     = 0xf;
+                  |
+                  | render binary_num + "\r\n";
+                  | render trinary_num + "\r\n";
+                  | render octal_num + "\r\n";
+                  | render hex_num + "\r\n";
 
             div(class="col-lg-2")
 
