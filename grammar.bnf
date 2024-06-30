@@ -1,0 +1,149 @@
+binary				:= "0b" ("0" | "1")*
+trinary				:= "0t" ("0" - "2")*
+octadecimal			:= "0c" ("0" - "7")*
+hexadecimal			:= "0x" ("0" - "9" | "a" - "f" | "A" - "F")*
+
+DIGIT				:=
+	("0" - "9")*	|
+	binary			|
+	trinary			|
+	octadecimal		|
+	hexadecimal
+
+global				:= (statement)*
+
+statement			:=
+	break_stmt		|
+	continue_stmt	|
+	ret_stmt		|
+	throw_stmt		|
+	expr_stmt
+
+break_stmt			:= "break" ";"
+continue_stmt		:= "continue" ";"
+ret_stmt			:= "ret" expression ";"
+throw_stmt			:= "throw" expression ";"
+expr_stmt			:= expression ";"
+
+expression			:=
+	type_expr		|
+	block_expr		|
+	render_expr		|
+	catch_expr		|
+	do_expr			|
+	while_expr		|
+	if_expr			|
+	random_expr		|
+	loop_expr		|
+	unless_expr		|
+	when_expr		|
+	func_expr		|
+	maybe_expr		|
+	array_expr		|
+	logic_or_expr
+
+type_expr			:= "type" expression
+
+block_expr			:= "{" (statement)* "}"
+
+render_expr			:= "render" expression
+
+catch_expr			:=
+	"catch" expression
+	"handle" <IDENTIFIER> expression
+	"then" expression
+
+do_expr				:=
+	"do" expression
+	"while" "(" expression ")"
+
+while_expr			:=
+	"while" "(" expression ")" expression
+
+if_expr				:=
+	"if" "(" expression ")" expression
+	["else" expression]
+
+random_expr			:=
+	"random" expression
+	["else" expression]
+
+loop_expr			:=
+	"loop" "("
+		expression ";"
+		expression ";"
+		expression
+	")" expression
+
+unless_expr			:=
+	"unless" "(" expression ")" expression
+	["else" expression]
+
+when_expr			:=
+	"when" "(" expression ")" "{"
+		[
+			"if" "(" expression ")" expression
+			("," "if" "(" expression ")" expression)*
+		]
+		["else" expression]
+	"}"
+
+maybe_expr			:= "maybe"
+
+func_expr			:=
+	"func" "(" [<IDENTIFIER> ("," <IDENTIFIER>)*] ")"
+		expression
+
+array_expr			:=
+	"[" [expression ("," expression)*] "]"
+
+logic_or_expr		:=
+	logic_and_expr ["||" logic_and_expr]
+
+logic_and_expr		:=
+	bitwise_or_expr ["&&" bitwise_or_expr]
+
+bitwise_or_expr 	:=
+	bitwise_xor_expr ["|" bitwise_xor_expr]
+
+bitwise_xor_expr	:=
+	bitwise_and_expr ["^" bitwise_and_expr]
+
+bitwise_and_expr	:=
+	null_coalesce_expr ["&" null_coalesce_expr]
+
+null_coalesce_expr	:=
+	equality_expr ["?" equality_expr]
+
+equality_expr		:=
+	comparison_expr [("==" | "!=" | "=") comparison_expr]
+
+comparison_expr		:=
+	shift_expr [("<" | "<=" | ">" | ">=") shift_expr]
+
+shift_expr			:=
+	term_expr [("<<" | ">>") term_expr]
+
+term_expr			:=
+	factor_expr [("+" | "-") factor_expr]
+
+factor_expr			:=
+	primary_expr [("*" | "/" | "%) primary_expr]
+
+primary_expr		:=
+	(
+		("+" | "-" | "~") expression |
+		"(" expression ")" |
+		<IDENTIFIER> ("[" expression "]")* |
+		literal_expr
+	)
+
+	(
+		"(" [expression ("," expression)*] ")" |
+		"[" expression"]"
+	)*
+
+literal_expr		:=
+	"true" | "false" | "nil" |
+	<STRING> |
+	<DIGIT>
