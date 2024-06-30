@@ -1,0 +1,8 @@
+#!/usr/local/bin/uartix
+# Return value from a function.
+
+add = func(x, y) {
+    ret x + y;
+};
+
+render "The sum of x and y is " + add(8, 9);

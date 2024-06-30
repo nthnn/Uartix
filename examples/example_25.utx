@@ -1,0 +1,17 @@
+#!/usr/local/bin/uartix
+# Throw with string expression example.
+
+check_value = func(value) {
+    if(value < 0) {
+        throw "Negative value not allowed!";
+    };
+
+    ret value;
+};
+
+catch {
+    check_value(-1);
+}
+handle error {
+    render "Error: " + error + "\r\n";
+};
