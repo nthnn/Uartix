@@ -58,13 +58,13 @@ html(lang="en")
                 br(class="mobile-only")
                 ul(class="navbar-nav me-auto mb-2 mb-lg-0 d-md-flex d-block flex-row mx-md-auto mx-0")
                   li(class="nav-item")
-                    a(class="nav-link active", href="index.pug") Home
+                    a(class="nav-link", href="index.pug") Home
                   li(class="nav-item")
-                    a(class="nav-link", href="#") Getting Started
+                    a(class="nav-link", href="getting-started.pug") Getting Started
                   li(class="nav-item")
                     a(class="nav-link", href="grammar.pug") Grammar Definition
                   li(class="nav-item")
-                    a(class="nav-link", href="constructs.pug") Language Constructs
+                    a(class="nav-link active fw-bold", href="#") Language Constructs
                   li(class="nav-item")
                     a(class="nav-link", href="https://github.com/nthnn/Uartix", target="_blank") GitHub
 
@@ -77,6 +77,105 @@ html(lang="en")
 
             div(class="col-lg-8")
               h4(class="border-bottom pb-2 fw-bold") Language Constructs
+              p This documentation provides a comprehensive guide to the expression and statement constructs in Uartix, based on its Backus-Naur Form (BNF) grammar definition. Each construct is explained in detail with examples to illustrate their usage.
+              br
+
+              h5(class="border-bottom pb-2 fw-bold") Expression 
+              p Expressions in Uartix are the building blocks for creating and manipulating data. They can range from simple literals to complex operations involving multiple constructs.
+              br
+
+              b(class="pb-2") Type Expression 
+              p Type expressions are used to specify the type of an expression. This can be useful for type checking and ensuring that the data conforms to expected types.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_01.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | # Get the type of variable x.
+                  |
+                  | x = type "Hello!";
+                  | render x + "\r\n";
+                  |
+                  | y = type 3.14;
+                  | render y + "\r\n";
+              br
+
+              b(class="pb-2") Block Expressions
+              p Block expressions group multiple statements together within braces. They are used to create a scope for variables and control flow.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_02.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | # Block example as function body.
+                  |
+                  | add = func(x, y) {
+                  |     ret x + y;
+                  | };
+                  |
+                  | render add(5, 10);
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_03.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | # Block example as variable value.
+                  |
+                  | message = {
+                  |     hello = "Hello";
+                  |     hello + ", world!";
+                  | };
+                  |
+                  | render message + "\r\n";
+              br
+
+              b(class="pb-2") Render Expression
+              p Render expressions are used to output the value of an expression. This is similar to a print statement in other languages.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_04.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | # Render expression examples.
+                  |
+                  | render "Hello, world!\r\n";
+                  | render 3.14;
+              br
+
+              b(class="pb-2") Catch Expression
+              p Catch expressions handle exceptions that may occur during the evaluation of an expression. Catch-handle expression is the equivalent of try-catch in other programming languages.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_05.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | # Throw and catch example
+                  |
+                  | catch {
+                  |     throw "This is an error.";
+                  | }
+                  | handle e {
+                  |     render "Error: " + e + "\r\n";
+                  | }
+                  | then {
+                  |     render "Error was caught.\r\n";
+                  | };
+              br
+
+              b(class="pb-2") Do Expression 
+              p Do expressions execute a block of code repeatedly while a condition is true. However, unlike a while expression, it first executes the block before the condition.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_06.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | # Increment count variable using do
+                  |
+                  | count = 0;
+                  | do {
+                  |     render count + "\r\n";
+                  |     count = count + 1;
+                  | } while(count < 5);
 
             div(class="col-lg-2")
 

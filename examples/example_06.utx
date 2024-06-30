@@ -1,0 +1,8 @@
+#!/usr/local/bin/uartix
+# Increment count variable using do
+
+count = 0;
+do {
+    render count + "\r\n";
+    count = count + 1;
+} while(count < 5);
