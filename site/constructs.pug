@@ -283,6 +283,112 @@ html(lang="en")
                   | <span class="text-primary">if</span>(should_print)
                   |     <span class="text-primary">render</span> <span class="text-warning">&quot;Maybe had a true value.&quot;</span>
                   | <span class="text-primary">else</span> <span class="text-primary">render</span> <span class="text-warning">&quot;Maybe had a false value.&quot;</span>;
+              br
+
+              b(class="pb-2") Function Expression 
+              p Function expressions define a function with optional parameters and a body.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_14.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Function example for printing a greeting message.</i></span>
+                  |
+                  | greet = <span class="text-primary">func</span>(name) {
+                  |     <span class="text-primary">render</span> <span class="text-warning">&quot;Hello, &quot;</span> + name + <span class="text-warning">&quot;!\r\n&quot;</span>;
+                  | };
+                  |
+                  | greet(<span class="text-warning">&quot;world&quot;</span>);
+              br
+              
+              b(class="pb-2") Array Expressions 
+              p Array expressions create an array of values and/or elements. An array might contain combinations of number, string, function, nil, boolean values, or even another array.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_15.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Simple array example.</i></span>
+                  |
+                  | array = [<span class="text-warning">&quot;Hello&quot;</span>, <span class="text-warning">&quot;Kamusta&quot;</span>, <span class="text-warning">&quot;Konnichiwa&quot;</span>];
+                  | <span class="text-primary">render</span> array[1] + <span class="text-warning">&quot;\r\n&quot;</span>;
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_16.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Multidimensional array example.</i></span>
+                  |
+                  | array = [[0, 1, 2], [3, 4, 5], [6, 7, 8]];
+                  | <span class="text-primary">render</span> array;
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;\r\n&quot;</span>;
+                  |
+                  | array[1][1] = <span class="text-warning">&quot;Four&quot;</span>;
+                  | <span class="text-primary">render</span> array;
+                  | <span class="text-primary">render</span> <span class="text-warning">&quot;\r\n&quot;</span>;
+              br
+
+              b(class="pb-2") Logical and Bitwise Expressions
+              p These expressions perform logical and bitwise operations. While the logical operators (|| and &ampt&amp;) returns boolean values, the bitwise operators (| and &amp;) returns number values.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_17.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Logical and bitwise operation examples.</i></span>
+                  |
+                  | <span class="text-primary">render</span> (<span class="text-primary">true</span> || <span class="text-primary">false</span>) +  <span class="text-warning">&quot;\r\n&quot;</span>; <span class="text-success"><i># Logical or</i></span>
+                  | <span class="text-primary">render</span> (<span class="text-primary">true</span> &amp;&amp; <span class="text-primary">false</span>) +  <span class="text-warning">&quot;\r\n&quot;</span>; <span class="text-success"><i># Logical and</i></span>
+                  | <span class="text-primary">render</span> (8 | 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;         <span class="text-success"><i># Bitwise or</i></span>
+                  | <span class="text-primary">render</span> (8 &amp; 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;         <span class="text-success"><i># Bitwise and</i></span>
+                  | <span class="text-primary">render</span> (8 ^ 9) + <span class="text-warning">&quot;\r\n&quot;</span>;          <span class="text-success"><i># Bitwise xor</i></span>
+              br
+
+              b(class="pb-2") Equality and Comparison Expressions
+              p These expressions compare expressions and returns boolean values.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_18.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Comparison operator examples.</i></span>
+                  |
+                  | <span class="text-primary">render</span> (8 == 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;   <span class="text-success"><i># Equals</i></span>
+                  | <span class="text-primary">render</span> (8 != 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;   <span class="text-success"><i># Not equals</i></span>
+                  | <span class="text-primary">render</span> (8 &lt; 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;    <span class="text-success"><i># Less than equals</i></span>
+                  | <span class="text-primary">render</span> (8 &gt; 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;    <span class="text-success"><i># Greater than equals</i></span>
+                  | <span class="text-primary">render</span> (8 &lt;= 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;   <span class="text-success"><i># Less than equals</i></span>
+                  | <span class="text-primary">render</span> (8 &gt;= 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;   <span class="text-success"><i># Greater than equals</i></span>
+              br
+
+              b(class="pb-2") Shift Expressions 
+              p These expressions perform bitwise shift operations.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_19.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Shift operator examples.</i></span>
+                  |
+                  | <span class="text-primary">render</span> (8 &lt;&lt; 9) + <span class="text-warning">&quot;\r\n&quot;</span>; <span class="text-success"><i># Left shift expression</i></span>
+                  | <span class="text-primary">render</span> (8 &gt;&gt; 9) + <span class="text-warning">&quot;\r\n&quot;</span>; <span class="text-success"><i># Right shift expression</i></span>
+              br
+
+              b(class="pb-2") Term and Factor Expressions
+              p These expressions perform basic arithmetic operations.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_20.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Term and factor operator examples.</i></span>
+                  |
+                  | <span class="text-primary">render</span> (8 + 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Add</i></span>
+                  | <span class="text-primary">render</span> (8 - 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Subtract</i></span>
+                  | <span class="text-primary">render</span> (8 / 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Divide</i></span>
+                  | <span class="text-primary">render</span> (8 * 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Multiply</i></span>
+                  | <span class="text-primary">render</span> (8 % 9) +  <span class="text-warning">&quot;\r\n&quot;</span>;  <span class="text-success"><i># Reminder/Modulus</i></span>
+              br
 
             div(class="col-lg-2")
 
