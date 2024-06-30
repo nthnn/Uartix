@@ -58,9 +58,9 @@ html(lang="en")
                 br(class="mobile-only")
                 ul(class="navbar-nav me-auto mb-2 mb-lg-0 d-md-flex d-block flex-row mx-md-auto mx-0")
                   li(class="nav-item")
-                    a(class="nav-link active", href="index.pug") Home
+                    a(class="nav-link", href="index.pug") Home
                   li(class="nav-item")
-                    a(class="nav-link", href="#") Getting Started
+                    a(class="nav-link active fw-bold", href="#") Getting Started
                   li(class="nav-item")
                     a(class="nav-link", href="grammar.pug") Grammar Definition
                   li(class="nav-item")
@@ -108,6 +108,43 @@ html(lang="en")
                 li <b>Enter Flash Mode</b>: Connect your Raspberry Pi Pico to your system while holding the <code class="d-inline text-dark border border-dark px-1">BOOTSEL</code> button to enter flash mode.
                 li <b>Download the UF2 Binary</b>: Download the UF2 binary of the Uartix firmware from the <a href="https://github.com/nthnn/Uartix/releases" class="text-decoration-none" target="_blank">release page</a>.
                 li <b>Install the Firmware</b>: Drag and drop the downloaded UF2 file into the Raspberry Pi Pico storage that appears on your computer.
+              br
+
+              h5(class="border-bottom pb-2 fw-bold") Building from Source
+
+              b(class="pb-2") Interpreter
+              p To build the interpreter:
+              ol
+                li <b>Open in IntelliJ</b>: Open the Uartix repository in IntelliJ IDEA.
+                li <b>Build Artifacts</b>: From the menu, go to <code class="d-inline text-dark border border-dark px-1">Build</code> menu item and select <code class="d-inline text-dark border border-dark px-1">Build Artifacts &gt; Build</code>.
+              br
+
+              b(class="pb-2") Launcher
+              p On Ubuntu, to build the Uartix launcher, ensure you have Rust and cargo installed on your system. Follow these steps:
+              ol
+                li
+                  b Install Dependencies:
+                  div(class="bg-primary w-100 mt-2")
+                    p(class="text-white m-0 ms-2") Terminal
+                  code(class="text-dark")
+                    pre(class="border border-primary p-2")
+                      | sudo apt-get install mingw-w64
+                      | rustup target add x86_64-pc-windows-gnu
+                li <b>Build the Launcher</b>: Run the following commands to build the launcher:
+                  div(class="bg-primary w-100 mt-2")
+                    p(class="text-white m-0 ms-2") Terminal
+                  code(class="text-dark")
+                    pre(class="border border-primary p-2")
+                      | cargo build --release
+                      | cargo build --release --target x86_64-pc-windows-gnu
+              br
+
+              b(class="pb-2") Firmware
+              p To build the Uartix firmware from source, simply follow the steps below.
+              ol 
+                li <b>Installing Raspberry Pi Pico on Arduino IDE</b>: Install the Raspberry Pi Pico boards on your Arduino IDE by following the steps <a href="https://randomnerdtutorials.com/programming-raspberry-pi-pico-w-arduino-ide/" class="text-decoration-none" target="_blank">here</a>.
+                li <b>Open in Arduino IDE</b>: Open the file <a href="https://github.com/nthnn/Uartix/blob/main/picoware/picoware.ino" class="text-decoration-none" target="_blank">picoware/picoware.ino</a> in your Arduino IDE.
+                li <b>Build & Upload</b>: Connect your Raspberry Pi Pico board on flash mode then upload and build the Picoware on your Arduino IDE.
 
             div(class="col-lg-2")
 
