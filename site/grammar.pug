@@ -58,11 +58,11 @@ html(lang="en")
                 br(class="mobile-only")
                 ul(class="navbar-nav me-auto mb-2 mb-lg-0 d-md-flex d-block flex-row mx-md-auto mx-0")
                   li(class="nav-item")
-                    a(class="nav-link active", href="index.pug") Home
+                    a(class="nav-link", href="index.pug") Home
                   li(class="nav-item")
                     a(class="nav-link", href="getting-started.pug") Getting Started
                   li(class="nav-item")
-                    a(class="nav-link", href="#") Grammar Definition
+                    a(class="nav-link active fw-bold", href="#") Grammar Definition
                   li(class="nav-item")
                     a(class="nav-link", href="constructs.pug") Language Constructs
                   li(class="nav-item")
@@ -77,6 +77,201 @@ html(lang="en")
 
             div(class="col-lg-8")
               h4(class="border-bottom pb-2 fw-bold") Backus-Naur Form Definition
+              p
+                | The Uartix programming language features a comprehensive and intricate grammar as
+                | described in its Backus-Naur Form (BNF). The grammar delineates the syntax rules
+                | for various constructs within the language, ranging from fundamental data types to
+                | complex expressions and control structures. Uartix supports multiple
+                | numeric bases including binary (<code class="d-inline text-dark border border-dark px-1">0b</code>), trinary (<code class="d-inline text-dark border border-dark px-1">0t</code>), octadecimal (<code class="d-inline text-dark border border-dark px-1">0c</code>), and hexadecimal
+                | (<code class="d-inline text-dark border border-dark px-1">0x</code>), providing a versatile foundation for numerical operations. These are
+                | encapsulated under the <code class="d-inline text-dark border border-dark px-1">DIGIT</code> rule, which allows for a broad range of numeric
+                | representations, enhancing the language's flexibility in handling computational tasks.
+              p
+                | The <code class="d-inline text-dark border border-dark px-1">global</code> rule is a sequence of <code class="d-inline text-dark border border-dark px-1">statements</code>, indicating that a Uartix program is
+                | essentially a series of statements executed sequentially. Statements in Uartix can
+                | be simple control flow directives like <code class="d-inline text-dark border border-dark px-1">break</code>, <code class="d-inline text-dark border border-dark px-1">continue</code>, return (<code class="d-inline text-dark border border-dark px-1">ret</code>), and <code class="d-inline text-dark border border-dark px-1">throw</code>,
+                | each followed by a semicolon. These basic statements enable control over the program&apos;s
+                | execution flow, allowing developers to implement loops, conditional logic, and error
+                | handling effectively.
+              p
+                | Expressions form the backbone of Uartix&apos;s syntax, includes a wide array of operations
+                | and constructs. These include <code class="d-inline text-dark border border-dark px-1">type_expr</code> for type annotations, <code class="d-inline text-dark border border-dark px-1">block_expr</code> for grouping
+                | statements within braces, and <code class="d-inline text-dark border border-dark px-1">render_expr</code> for output operations. The <code class="d-inline text-dark border border-dark px-1">catch_expr</code> provides
+                | a mechanism for exception handling, encapsulating the <code class="d-inline text-dark border border-dark px-1">catch</code>, <code class="d-inline text-dark border border-dark px-1">handle</code>, and <code class="d-inline text-dark border border-dark px-1">then</code> keywords to
+                | manage errors gracefully. Control flow is further enriched with constructs like <code class="d-inline text-dark border border-dark px-1">do_expr</code>
+                | and <code class="d-inline text-dark border border-dark px-1">while_expr</code> for loop operations, <code class="d-inline text-dark border border-dark px-1">if_expr</code> for conditional branching, <code class="d-inline text-dark border border-dark px-1">random_expr</code> for
+                | probabilistic decision making, loop_expr for traditional for-loops, <code class="d-inline text-dark border border-dark px-1">unless_expr</code> for negated
+                | conditions, and <code class="d-inline text-dark border border-dark px-1">when_expr</code> for pattern matching.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") grammar.bnf
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | binary				:= &quot;0b&quot; (&quot;0&quot; | &quot;1&quot;)*
+                  | trinary				:= &quot;0t&quot; (&quot;0&quot; - &quot;2&quot;)*
+                  | octadecimal			:= &quot;0c&quot; (&quot;0&quot; - &quot;7&quot;)*
+                  | hexadecimal			:= &quot;0x&quot; (&quot;0&quot; - &quot;9&quot; | &quot;a&quot; - &quot;f&quot; | &quot;A&quot; - &quot;F&quot;)*
+                  |
+                  | DIGIT				:=
+                  | 	(&quot;0&quot; - &quot;9&quot;)*		|
+                  | 	binary			|
+                  | 	trinary			|
+                  | 	octadecimal		|
+                  | 	hexadecimal
+                  |
+                  | global				:= (statement)*
+                  |
+                  | statement			:=
+                  | 	break_stmt		|
+                  | 	continue_stmt		|
+                  | 	ret_stmt		|
+                  | 	throw_stmt		|
+                  | 	expr_stmt
+                  |
+                  | break_stmt			:= &quot;break&quot; &quot;;&quot;
+                  | continue_stmt			:= &quot;continue&quot; &quot;;&quot;
+                  | ret_stmt			:= &quot;ret&quot; expression &quot;;&quot;
+                  | throw_stmt			:= &quot;throw&quot; expression &quot;;&quot;
+                  | expr_stmt			:= expression &quot;;&quot;
+                  |
+                  | expression			:=
+                  | 	type_expr		|
+                  | 	block_expr		|
+                  | 	render_expr		|
+                  | 	catch_expr		|
+                  | 	do_expr			|
+                  | 	while_expr		|
+                  | 	if_expr			|
+                  | 	random_expr		|
+                  | 	loop_expr		|
+                  | 	unless_expr		|
+                  | 	when_expr		|
+                  | 	func_expr		|
+                  | 	maybe_expr		|
+                  | 	array_expr		|
+                  | 	logic_or_expr
+                  |
+                  | type_expr			:= &quot;type&quot; expression
+                  |
+                  | block_expr			:= &quot;{&quot; (statement)* &quot;}&quot;
+                  |
+                  | render_expr			:= &quot;render&quot; expression
+                  |
+                  | catch_expr			:=
+                  | 	&quot;catch&quot; expression
+                  | 	&quot;handle&quot; &lt;IDENTIFIER&gt; expression
+                  | 	&quot;then&quot; expression
+                  |
+                  | do_expr				:=
+                  | 	&quot;do&quot; expression
+                  | 	&quot;while&quot; &quot;(&quot; expression &quot;)&quot;
+                  |
+                  | while_expr			:=
+                  | 	&quot;while&quot; &quot;(&quot; expression &quot;)&quot; expression
+                  |
+                  | if_expr				:=
+                  | 	&quot;if&quot; &quot;(&quot; expression &quot;)&quot; expression
+                  | 	[&quot;else&quot; expression]
+                  |
+                  | random_expr			:=
+                  | 	&quot;random&quot; expression
+                  | 	[&quot;else&quot; expression]
+                  |
+                  | loop_expr			:=
+                  | 	&quot;loop&quot; &quot;(&quot;
+                  | 		expression &quot;;&quot;
+                  | 		expression &quot;;&quot;
+                  | 		expression
+                  | 	&quot;)&quot; expression
+                  |
+                  | unless_expr			:=
+                  | 	&quot;unless&quot; &quot;(&quot; expression &quot;)&quot; expression
+                  | 	[&quot;else&quot; expression]
+                  |
+                  | when_expr			:=
+                  | 	&quot;when&quot; &quot;(&quot; expression &quot;)&quot; &quot;{&quot;
+                  | 		[
+                  | 			&quot;if&quot; &quot;(&quot; expression &quot;)&quot; expression
+                  | 			(&quot;,&quot; &quot;if&quot; &quot;(&quot; expression &quot;)&quot; expression)*
+                  | 		]
+                  | 		[&quot;else&quot; expression]
+                  | 	&quot;}&quot;
+                  |
+                  | maybe_expr			:= &quot;maybe&quot;
+                  |
+                  | func_expr			:=
+                  | 	&quot;func&quot; &quot;(&quot; [&lt;IDENTIFIER&gt; (&quot;,&quot; &lt;IDENTIFIER&gt;)*] &quot;)&quot;
+                  | 		expression
+                  |
+                  | array_expr			:=
+                  | 	&quot;[&quot; [expression (&quot;,&quot; expression)*] &quot;]&quot;
+                  |
+                  | logic_or_expr			:=
+                  | 	logic_and_expr [&quot;||&quot; logic_and_expr]
+                  |
+                  | logic_and_expr			:=
+                  | 	bitwise_or_expr [&quot;&&&quot; bitwise_or_expr]
+                  |
+                  | bitwise_or_expr 		:=
+                  | 	bitwise_xor_expr [&quot;|&quot; bitwise_xor_expr]
+                  |
+                  | bitwise_xor_expr		:=
+                  | 	bitwise_and_expr [&quot;^&quot; bitwise_and_expr]
+                  |
+                  | bitwise_and_expr		:=
+                  | 	null_coalesce_expr [&quot;&&quot; null_coalesce_expr]
+                  |
+                  | null_coalesce_expr		:=
+                  | 	equality_expr [&quot;?&quot; equality_expr]
+                  |
+                  | equality_expr			:=
+                  | 	comparison_expr [(&quot;==&quot; | &quot;!=&quot; | &quot;=&quot;) comparison_expr]
+                  |
+                  | comparison_expr			:=
+                  | 	shift_expr [(&quot;&lt;&quot; | &quot;&lt;=&quot; | &quot;&gt;&quot; | &quot;&gt;=&quot;) shift_expr]
+                  |
+                  | shift_expr			:=
+                  | 	term_expr [(&quot;&lt;&lt;&quot; | &quot;&gt;&gt;&quot;) term_expr]
+                  |
+                  | term_expr			:=
+                  | 	factor_expr [(&quot;+&quot; | &quot;-&quot;) factor_expr]
+                  |
+                  | factor_expr			:=
+                  | 	primary_expr [(&quot;*&quot; | &quot;/&quot; | &quot;%) primary_expr]
+                  |
+                  | primary_expr			:=
+                  | 	(
+                  | 		(&quot;+&quot; | &quot;-&quot; | &quot;~&quot;) expression |
+                  | 		&quot;(&quot; expression &quot;)&quot; |
+                  | 		&lt;IDENTIFIER&gt; (&quot;[&quot; expression &quot;]&quot;)* |
+                  | 		literal_expr
+                  | 	)
+                  |
+                  | 	(
+                  | 		&quot;(&quot; [expression (&quot;,&quot; expression)*] &quot;)&quot; |
+                  | 		&quot;[&quot; expression&quot;]&quot;
+                  | 	)*
+                  |
+                  | literal_expr			:=
+                  | 	&quot;true&quot; | &quot;false&quot; | &quot;nil&quot; |
+                  | 	&lt;STRING&gt; |
+                  | 	&lt;DIGIT&gt;
+
+              p
+                | Functionality in Uartix is extended through <code class="d-inline text-dark border border-dark px-1">func_expr</code>, which defines functions
+                | with optional parameters, facilitating modular and reusable code. Arrays are
+                | managed using array_expr, which allows for the creation and manipulation of indexed
+                | collections. Logical operations are handled through <code class="d-inline text-dark border border-dark px-1">logic_or_expr</code> and <code class="d-inline text-dark border border-dark px-1">logic_and_expr</code>,
+                | with further support for bitwise operations (<code class="d-inline text-dark border border-dark px-1">bitwise_or_expr</code>, <code class="d-inline text-dark border border-dark px-1">bitwise_xor_expr</code>,
+                | <code class="d-inline text-dark border border-dark px-1">bitwise_and_expr</code>) and comparison operators (<code class="d-inline text-dark border border-dark px-1">equality_expr</code>, <code class="d-inline text-dark border border-dark px-1">comparison_expr</code>). The
+                | grammar also includes expressions for arithmetic operations (<code class="d-inline text-dark border border-dark px-1">term_expr</code>, <code class="d-inline text-dark border border-dark px-1">factor_expr</code>)
+                | and primary expressions (<code class="d-inline text-dark border border-dark px-1">primary_expr</code>), which can be literals, identifiers, or complex
+                | nested expressions.
+              p
+                | Literal values in Uartix, defined under literal_expr, include boolean values (<code class="d-inline text-dark border border-dark px-1">true</code>,
+                | <code class="d-inline text-dark border border-dark px-1">false</code>), a null value (<code class="d-inline text-dark border border-dark px-1">nil</code>), strings, and digits, offering a fundamental set of data
+                | types to work with. The grammar ensures that these literals can be used flexibly
+                | within expressions to construct more complex computations.
 
             div(class="col-lg-2")
 
