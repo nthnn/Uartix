@@ -17,14 +17,15 @@
 
 package xyz.uartix.util;
 
-import java.util.List;
-
 import net.sourceforge.argparse4j.ArgumentParsers;
+import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
-
+import xyz.uartix.core.Runtime;
 import xyz.uartix.uart.Uart;
+
+import java.util.List;
 
 public class RuntimeArgumentParser {
     private String selectedPort;
@@ -40,28 +41,24 @@ public class RuntimeArgumentParser {
         try {
             List<String> serialPorts = Uart.listSerialPorts();
 
-            parser = ArgumentParsers.newFor("uartix").build()
-                    .defaultHelp(true)
-                    .description("Execute Uartix script files.");
+            parser = ArgumentParsers.newFor("uartix").build().defaultHelp(true).description("Execute Uartix script files.");
 
-            parser.addArgument("-p", "--port")
-                    .choices(serialPorts)
-                    .setDefault(serialPorts.isEmpty() ? "null" : serialPorts.getFirst())
-                    .help("Serial port device of the co-processor.");
+            parser.addArgument("-p", "--port").choices(serialPorts).setDefault(serialPorts.isEmpty() ? "null" : serialPorts.getFirst()).help("Serial port device of the co-processor.");
 
-            parser.addArgument("files")
-                    .nargs("*")
-                    .help("List of files to execute.")
-                    .required(true);
+            parser.addArgument("-t", "--test").action(Arguments.storeTrue()).help("Run test units.");
+
+            parser.addArgument("files").nargs("*").help("List of files to execute.").required(true);
 
             Namespace ns = parser.parseArgs(this.args);
             this.selectedPort = ns.get("port");
             this.inputFiles = ns.get("files");
 
+            if(ns.getBoolean("test"))
+                Runtime.testMode();
+
             if(this.inputFiles.isEmpty())
                 throw new ArgumentParserException("No input file(s).", parser);
-        }
-        catch(ArgumentParserException e) {
+        } catch(ArgumentParserException e) {
             parser.handleError(e);
             return false;
         }
