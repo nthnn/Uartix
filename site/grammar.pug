@@ -22,7 +22,7 @@ html(lang="en")
 
         div(align="center", class="mt-4 mb-4")
           div(class="col-lg-7 col-10")
-            img(src="assets/uartix.png", class="shadow", width="160")
+            img(src="assets/uartix.png", class="shadow", width="125")
             br
             br
             h1(class="mb-2 fw-bold") Uartix Programming Language
@@ -90,7 +90,7 @@ html(lang="en")
               p
                 | The <code class="d-inline text-dark border border-dark px-1">global</code> rule is a sequence of <code class="d-inline text-dark border border-dark px-1">statements</code>, indicating that a Uartix program is
                 | essentially a series of statements executed sequentially. Statements in Uartix can
-                | be simple control flow directives like <code class="d-inline text-dark border border-dark px-1">break</code>, <code class="d-inline text-dark border border-dark px-1">continue</code>, return (<code class="d-inline text-dark border border-dark px-1">ret</code>), and <code class="d-inline text-dark border border-dark px-1">throw</code>,
+                | be simple control flow directives like <code class="d-inline text-dark border border-dark px-1">use</code>, <code class="d-inline text-dark border border-dark px-1">test</code>, <code class="d-inline text-dark border border-dark px-1">break</code>, <code class="d-inline text-dark border border-dark px-1">continue</code>, return (<code class="d-inline text-dark border border-dark px-1">ret</code>), and <code class="d-inline text-dark border border-dark px-1">throw</code>,
                 | each followed by a semicolon. These basic statements enable control over the program&apos;s
                 | execution flow, allowing developers to implement loops, conditional logic, and error
                 | handling effectively.
@@ -123,22 +123,22 @@ html(lang="en")
                   | global				:= (statement)*
                   |
                   | statement			:=
-                  |     use_stmt        |
-                  |     test_stmt       |
-                  | 	break_stmt		|
+                  | 	use_stmt	|
+                  | 	test_stmt	|
+                  | 	break_stmt	|
                   | 	continue_stmt   |
                   | 	ret_stmt        |
                   | 	throw_stmt      |
                   | 	expr_stmt
                   |
-                  | use_stmt            :=
+                  | use_stmt			:=
                   |    &quot;use&quot; expression
                   |    [expression (&quot;,&quot; expression)*]
                   |    &quot;;&quot;
                   |
-                  | test_stmt           :=
-                  |     "test" "(" expression ")"
-                  |     expression ";"
+                  | test_stmt			:=
+                  |     &quot;test&quot; &quot;(&quot; expression &quot;)&quot;
+                  |     expression &quot;;&quot;
                   |
                   | break_stmt			:= &quot;break&quot; &quot;;&quot;
                   | continue_stmt			:= &quot;continue&quot; &quot;;&quot;
