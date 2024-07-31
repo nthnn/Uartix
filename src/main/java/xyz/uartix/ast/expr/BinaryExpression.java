@@ -44,21 +44,13 @@ public class BinaryExpression implements Expression {
     }
 
     @SuppressWarnings("unchecked")
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
-        ASTVisitException invalidVisit = new ASTVisitException(
-            this,
-            "Invalid binary expression operation."
-        );
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
+        ASTVisitException invalidVisit = new ASTVisitException(this, "Invalid binary expression operation.");
 
         String operator = this.operator.getImage();
-        Object rightValue = this.right.visit(symtab),
-            leftValue = null;
+        Object rightValue = this.right.visit(symtab), leftValue = null;
 
-        if(!(this.left instanceof IdentifierExpression) ||
-                !this.operator.getImage().equals("="))
+        if(!(this.left instanceof IdentifierExpression) || !this.operator.getImage().equals("="))
             leftValue = this.left.visit(symtab);
 
         if(Objects.equals(operator, "+"))
@@ -66,14 +58,11 @@ public class BinaryExpression implements Expression {
                 case Double _ when rightValue instanceof Double ->
                     UartOperation.add((double) leftValue, (double) rightValue);
 
-                case Double _ when rightValue instanceof String ->
-                    ((double) leftValue) + rightValue.toString();
+                case Double _ when rightValue instanceof String -> ((double) leftValue) + rightValue.toString();
 
-                case String _ when rightValue instanceof Double ->
-                    leftValue.toString() + ((double) rightValue);
+                case String _ when rightValue instanceof Double -> leftValue.toString() + ((double) rightValue);
 
-                case String _ when rightValue instanceof String ->
-                    leftValue.toString() + rightValue;
+                case String _ when rightValue instanceof String -> leftValue.toString() + rightValue;
 
                 case String _ when rightValue instanceof Boolean ->
                     leftValue + (((boolean) rightValue) ? "true" : "false");
@@ -81,11 +70,10 @@ public class BinaryExpression implements Expression {
                 case Boolean _ when rightValue instanceof String ->
                     (((boolean) leftValue) ? "true" : "false") + rightValue;
 
-                case null, default ->
-                    throw invalidVisit;
+                case null, default -> throw invalidVisit;
             };
         else if(Objects.equals(operator, "*"))
-            return switch (leftValue) {
+            return switch(leftValue) {
                 case Double _ when rightValue instanceof Double ->
                     UartOperation.mul((double) leftValue, (double) rightValue);
 
@@ -95,8 +83,7 @@ public class BinaryExpression implements Expression {
                 case String _ when rightValue instanceof Double ->
                     MiscUtil.multiply(leftValue.toString(), (int) (double) rightValue);
 
-                case null, default ->
-                    throw invalidVisit;
+                case null, default -> throw invalidVisit;
             };
         else if(Objects.equals(operator, "-")) {
             if(leftValue instanceof Double && rightValue instanceof Double)
@@ -187,19 +174,14 @@ public class BinaryExpression implements Expression {
         else if(Objects.equals(operator, "=="))
             return leftValue != null && leftValue.equals(rightValue);
         else if(Objects.equals(operator, "=")) {
-            if(!(this.left instanceof IdentifierExpression) &&
-                !(this.left instanceof ArrayAccessExpression))
-                throw new ASTVisitException(
-                    this.left,
-                    "Cannot assign value to non-identifier and non-array access expression."
-                );
+            if(!(this.left instanceof IdentifierExpression) && !(this.left instanceof ArrayAccessExpression))
+                throw new ASTVisitException(this.left, "Cannot assign value to non-identifier and non-array access expression.");
 
             if(this.left instanceof IdentifierExpression)
                 symtab.set(this.left.getAddress().getImage(), rightValue);
             else {
                 ArrayAccessExpression access = (ArrayAccessExpression) this.left;
-                Object objs = access.getOrigin().visit(symtab),
-                    index = access.getIndex().visit(symtab);
+                Object objs = access.getOrigin().visit(symtab), index = access.getIndex().visit(symtab);
 
                 if(!(objs instanceof List<?>))
                     throw new ASTVisitException(this, "Setting value on non-array value.");

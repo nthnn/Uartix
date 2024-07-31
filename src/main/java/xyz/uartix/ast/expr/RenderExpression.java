@@ -38,10 +38,7 @@ public class RenderExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object value = this.expression.visit(symtab);
 
         System.out.print(value == null ? "nil" : value.toString());

@@ -17,4 +17,5 @@
 
 package xyz.uartix.ast;
 
-public interface Statement extends Node { }
+public interface Statement extends Node {
+}

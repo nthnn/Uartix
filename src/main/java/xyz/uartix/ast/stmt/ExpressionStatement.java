@@ -39,10 +39,7 @@ public class ExpressionStatement implements Statement {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws TerminativeSignal,
-            ASTVisitException,
-            IOException {
+    public Object visit(SymbolTable symtab) throws TerminativeSignal, ASTVisitException, IOException {
         return this.expression.visit(symtab);
     }
 }

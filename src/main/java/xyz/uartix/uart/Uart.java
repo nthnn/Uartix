@@ -17,17 +17,17 @@
 
 package xyz.uartix.uart;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import com.fazecast.jSerialComm.SerialPortIOException;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Uart {
     private static boolean hasNewData = false, isConnected = false;
@@ -53,9 +53,7 @@ public final class Uart {
         if(Uart.serialPort == null)
             throw new SerialPortIOException("Serial port not found: " + commPort);
 
-        Uart.serialPort.setComPortParameters(
-            115200, 8, 1,
-            SerialPort.NO_PARITY);
+        Uart.serialPort.setComPortParameters(115200, 8, 1, SerialPort.NO_PARITY);
         Uart.serialPort.openPort();
 
         Uart.serialOutputStream = Uart.serialPort.getOutputStream();
@@ -76,8 +74,8 @@ public final class Uart {
                 try {
                     Uart.data.write(buffer);
                     Uart.hasNewData = true;
+                } catch(IOException _) {
                 }
-                catch(IOException _) { }
             }
         });
 
@@ -101,9 +99,7 @@ public final class Uart {
         Uart.serialPort.closePort();
     }
 
-    public static void write(byte[] bytes)
-        throws IOException
-    {
+    public static void write(byte[] bytes) throws IOException {
         Uart.serialOutputStream.write(bytes);
         Uart.serialOutputStream.close();
     }

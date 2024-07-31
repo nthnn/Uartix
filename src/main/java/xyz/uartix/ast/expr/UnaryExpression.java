@@ -39,21 +39,18 @@ public class UnaryExpression implements Expression {
         return this.operator;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object value = this.expression.visit(symtab);
 
         switch(this.operator.getImage()) {
             case "+" -> {
-                if (value instanceof Double)
+                if(value instanceof Double)
                     return UartOperation.pos((double) value);
 
                 throw new ASTVisitException(this, "Invalid plus unary operation.");
             }
             case "-" -> {
-                if (value instanceof Double)
+                if(value instanceof Double)
                     return UartOperation.neg((double) value);
 
                 throw new ASTVisitException(this, "Invalid negate unary operation.");
@@ -64,9 +61,7 @@ public class UnaryExpression implements Expression {
                 else if(value instanceof Boolean)
                     return !((boolean) value);
                 else if(value instanceof String)
-                    return new StringBuilder(value.toString())
-                        .reverse()
-                        .toString();
+                    return new StringBuilder(value.toString()).reverse().toString();
 
                 throw new ASTVisitException(this, "Invalid bitwise not unary operation.");
             }

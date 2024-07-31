@@ -30,11 +30,7 @@ public class ArrayAccessExpression implements Expression {
     private final Token address;
     private final Expression origin, index;
 
-    public ArrayAccessExpression(
-        Token address,
-        Expression origin,
-        Expression index
-    ) {
+    public ArrayAccessExpression(Token address, Expression origin, Expression index) {
         this.address = address;
         this.origin = origin;
         this.index = index;
@@ -53,10 +49,7 @@ public class ArrayAccessExpression implements Expression {
     }
 
     @SuppressWarnings("unchecked")
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object access = this.origin.visit(symtab);
         if(!(access instanceof List<?>))
             throw new ASTVisitException(this, "Trying to access non-array expression.");
@@ -65,6 +58,6 @@ public class ArrayAccessExpression implements Expression {
         if(!(index instanceof Double))
             throw new ASTVisitException(this, "Accessing array with non-number index.");
 
-        return ((List<Object>) access).get((int)(double) index);
+        return ((List<Object>) access).get((int) (double) index);
     }
 }

@@ -37,10 +37,7 @@ public class MaybeExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         return UartOperation.rnb();
     }
 }

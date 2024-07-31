@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 public final class Convert {
     private static void reverse(byte[] array) {
         int left = 0, right = array.length - 1;
-        while (left < right) {
+        while(left < right) {
             byte temp = array[left];
 
             array[left] = array[right];

@@ -33,11 +33,7 @@ public class FunctionDeclarationExpression implements Expression {
     private final List<Token> parameters;
     private final Expression body;
 
-    public FunctionDeclarationExpression(
-        Token address,
-        List<Token> parameters,
-        Expression body
-    ) {
+    public FunctionDeclarationExpression(Token address, List<Token> parameters, Expression body) {
         this.address = address;
         this.parameters = parameters;
         this.body = body;
@@ -47,10 +43,7 @@ public class FunctionDeclarationExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         List<String> params = new ArrayList<>();
         for(Token parameter : this.parameters) {
             if(symtab.has(parameter.getImage()))
@@ -59,10 +52,6 @@ public class FunctionDeclarationExpression implements Expression {
             params.add(parameter.getImage());
         }
 
-        return new Function(
-            this.address,
-            params,
-            this.body
-        );
+        return new Function(this.address, params, this.body);
     }
 }

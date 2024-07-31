@@ -40,10 +40,7 @@ public class ArrayExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         List<Object> objects = new ArrayList<>();
 
         for(Expression expr : this.expressions)

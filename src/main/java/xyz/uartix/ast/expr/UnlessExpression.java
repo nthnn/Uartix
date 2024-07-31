@@ -29,12 +29,7 @@ public class UnlessExpression implements Expression {
     private final Token address;
     private final Expression condition, then, elseBlock;
 
-    public UnlessExpression(
-        Token address,
-        Expression condition,
-        Expression then,
-        Expression elseBlock
-    ) {
+    public UnlessExpression(Token address, Expression condition, Expression then, Expression elseBlock) {
         this.address = address;
         this.condition = condition;
         this.then = then;
@@ -45,15 +40,10 @@ public class UnlessExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object cond = this.condition.visit(symtab);
 
-        if((cond instanceof Double && ((double) cond) <= 0) ||
-            (cond instanceof Boolean && !((boolean) cond)) ||
-            (cond instanceof String && ((String) cond).isEmpty())) {
+        if((cond instanceof Double && ((double) cond) <= 0) || (cond instanceof Boolean && !((boolean) cond)) || (cond instanceof String && ((String) cond).isEmpty())) {
             return this.then.visit(symtab);
         }
         else {

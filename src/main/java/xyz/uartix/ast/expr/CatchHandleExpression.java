@@ -30,13 +30,7 @@ public class CatchHandleExpression implements Expression {
     private final Token address, handle;
     private final Expression catchBlock, handleBlock, finalStmt;
 
-    public CatchHandleExpression(
-        Token address,
-        Expression catchBlock,
-        Token handle,
-        Expression handleBlock,
-        Expression finalStmt
-    ) {
+    public CatchHandleExpression(Token address, Expression catchBlock, Token handle, Expression handleBlock, Expression finalStmt) {
         this.address = address;
         this.catchBlock = catchBlock;
         this.handle = handle;
@@ -48,15 +42,11 @@ public class CatchHandleExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object value = null;
         try {
             value = this.catchBlock.visit(symtab);
-        }
-        catch(TerminativeThrow thrownObj) {
+        } catch(TerminativeThrow thrownObj) {
             String handleName = this.handle.getImage();
             if(symtab.has(handleName))
                 throw new ASTVisitException(this.handle, "Handle name already in use.");

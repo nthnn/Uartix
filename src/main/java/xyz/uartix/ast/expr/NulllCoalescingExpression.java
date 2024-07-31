@@ -29,11 +29,7 @@ public class NulllCoalescingExpression implements Expression {
     private final Token address;
     private final Expression left, right;
 
-    public NulllCoalescingExpression(
-        Token address,
-        Expression left,
-        Expression right
-    ) {
+    public NulllCoalescingExpression(Token address, Expression left, Expression right) {
         this.address = address;
         this.left = left;
         this.right = right;
@@ -43,10 +39,7 @@ public class NulllCoalescingExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object value = this.left.visit(symtab);
         if(value != null)
             return value;

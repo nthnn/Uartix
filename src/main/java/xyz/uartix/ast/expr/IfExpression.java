@@ -19,7 +19,6 @@ package xyz.uartix.ast.expr;
 
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Expression;
-import xyz.uartix.ast.Statement;
 import xyz.uartix.core.SymbolTable;
 import xyz.uartix.core.TerminativeSignal;
 import xyz.uartix.parser.Token;
@@ -30,12 +29,7 @@ public class IfExpression implements Expression {
     private final Token address;
     private final Expression condition, then, elseStatement;
 
-    public IfExpression(
-        Token address,
-        Expression condition,
-        Expression then,
-        Expression elseStatement
-    ) {
+    public IfExpression(Token address, Expression condition, Expression then, Expression elseStatement) {
         this.address = address;
         this.condition = condition;
         this.then = then;
@@ -46,15 +40,10 @@ public class IfExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object cond = this.condition.visit(symtab);
 
-        if((cond instanceof Double && ((double) cond) > 0) ||
-            (cond instanceof Boolean && (boolean) cond) ||
-            cond instanceof String)
+        if((cond instanceof Double && ((double) cond) > 0) || (cond instanceof Boolean && (boolean) cond) || cond instanceof String)
             return this.then.visit(symtab);
         else if(this.elseStatement != null)
             return this.elseStatement.visit(symtab);

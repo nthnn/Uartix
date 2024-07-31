@@ -52,9 +52,6 @@ public final class Token {
 
     @Override
     public String toString() {
-        return "\"" + this.getImage() +
-            "\" (line " + this.getLine() +
-            ", column " + this.getColumn() +
-            ") from " + this.getFileName();
+        return "\"" + this.getImage() + "\" (line " + this.getLine() + ", column " + this.getColumn() + ") from " + this.getFileName();
     }
 }

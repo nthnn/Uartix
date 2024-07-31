@@ -36,10 +36,7 @@ public class IdentifierExpression implements Expression {
         return this.identifier;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         if(!symtab.has(this.identifier.getImage()))
             throw new ASTVisitException(this, "Cannot find symbol.");
 

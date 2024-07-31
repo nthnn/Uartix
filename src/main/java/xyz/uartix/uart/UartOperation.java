@@ -22,128 +22,80 @@ import xyz.uartix.util.Convert;
 import java.io.IOException;
 
 public final class UartOperation {
-    private static double compute(
-        UartCommand command,
-        double x, double y
-    ) throws IOException {
-        Uart.write(new byte[] { command.getCommand() });
+    private static double compute(UartCommand command, double x, double y) throws IOException {
+        Uart.write(new byte[]{command.getCommand()});
         Uart.write(Convert.toBytes(x));
         Uart.write(Convert.toBytes(y));
 
         return Convert.toDouble(Uart.read());
     }
 
-    private static double compute(
-            UartCommand command,
-            double v
-    ) throws IOException {
-        Uart.write(new byte[] { command.getCommand() });
+    private static double compute(UartCommand command, double v) throws IOException {
+        Uart.write(new byte[]{command.getCommand()});
         Uart.write(Convert.toBytes(v));
 
         return Convert.toDouble(Uart.read());
     }
 
     private static double compute(UartCommand command) throws IOException {
-        Uart.write(new byte[] { command.getCommand() });
+        Uart.write(new byte[]{command.getCommand()});
         return Convert.toDouble(Uart.read());
     }
 
     public static double add(double x, double y) throws IOException {
-        return UartOperation.compute(
-            UartCommand.ADD,
-            x, y
-        );
+        return UartOperation.compute(UartCommand.ADD, x, y);
     }
 
     public static double sub(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.SUB,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.SUB, x, y);
     }
 
     public static double div(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.DIV,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.DIV, x, y);
     }
 
     public static double mul(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.MUL,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.MUL, x, y);
     }
 
     public static double and(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.AND,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.AND, x, y);
     }
 
     public static double or(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.OR,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.OR, x, y);
     }
 
     public static double rem(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.REM,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.REM, x, y);
     }
 
     public static double pow(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.POW,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.POW, x, y);
     }
 
     public static double gt(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.GT,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.GT, x, y);
     }
 
     public static double ge(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.GE,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.GE, x, y);
     }
 
     public static double lt(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.LT,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.LT, x, y);
     }
 
     public static double le(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.LE,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.LE, x, y);
     }
 
     public static double shl(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.SHL,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.SHL, x, y);
     }
 
     public static double shr(double x, double y) throws IOException {
-        return UartOperation.compute(
-                UartCommand.SHR,
-                x, y
-        );
+        return UartOperation.compute(UartCommand.SHR, x, y);
     }
 
     public static double pos(double v) throws IOException {

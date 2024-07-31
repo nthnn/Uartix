@@ -40,10 +40,7 @@ public class ThrowStatement implements Statement {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         throw new TerminativeThrow(this.value.visit(symtab));
     }
 }

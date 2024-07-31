@@ -29,16 +29,9 @@ import java.io.IOException;
 
 public class LoopExpression implements Expression {
     private final Token address;
-    private final Expression initial,
-            condition, postExpression, body;
+    private final Expression initial, condition, postExpression, body;
 
-    public LoopExpression(
-        Token address,
-        Expression initial,
-        Expression condition,
-        Expression postExpression,
-        Expression body
-    ) {
+    public LoopExpression(Token address, Expression initial, Expression condition, Expression postExpression, Expression body) {
         this.address = address;
         this.initial = initial;
         this.condition = condition;
@@ -50,26 +43,18 @@ public class LoopExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         this.initial.visit(symtab);
 
-        Object cond = this.condition.visit(symtab),
-            value = null;
+        Object cond = this.condition.visit(symtab), value = null;
 
-        while((cond instanceof Boolean && (boolean) cond) ||
-                (cond instanceof Double && ((double) cond) > 0.0) ||
-                (cond instanceof String)) {
+        while((cond instanceof Boolean && (boolean) cond) || (cond instanceof Double && ((double) cond) > 0.0) || (cond instanceof String)) {
             try {
                 value = this.body.visit(symtab);
-            }
-            catch(TerminativeBreak _) {
+            } catch(TerminativeBreak _) {
                 value = null;
                 break;
-            }
-            catch(TerminativeContinue _) {
+            } catch(TerminativeContinue _) {
                 this.postExpression.visit(symtab);
                 value = null;
                 continue;

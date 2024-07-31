@@ -17,4 +17,5 @@
 
 package xyz.uartix.core;
 
-public class TerminativeSignal extends Exception { }
+public class TerminativeSignal extends Exception {
+}

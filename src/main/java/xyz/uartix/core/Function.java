@@ -29,27 +29,16 @@ public class Function {
     private final List<String> parameters;
     private final Expression body;
 
-    public Function(
-        Token address,
-        List<String> parameters,
-        Expression body
-    ) {
+    public Function(Token address, List<String> parameters, Expression body) {
         this.address = address;
         this.parameters = parameters;
         this.body = body;
     }
 
-    public Object invoke(SymbolTable table, List<Object> arguments)
-        throws TerminativeSignal,
-            ASTVisitException,
-            IOException {
+    public Object invoke(SymbolTable table, List<Object> arguments) throws TerminativeSignal, ASTVisitException, IOException {
         SymbolTable symtab = new SymbolTable(table);
         if(this.parameters.size() != arguments.size())
-            throw new ASTVisitException(
-                this.address,
-                "Expecting " + this.parameters.size() +
-                ", but got " + arguments.size() + " arguments."
-            );
+            throw new ASTVisitException(this.address, "Expecting " + this.parameters.size() + ", but got " + arguments.size() + " arguments.");
 
         for(int i = 0; i < this.parameters.size(); i++)
             symtab.set(this.parameters.get(i), arguments.get(i));
@@ -57,8 +46,7 @@ public class Function {
         Object value = null;
         try {
             value = this.body.visit(symtab);
-        }
-        catch(TerminatoryObject obj) {
+        } catch(TerminatoryObject obj) {
             value = obj.getObject();
         }
 
@@ -69,9 +57,6 @@ public class Function {
     public String toString() {
         String params = String.join(", ", this.parameters);
 
-        return "<func(" + params +
-            ") [line " + this.address.getLine() +
-            ", column " + this.address.getColumn() +
-            "]>";
+        return "<func(" + params + ") [line " + this.address.getLine() + ", column " + this.address.getColumn() + "]>";
     }
 }

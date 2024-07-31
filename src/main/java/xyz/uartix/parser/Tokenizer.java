@@ -38,8 +38,7 @@ public final class Tokenizer {
         this.tokens = new ArrayList<>();
     }
 
-    public static Tokenizer loadFile(String filePath)
-        throws FileNotFoundException {
+    public static Tokenizer loadFile(String filePath) throws FileNotFoundException {
         StringBuilder content = new StringBuilder();
         Scanner scanner = new Scanner(new File(filePath));
 
@@ -50,7 +49,7 @@ public final class Tokenizer {
     }
 
     private static boolean isWhitespace(char ch) {
-        return switch (ch) {
+        return switch(ch) {
             case ' ', '\t', '\r', '\n', '\f' -> true;
             default -> false;
         };
@@ -73,23 +72,17 @@ public final class Tokenizer {
     }
 
     private static boolean isHexadecimalDigit(char ch) {
-        return (ch >= '0' && ch <= '9') ||
-            (ch >= 'a' && ch <= 'f') ||
-            (ch >= 'A' && ch <= 'F');
+        return (ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'f') || (ch >= 'A' && ch <= 'F');
     }
 
     private static boolean isAlphabet(char ch) {
-        return (ch >= 'a' && ch <= 'z') ||
-            (ch >= 'A' && ch <= 'Z') || ch == '_';
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_';
     }
 
     private static boolean isOperator(char ch) {
         return switch(ch) {
-            case '!', '~', '`', '#', '%', '^',
-                 '&', '*', '(', ')', '-', '=',
-                 '+', '[', ']', '{', '}', '|',
-                 '"', ':', ';', '<', ',', '>',
-                 '.', '?', '/' -> true;
+            case '!', '~', '`', '#', '%', '^', '&', '*', '(', ')', '-', '=', '+', '[', ']', '{', '}', '|', '"', ':',
+                 ';', '<', ',', '>', '.', '?', '/' -> true;
             default -> false;
         };
     }
@@ -123,8 +116,7 @@ public final class Tokenizer {
             }
             else if(Tokenizer.isOperator(currentChar)) {
                 if(currentChar == '#') {
-                    while(!this.isAtEnd() &&
-                        this.source.charAt(index) != '\n')
+                    while(!this.isAtEnd() && this.source.charAt(index) != '\n')
                         index++;
 
                     column = 0;
@@ -138,16 +130,14 @@ public final class Tokenizer {
                         char curr = this.source.charAt(index);
 
                         if(curr == '\n')
-                            throw new LexicalAnalysisException("Found new line inside string literal." +
-                                    "(line " + line + ", column " + column + ")");
+                            throw new LexicalAnalysisException("Found new line inside string literal." + "(line " + line + ", column " + column + ")");
                         else if(curr == '\\') {
                             string.append(curr);
                             index++;
                             column++;
 
                             if(this.isAtEnd())
-                                throw new LexicalAnalysisException("Expecting escape character, encountered end-of-file "+
-                                    "(line " + line + ", column " + column + ")");
+                                throw new LexicalAnalysisException("Expecting escape character, encountered end-of-file " + "(line " + line + ", column " + column + ")");
 
                             curr = this.source.charAt(index);
                             switch(curr) {
@@ -173,13 +163,11 @@ public final class Tokenizer {
 
                                     for(int count = 0; count < 4; count++) {
                                         if(this.isAtEnd())
-                                            throw new LexicalAnalysisException("Expecting hexadecimal value, encountered end-of-file." +
-                                                "(line " + line + ", column " + column + ")");
+                                            throw new LexicalAnalysisException("Expecting hexadecimal value, encountered end-of-file." + "(line " + line + ", column " + column + ")");
 
                                         char hex = this.source.charAt(index);
                                         if(!Tokenizer.isHexadecimalDigit(hex))
-                                            throw new LexicalAnalysisException("Invalid hexadecimal character: " + hex + "." +
-                                                "(line " + line + ", column " + column + ")");
+                                            throw new LexicalAnalysisException("Invalid hexadecimal character: " + hex + "." + "(line " + line + ", column " + column + ")");
 
                                         string.append(hex);
                                         index++;
@@ -189,8 +177,7 @@ public final class Tokenizer {
                                     break;
 
                                 default:
-                                    throw new LexicalAnalysisException("Unknown string escape character. " +
-                                        "(line " + line + ", column " + column + ")");
+                                    throw new LexicalAnalysisException("Unknown string escape character. " + "(line " + line + ", column " + column + ")");
                             }
                         }
                         else {
@@ -205,13 +192,7 @@ public final class Tokenizer {
 
                     index++;
                     column++;
-                    this.tokens.add(new Token(
-                        string.toString(),
-                        this.fileName,
-                        line,
-                        currentColumn,
-                        TokenType.STRING
-                    ));
+                    this.tokens.add(new Token(string.toString(), this.fileName, line, currentColumn, TokenType.STRING));
                     continue;
                 }
 
@@ -219,24 +200,14 @@ public final class Tokenizer {
                 operator.append(currentChar);
 
                 int currentColumn = column;
-                while(!this.isAtEnd() &&
-                    OpsKeys.operators.contains(
-                            operator.toString() +
-                            this.source.charAt(this.index)
-                    )) {
+                while(!this.isAtEnd() && OpsKeys.operators.contains(operator.toString() + this.source.charAt(this.index))) {
                     operator.append(this.source.charAt(this.index));
 
                     this.index++;
                     column++;
                 }
 
-                this.tokens.add(new Token(
-                    operator.toString(),
-                    this.fileName,
-                    line,
-                    currentColumn,
-                    TokenType.OPERATOR
-                ));
+                this.tokens.add(new Token(operator.toString(), this.fileName, line, currentColumn, TokenType.OPERATOR));
             }
             else if(Tokenizer.isDigit(currentChar)) {
                 int currentColumn = column;
@@ -251,8 +222,7 @@ public final class Tokenizer {
                             index++;
                             column++;
 
-                            while(!this.isAtEnd() &&
-                                    Tokenizer.isBinaryDigit(this.source.charAt(index))) {
+                            while(!this.isAtEnd() && Tokenizer.isBinaryDigit(this.source.charAt(index))) {
                                 digit.append(this.source.charAt(index));
 
                                 index++;
@@ -265,8 +235,7 @@ public final class Tokenizer {
                             index++;
                             column++;
 
-                            while(!this.isAtEnd() &&
-                                Tokenizer.isTrinaryDigit(this.source.charAt(index))) {
+                            while(!this.isAtEnd() && Tokenizer.isTrinaryDigit(this.source.charAt(index))) {
                                 digit.append(this.source.charAt(index));
 
                                 index++;
@@ -279,8 +248,7 @@ public final class Tokenizer {
                             index++;
                             column++;
 
-                            while(!this.isAtEnd() &&
-                                    Tokenizer.isOctalDecimalDigit(this.source.charAt(index))) {
+                            while(!this.isAtEnd() && Tokenizer.isOctalDecimalDigit(this.source.charAt(index))) {
                                 digit.append(this.source.charAt(index));
 
                                 index++;
@@ -293,8 +261,7 @@ public final class Tokenizer {
                             index++;
                             column++;
 
-                            while(!this.isAtEnd() &&
-                                    Tokenizer.isHexadecimalDigit(this.source.charAt(index))) {
+                            while(!this.isAtEnd() && Tokenizer.isHexadecimalDigit(this.source.charAt(index))) {
                                 digit.append(this.source.charAt(index));
 
                                 index++;
@@ -303,8 +270,7 @@ public final class Tokenizer {
                             break;
 
                         default:
-                            while(!this.isAtEnd() &&
-                                    Tokenizer.isDigit(this.source.charAt(index))) {
+                            while(!this.isAtEnd() && Tokenizer.isDigit(this.source.charAt(index))) {
                                 digit.append(this.source.charAt(index));
                                 index++;
                                 column++;
@@ -316,11 +282,9 @@ public final class Tokenizer {
                                 column++;
 
                                 if(this.isAtEnd() || !Tokenizer.isDigit(this.source.charAt(index)))
-                                    throw new LexicalAnalysisException("Expecting decimal digits. " +
-                                            "(line " + line + ", column " + column + ")");
+                                    throw new LexicalAnalysisException("Expecting decimal digits. " + "(line " + line + ", column " + column + ")");
 
-                                while (!this.isAtEnd() &&
-                                        Tokenizer.isDigit(this.source.charAt(index))) {
+                                while(!this.isAtEnd() && Tokenizer.isDigit(this.source.charAt(index))) {
                                     digit.append(this.source.charAt(index));
                                     index++;
                                     column++;
@@ -330,8 +294,7 @@ public final class Tokenizer {
                     }
                 }
                 else {
-                    while(!this.isAtEnd() &&
-                            Tokenizer.isDigit(this.source.charAt(index))) {
+                    while(!this.isAtEnd() && Tokenizer.isDigit(this.source.charAt(index))) {
                         digit.append(this.source.charAt(index));
                         index++;
                         column++;
@@ -343,11 +306,9 @@ public final class Tokenizer {
                         column++;
 
                         if(this.isAtEnd() || !Tokenizer.isDigit(this.source.charAt(index)))
-                            throw new LexicalAnalysisException("Expecting decimal digits. " +
-                                "(line " + line + ", column " + column + ")");
+                            throw new LexicalAnalysisException("Expecting decimal digits. " + "(line " + line + ", column " + column + ")");
 
-                        while(!this.isAtEnd() &&
-                                Tokenizer.isDigit(this.source.charAt(index))) {
+                        while(!this.isAtEnd() && Tokenizer.isDigit(this.source.charAt(index))) {
                             digit.append(this.source.charAt(index));
                             index++;
                             column++;
@@ -355,22 +316,14 @@ public final class Tokenizer {
                     }
                 }
 
-                this.tokens.add(new Token(
-                        digit.toString(),
-                        this.fileName,
-                        line,
-                        currentColumn,
-                        TokenType.DIGIT
-                ));
+                this.tokens.add(new Token(digit.toString(), this.fileName, line, currentColumn, TokenType.DIGIT));
             }
             else if(Tokenizer.isAlphabet(currentChar)) {
                 StringBuilder token = new StringBuilder();
                 token.append(currentChar);
 
                 int currentColumn = column;
-                while(!this.isAtEnd() &&
-                    Tokenizer.isAlphabet(this.source.charAt(this.index))
-                ) {
+                while(!this.isAtEnd() && Tokenizer.isAlphabet(this.source.charAt(this.index))) {
                     token.append(this.source.charAt(this.index));
 
                     this.index++;
@@ -378,12 +331,7 @@ public final class Tokenizer {
                 }
 
                 String image = token.toString();
-                this.tokens.add(new Token(
-                    image, this.fileName,
-                    line, currentColumn,
-                    Tokenizer.isKeyword(image) ?
-                        TokenType.KEYWORD : TokenType.IDENTIFIER
-                ));
+                this.tokens.add(new Token(image, this.fileName, line, currentColumn, Tokenizer.isKeyword(image) ? TokenType.KEYWORD : TokenType.IDENTIFIER));
             }
         }
     }

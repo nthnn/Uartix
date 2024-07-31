@@ -31,11 +31,7 @@ public class DoWhileExpression implements Expression {
     private final Token address;
     private final Expression condition, body;
 
-    public DoWhileExpression(
-            Token address,
-            Expression condition,
-            Expression body
-    ) {
+    public DoWhileExpression(Token address, Expression condition, Expression body) {
         this.address = address;
         this.condition = condition;
         this.body = body;
@@ -45,27 +41,20 @@ public class DoWhileExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object cond = null, value = null;
 
         do {
             try {
                 value = this.body.visit(symtab);
-            }
-            catch(TerminativeBreak _) {
+            } catch(TerminativeBreak _) {
                 break;
-            }
-            catch(TerminativeContinue _) {
+            } catch(TerminativeContinue _) {
                 continue;
             }
 
             cond = this.condition.visit(symtab);
-        } while((cond instanceof Boolean && (boolean) cond) ||
-            (cond instanceof Double && ((double) cond) > 0.0) ||
-            (cond instanceof String));
+        } while((cond instanceof Boolean && (boolean) cond) || (cond instanceof Double && ((double) cond) > 0.0) || (cond instanceof String));
 
         return value;
     }

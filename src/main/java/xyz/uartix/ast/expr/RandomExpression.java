@@ -30,11 +30,7 @@ public class RandomExpression implements Expression {
     private final Token address;
     private final Expression then, elseStatement;
 
-    public RandomExpression(
-            Token address,
-            Expression then,
-            Expression elseStatement
-    ) {
+    public RandomExpression(Token address, Expression then, Expression elseStatement) {
         this.address = address;
         this.then = then;
         this.elseStatement = elseStatement;
@@ -44,10 +40,7 @@ public class RandomExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         if(UartOperation.rnb())
             return this.then.visit(symtab);
         else if(this.elseStatement != null)

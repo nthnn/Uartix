@@ -25,8 +25,6 @@ import java.io.IOException;
 
 public interface Node {
     Token getAddress();
-    Object visit(SymbolTable symtab) throws
-        ASTVisitException,
-        IOException,
-        TerminativeSignal;
+
+    Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal;
 }

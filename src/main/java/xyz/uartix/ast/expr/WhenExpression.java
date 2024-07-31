@@ -33,12 +33,7 @@ public class WhenExpression implements Expression {
     private final List<AbstractMap.SimpleEntry<Expression, Expression>> cases;
     private final Expression defaultCase;
 
-    public WhenExpression(
-        Token address,
-        Expression expression,
-        List<AbstractMap.SimpleEntry<Expression, Expression>> cases,
-        Expression defaultCase
-    ) {
+    public WhenExpression(Token address, Expression expression, List<AbstractMap.SimpleEntry<Expression, Expression>> cases, Expression defaultCase) {
         this.address = address;
         this.expression = expression;
         this.cases = cases;
@@ -49,10 +44,7 @@ public class WhenExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object expr = this.expression.visit(symtab);
 
         for(AbstractMap.SimpleEntry<Expression, Expression> caseCell : this.cases)

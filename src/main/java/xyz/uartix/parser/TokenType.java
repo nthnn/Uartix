@@ -18,11 +18,7 @@
 package xyz.uartix.parser;
 
 public enum TokenType {
-    DIGIT("digit"),
-    STRING("string"),
-    KEYWORD("keyword"),
-    IDENTIFIER("identifier"),
-    OPERATOR("operator");
+    DIGIT("digit"), STRING("string"), KEYWORD("keyword"), IDENTIFIER("identifier"), OPERATOR("operator");
 
     private final String name;
 

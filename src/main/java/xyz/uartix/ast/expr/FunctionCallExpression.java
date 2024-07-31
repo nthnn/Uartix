@@ -33,11 +33,7 @@ public class FunctionCallExpression implements Expression {
     private final Expression callOrigin;
     private final List<Expression> arguments;
 
-    public FunctionCallExpression(
-        Token address,
-        Expression callOrigin,
-        List<Expression> arguments
-    ) {
+    public FunctionCallExpression(Token address, Expression callOrigin, List<Expression> arguments) {
         this.address = address;
         this.callOrigin = callOrigin;
         this.arguments = arguments;
@@ -47,15 +43,13 @@ public class FunctionCallExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object origin = null;
 
         if(this.callOrigin instanceof IdentifierExpression)
             origin = symtab.get(this.callOrigin.getAddress().getImage());
-        else origin = this.callOrigin.visit(symtab);
+        else
+            origin = this.callOrigin.visit(symtab);
 
         if(!(origin instanceof Function))
             throw new ASTVisitException(this, "Expression value is not of function instance.");

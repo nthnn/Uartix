@@ -39,10 +39,7 @@ public class TypeExpression implements Expression {
         return this.address;
     }
 
-    public Object visit(SymbolTable symtab)
-        throws ASTVisitException,
-            IOException,
-            TerminativeSignal {
+    public Object visit(SymbolTable symtab) throws ASTVisitException, IOException, TerminativeSignal {
         Object value = this.expression.visit(symtab);
         if(value instanceof Boolean)
             return "bool";
