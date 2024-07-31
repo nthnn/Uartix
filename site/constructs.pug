@@ -22,7 +22,7 @@ html(lang="en")
 
         div(align="center", class="mt-4 mb-4")
           div(class="col-lg-7 col-10")
-            img(src="assets/uartix.png", class="shadow", width="160")
+            img(src="assets/uartix.png", class="shadow", width="125")
             br
             br
             h1(class="mb-2 fw-bold") Uartix Programming Language
@@ -410,11 +410,33 @@ html(lang="en")
               p Statements in Uartix are instructions that perform actions. They can control the flow of execution, declare variables, or perform expressions.
               br
 
+              b(class="pb-2") Use Statement
+              p Imports variables from the list of specified Uartix script files.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_22_say.utx 
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Declares `greet` function variable</i></span>
+                  |
+                  | greet = <span class="text-primary">func</span>(name)
+                  |     <span class="text-primary">render</span> <span class="text-warning">&quot;Hello, &quot;</span> + name;
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_22_main.utx 
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Uses the `greet` function variable from file `example_22_say.utx`</i></span>
+                  |
+                  | <span class="text-primary">use</span> <span class="text-warning">&quot;example_22_say.utx&quot;</span>;
+                  | greet(<span class="text-warning">&quot;world&quot;</span>);
+              br
+
               b(class="pb-2") Break Statement 
               p The break statement exits the nearest enclosing loop.
 
               div(class="bg-primary w-100 mt-2")
-                p(class="text-white m-0 ms-2") example_22.utx
+                p(class="text-white m-0 ms-2") example_23.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
                   | <span class="text-success"><i># Break loop if i is 5.</i></span>
@@ -432,7 +454,7 @@ html(lang="en")
               p The continue statement skips the current iteration of the nearest enclosing loop and proceeds with the next iteration.
 
               div(class="bg-primary w-100 mt-2")
-                p(class="text-white m-0 ms-2") example_23.utx
+                p(class="text-white m-0 ms-2") example_24.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
                   | <span class="text-success"><i># Skip loop iteration if i is even number.</i></span>
@@ -450,7 +472,7 @@ html(lang="en")
               p The return statement exits a function and optionally returns a value. If a block is a non-function, do not use return statement instead just put the return value inside an expression statement.
 
               div(class="bg-primary w-100 mt-2")
-                p(class="text-white m-0 ms-2") example_24.utx
+                p(class="text-white m-0 ms-2") example_25.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
                   | <span class="text-success"><i># Return value from a function.</i></span>
@@ -466,7 +488,7 @@ html(lang="en")
               p The throw statement raises an exception that can be caught by a catch-handle expression.
 
               div(class="bg-primary w-100 mt-2")
-                p(class="text-white m-0 ms-2") example_25.utx
+                p(class="text-white m-0 ms-2") example_26.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
                   | <span class="text-success"><i># Throw with string expression example.</i></span>
@@ -487,12 +509,24 @@ html(lang="en")
                   | };
               br
 
+              b(class="pb-2") Test Statement 
+              p On-code test units with suite name and expression body for reverse assertion.
+
+              div(class="bg-primary w-100 mt-2")
+                p(class="text-white m-0 ms-2") example_27.utx
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-success"><i># Test unit example for checking odd and even number.</i></span>
+                  |
+                  | <span class="text-primary">test</span>(<span class="text-warning">&quot;Is 888 Odd or Even Test&quot;</span>)
+                  |     (888 % 2 == 0);
+
               h5(class="border-bottom pb-2 fw-bold") Strings
               p In Uartix, strings are sequences of characters enclosed in double quotes (&quot;). Strings are used to represent text and can contain a variety of characters, including letters, numbers, punctuation, and special characters.
               p Additionally, strings can be concatenated using the + operator and can also be reversed with the ~ unary operator. The multiplication (*) operator can also multiply a string.
 
               div(class="bg-primary w-100 mt-2")
-                p(class="text-white m-0 ms-2") example_26.utx
+                p(class="text-white m-0 ms-2") example_28.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
                   | <span class="text-success"><i># String operation example.</i></span>
@@ -531,7 +565,7 @@ html(lang="en")
                   p Represents a Unicode character, where XXXX is a four-digit hexadecimal number corresponding to the Unicode code point.
 
               div(class="bg-primary w-100 mt-2")
-                p(class="text-white m-0 ms-2") example_27.utx
+                p(class="text-white m-0 ms-2") example_29.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
                   | <span class="text-success"><i># String escape sequence examples.</i></span>
@@ -567,7 +601,7 @@ html(lang="en")
                   p Hexadecimal numbers are prefixed with <code class="d-inline text-dark border border-dark px-1">0x</code> and can include the digits 0 through 9 and the letters a through f (or A through F). Hexadecimal is widely used in computing for memory addresses, color codes, and other applications requiring a compact representation of binary data.
 
               div(class="bg-primary w-100 mt-2")
-                p(class="text-white m-0 ms-2") example_28.utx
+                p(class="text-white m-0 ms-2") example_30.utx
               code(class="text-dark")
                 pre(class="border border-primary p-2")
                   | <span class="text-success"><i># Different number bases examples.</i></span>
