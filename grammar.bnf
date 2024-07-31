@@ -13,11 +13,22 @@ DIGIT				:=
 global				:= (statement)*
 
 statement			:=
+    use_stmt        |
+    test_stmt       |
 	break_stmt		|
 	continue_stmt	|
 	ret_stmt		|
 	throw_stmt		|
 	expr_stmt
+
+use_stmt            :=
+    "use" expression
+    [expression ("," expression)*]
+    ";"
+
+test_stmt           :=
+    "test" "(" expression ")"
+    expression ";"
 
 break_stmt			:= "break" ";"
 continue_stmt		:= "continue" ";"

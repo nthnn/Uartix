@@ -123,11 +123,22 @@ html(lang="en")
                   | global				:= (statement)*
                   |
                   | statement			:=
+                  |     use_stmt        |
+                  |     test_stmt       |
                   | 	break_stmt		|
-                  | 	continue_stmt		|
-                  | 	ret_stmt		|
-                  | 	throw_stmt		|
+                  | 	continue_stmt   |
+                  | 	ret_stmt        |
+                  | 	throw_stmt      |
                   | 	expr_stmt
+                  |
+                  | use_stmt            :=
+                  |    &quot;use&quot; expression
+                  |    [expression (&quot;,&quot; expression)*]
+                  |    &quot;;&quot;
+                  |
+                  | test_stmt           :=
+                  |     "test" "(" expression ")"
+                  |     expression ";"
                   |
                   | break_stmt			:= &quot;break&quot; &quot;;&quot;
                   | continue_stmt			:= &quot;continue&quot; &quot;;&quot;
