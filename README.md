@@ -35,6 +35,28 @@ Despite its unconventional and dynamic behavior, as well as its lack of fundamen
 - The Raspberry Pi Pico, with its energy-efficient ARM Cortex-M0+ cores, offers a low-power solution for performing mathematical calculations which is perfect for Uartix runtime execution.
 - Why not? I was bored when I started developing this.
 
+## Features
+
+- **Rich expression and statement constructs**
+
+    The language includes standard control flow constructs such as `if`, `while`, and `loop`, as well as more specialized ones like `unless`, `when`, and `random`. These constructs enable developers to write clear and concise code that directly expresses their intent, reducing the need for verbose and boilerplate code.
+
+- **Support for multiple numerical bases**
+
+    One of the standout features of Uartix is its support for multiple numerical bases, including binary, trinary, octal, and hexadecimal, in addition to standard decimal numbers.
+
+- **In-code testing units**
+
+    Uartix introduces an innovative `test` statement that facilitates in-code testing and validation. This feature allows developers to embed tests directly within their codebase, providing a streamlined approach to verifying functionality and ensuring code correctness. The `test` statement is particularly useful for unit testing, where individual components of the code can be tested in isolation.
+
+- **Control Flow as Expressions**
+
+    A distinctive feature of Uartix is its treatment of control flow constructs as expressions rather than traditional statements. This design choice enhances the language's expressiveness and flexibility, allowing control flows to be used as part of larger expressions.
+
+- **Boolean Constructs: `true`, `false`, and `maybe`**
+
+    Uartix introduces unique boolean constructs `true`, `false`, and `maybe`, which add a layer of versatility and unpredictability to the language's logic handling. While `true` and `false` are standard boolean values, `maybe` is a distinctive feature that represents an uncertain or probabilistic state, which is resolved at runtime.
+
 ## Getting Started
 
 Before installing Uartix, make sure you have JDK 22 (or OpenJDK) installed on your system. Follow the steps below to get started on different operating systems and to build various components from the source.
