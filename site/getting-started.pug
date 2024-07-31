@@ -146,6 +146,59 @@ html(lang="en")
                 li <b>Installing Raspberry Pi Pico on Arduino IDE</b>: Install the Raspberry Pi Pico boards on your Arduino IDE by following the steps <a href="https://randomnerdtutorials.com/programming-raspberry-pi-pico-w-arduino-ide/" class="text-decoration-none" target="_blank">here</a>.
                 li <b>Open in Arduino IDE</b>: Open the file <a href="https://github.com/nthnn/Uartix/blob/main/picoware/picoware.ino" class="text-decoration-none" target="_blank">picoware/picoware.ino</a> in your Arduino IDE.
                 li <b>Build & Upload</b>: Connect your Raspberry Pi Pico board on flash mode then upload and build the Picoware on your Arduino IDE.
+              br
+
+              h5(class="border-bottom pb-2 fw-bold") Running from CLI
+              p After successfully installing Uartix, you can interact with it via the command-line interface. The following guide outlines the basic usage and options available when running Uartix scripts from the CLI.
+
+              code(class="text-dark")
+                pre(class="border border-primary p-2")
+                  | <span class="text-muted">$</span> <span class="fw-bolder">uartix -h</span>
+                  | <span class="text-muted">
+                  | usage: uartix [-h] [-p {ttyACM0}] [-t] [files [files ...]]
+                  | 
+                  | Execute Uartix script files.
+                  | 
+                  | positional arguments:
+                  |   files                  List of files to execute.
+                  | 
+                  | named arguments:
+                  |   -h, --help             show this help message and exit
+                  |   -p {ttyACM0}, --port {ttyACM0}
+                  |                          Serial port device of the co-processor. (default: ttyACM0)
+                  |   -t, --test             Run test units. (default: false)
+                  | </span>
+
+              b(class="pb-2") Position Arguments 
+              ul 
+                li 
+                  p <b>files</b> &mdash; A list of Uartix script files to be executed. This argument can accept multiple file paths, allowing you to run several scripts sequentially.
+              br
+
+              b(class="pb-2") Named Arguments 
+              ul 
+                li 
+                  p <b>help</b> &mdash; Displays the help message, providing an overview of available commands and options. Use this option if you need quick guidance on how to use the CLI.
+                li
+                  p <b>port</b> &mdash; Specifies the serial port device connected to the co-processor. This option is useful if your co-processor is connected to a different serial port or if you have multiple devices connected.
+                li
+                  p <b>test</b> &mdash; Runs test units within the provided script files. This is useful for verifying the functionality of your scripts or modules. By default, this option is set to false, meaning test units are not executed unless explicitly requested.
+              br
+
+              b(class="pb-2") Examples
+              ul
+                li To run a Uartix script file named <code class="d-inline text-dark border border-dark px-1">example.utx</code>, you can use the following command:
+                code(class="text-dark")
+                  pre(class="border border-primary p-2")
+                    | <span class="text-muted">$</span> <span class="fw-bolder">uartix example.utx</span>
+                li If your co-processor is connected to a different port, specify the port using the <code class="d-inline text-dark border border-dark px-1">-p</code> or <code class="d-inline text-dark border border-dark px-1">--port</code> option:
+                code(class="text-dark")
+                  pre(class="border border-primary p-2")
+                    | <span class="text-muted">$</span> <span class="fw-bolder">uartix -p /dev/ttyUSB0 example.utx</span>
+                li To execute test units defined in your script, use the <code class="d-inline text-dark border border-dark px-1">-t</code> option:
+                code(class="text-dark")
+                  pre(class="border border-primary p-2")
+                    | <span class="text-muted">$</span> <span class="fw-bolder">uartix -t example.utx</span>
 
             div(class="col-lg-2")
 
