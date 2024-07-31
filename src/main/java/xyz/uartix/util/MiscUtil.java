@@ -17,9 +17,60 @@
 
 package xyz.uartix.util;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public final class MiscUtil {
     public static String multiply(String string, int count) {
         return String.valueOf(string).repeat(Math.max(0, count));
+    }
+
+    public static boolean isValidFilePath(String pathString) {
+        if(pathString == null || pathString.trim().isEmpty())
+            return false;
+
+        for(char c : "<>:\"|?*".toCharArray())
+            if(pathString.indexOf(c) >= 0)
+                return false;
+
+        try {
+            Path path = Paths.get(pathString);
+            return Files.exists(path) || !Files.isDirectory(path) || path.isAbsolute();
+        } catch(Exception _) {
+        }
+
+        return false;
+    }
+
+    public static String computeFileHash(String filePath) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            try(FileInputStream fis = new FileInputStream(filePath)) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+
+                while((bytesRead = fis.read(buffer)) != -1)
+                    digest.update(buffer, 0, bytesRead);
+            }
+
+            byte[] hashBytes = digest.digest();
+            StringBuilder hashString = new StringBuilder();
+
+            for(byte b : hashBytes)
+                hashString.append(String.format("%02x", b));
+            return hashString.toString();
+        } catch(NoSuchAlgorithmException _) {
+        } catch(IOException ex) {
+            System.out.println("\u001b[31mI/O Error\u001b[0m: " + ex.getMessage());
+            System.exit(0);
+        }
+
+        return null;
     }
 
     public static String unescapeCharacters(String string) {
@@ -30,7 +81,7 @@ public final class MiscUtil {
 
             if(ch == '\\' && i + 1 < string.length()) {
                 char nextChar = string.charAt(i + 1);
-                switch (nextChar) {
+                switch(nextChar) {
                     case 'r':
                         sb.append('\r');
                         i++;
@@ -79,7 +130,8 @@ public final class MiscUtil {
                         break;
                 }
             }
-            else sb.append(ch);
+            else
+                sb.append(ch);
         }
 
         return sb.toString();
