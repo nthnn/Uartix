@@ -19,11 +19,9 @@ package xyz.uartix;
 
 import xyz.uartix.ast.ASTVisitException;
 import xyz.uartix.ast.Statement;
-import xyz.uartix.core.SymbolTable;
-import xyz.uartix.core.TerminativeBreak;
-import xyz.uartix.core.TerminativeContinue;
-import xyz.uartix.core.TerminativeSignal;
-import xyz.uartix.core.TerminativeThrow;
+import xyz.uartix.ast.stmt.TestStatement;
+import xyz.uartix.core.Runtime;
+import xyz.uartix.core.*;
 import xyz.uartix.parser.LexicalAnalysisException;
 import xyz.uartix.parser.Parser;
 import xyz.uartix.parser.ParserException;
@@ -55,27 +53,14 @@ public class Main {
             }
 
             Uart.connect(argParser.getSelectedPort());
-            for(Statement statement : statements)
+            for(Statement statement : statements) {
+                if(Runtime.isTestMode() && !(statement instanceof TestStatement))
+                    continue;
+
                 statement.visit(symtab);
-        }
-        catch(LexicalAnalysisException e) {
-            System.out.println("\u001b[31mLexical Error\u001b[0m: " + e.getMessage());
-        }
-        catch(ParserException e) {
-            System.out.println("\u001b[31mParser Error\u001b[0m: " + e.getMessage());
-        }
-        catch(ASTVisitException e) {
-            System.out.println("\u001b[31mExecution Error\u001b[0m: " + e.getMessage());
-        }
-        catch(IOException e) {
-            System.out.println("\u001b[31mI/O Error\u001b[0m: " + e.getMessage());
-        }
-        catch(RuntimeException e) {
-            System.out.println("\u001b[31mRuntime Error\u001b[0m: " + e.getMessage());
-        }
-        catch(TerminativeSignal e) {
-            if(e instanceof TerminativeBreak ||
-                e instanceof TerminativeContinue)
+            }
+        } catch(TerminativeSignal e) {
+            if(e instanceof TerminativeBreak || e instanceof TerminativeContinue)
                 System.out.println("\u001b[31mTerminative signal received.\u001b[0m");
             else if(e instanceof TerminativeThrow) {
                 Object obj = ((TerminativeThrow) e).getObject();
@@ -84,12 +69,23 @@ public class Main {
 
                 System.out.println("\u001b[31mUncaught error\u001b[0m: " + obj);
             }
+        } catch(Exception ex) {
+            String type = "";
+            switch(ex) {
+                case IOException ioException -> type = "I/O ";
+                case LexicalAnalysisException lexicalAnalysisException -> type = "Lexical ";
+                case ParserException parserException -> type = "Parser ";
+                case ASTVisitException astVisitException -> type = "Execution ";
+                default -> {
+                }
+            }
+
+            System.out.println("\u001b[31m" + type + "Error\u001b[0m: " + ex.getMessage());
         }
 
         try {
             Uart.disconnect();
-        }
-        catch(IOException e) {
+        } catch(IOException e) {
             System.out.println("\u001b[31mI/O Error\u001b[0m: " + e.getMessage());
         }
     }
