@@ -25,7 +25,10 @@ import xyz.uartix.util.Convert;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public final class Parser {
     private final List<Statement> globalStatements;
@@ -40,9 +43,7 @@ public final class Parser {
         this.globalStatements = new ArrayList<>();
     }
 
-    public static Parser fromFile(String fileName)
-        throws LexicalAnalysisException,
-            FileNotFoundException {
+    public static Parser fromFile(String fileName) throws LexicalAnalysisException, FileNotFoundException {
         Tokenizer tokenizer = Tokenizer.loadFile(fileName);
         tokenizer.scan();
 
@@ -73,17 +74,13 @@ public final class Parser {
 
     private Token consume(String image) throws ParserException {
         if(this.isAtEnd())
-            throw new ParserException(
-                "Expecting \"" + image + "\", encountered end-of-code."
-            );
+            throw new ParserException("Expecting \"" + image + "\", encountered end-of-code.");
 
         Token peeked = this.peek();
         String peekedImg = peeked.getImage();
 
         if(!peekedImg.equals(image))
-            throw new ParserException(
-                "Expecting \"" + image + "\", encountered " + peeked
-            );
+            throw new ParserException("Expecting \"" + image + "\", encountered " + peeked);
 
         this.index++;
         return peeked;
@@ -91,17 +88,13 @@ public final class Parser {
 
     private Token consume(TokenType type) throws ParserException {
         if(this.isAtEnd())
-            throw new ParserException(
-                    "Expecting " + type + ", encountered end-of-code."
-            );
+            throw new ParserException("Expecting " + type + ", encountered end-of-code.");
 
         Token peeked = this.peek();
         TokenType peekedType = peeked.getType();
 
         if(peekedType != type)
-            throw new ParserException(
-                    "Expecting " + type + ", encountered " + peeked
-            );
+            throw new ParserException("Expecting " + type + ", encountered " + peeked);
 
         this.index++;
         return peeked;
@@ -126,10 +119,7 @@ public final class Parser {
         }
         else if(this.peek().getType() == TokenType.DIGIT) {
             Token digitToken = this.consume(TokenType.DIGIT);
-            expr = new LiteralExpression(
-                digitToken,
-                Convert.translateDigit(digitToken.getImage())
-            );
+            expr = new LiteralExpression(digitToken, Convert.translateDigit(digitToken.getImage()));
         }
 
         if(expr == null)
@@ -150,24 +140,15 @@ public final class Parser {
         }
 
         this.consume("]");
-        return new ArrayExpression(
-            address,
-            expressions
-        );
+        return new ArrayExpression(address, expressions);
     }
 
     private Expression exprType() throws ParserException, IOException {
-        return new TypeExpression(
-            this.consume("type"),
-            this.expression()
-        );
+        return new TypeExpression(this.consume("type"), this.expression());
     }
 
     private Expression exprRender() throws ParserException, IOException {
-        return new RenderExpression(
-            this.consume("render"),
-            this.expression()
-        );
+        return new RenderExpression(this.consume("render"), this.expression());
     }
 
     private Expression exprCatch() throws ParserException, IOException {
@@ -184,13 +165,7 @@ public final class Parser {
             finalBlock = (BlockExpression) this.expression();
         }
 
-        return new CatchHandleExpression(
-            address,
-            catchExpr,
-            handle,
-            handleExpr,
-            finalBlock
-        );
+        return new CatchHandleExpression(address, catchExpr, handle, handleExpr, finalBlock);
     }
 
     private Expression exprDo() throws ParserException, IOException {
@@ -203,11 +178,7 @@ public final class Parser {
         Expression condition = this.expression();
         this.consume(")");
 
-        return new DoWhileExpression(
-            address,
-            condition,
-            body
-        );
+        return new DoWhileExpression(address, condition, body);
     }
 
     private Expression exprWhile() throws ParserException, IOException {
@@ -217,11 +188,7 @@ public final class Parser {
         Expression condition = this.expression();
         this.consume(")");
 
-        return new WhileExpression(
-            address,
-            condition,
-            this.expression()
-        );
+        return new WhileExpression(address, condition, this.expression());
     }
 
     private Expression exprIf() throws ParserException, IOException {
@@ -237,12 +204,7 @@ public final class Parser {
             otherwise = this.expression();
         }
 
-        return new IfExpression(
-            address,
-            condition,
-            then,
-            otherwise
-        );
+        return new IfExpression(address, condition, then, otherwise);
     }
 
     private Expression exprRandom() throws ParserException, IOException {
@@ -254,11 +216,7 @@ public final class Parser {
             otherwise = this.expression();
         }
 
-        return new RandomExpression(
-            address,
-            then,
-            otherwise
-        );
+        return new RandomExpression(address, then, otherwise);
     }
 
     private Expression exprLoop() throws ParserException, IOException {
@@ -274,13 +232,7 @@ public final class Parser {
         Expression postExpr = this.expression();
         this.consume(")");
 
-        return new LoopExpression(
-            address,
-            initial,
-            condition,
-            postExpr,
-            this.expression()
-        );
+        return new LoopExpression(address, initial, condition, postExpr, this.expression());
     }
 
     private Expression exprUnless() throws ParserException, IOException {
@@ -296,12 +248,7 @@ public final class Parser {
             otherwise = this.expression();
         }
 
-        return new UnlessExpression(
-                address,
-                condition,
-                then,
-                otherwise
-        );
+        return new UnlessExpression(address, condition, then, otherwise);
     }
 
     private Expression exprWhen() throws ParserException, IOException {
@@ -338,12 +285,7 @@ public final class Parser {
         }
 
         this.consume("}");
-        return new WhenExpression(
-            address,
-            expr,
-            cases,
-            defaultCase
-        );
+        return new WhenExpression(address, expr, cases, defaultCase);
     }
 
     private Expression exprFunc() throws ParserException, IOException {
@@ -359,11 +301,7 @@ public final class Parser {
         }
 
         this.consume(")");
-        return new FunctionDeclarationExpression(
-            address,
-            parameters,
-            this.expression()
-        );
+        return new FunctionDeclarationExpression(address, parameters, this.expression());
     }
 
     private Expression exprMaybe() throws ParserException, IOException {
@@ -378,21 +316,14 @@ public final class Parser {
             statements.add(this.statement());
         this.consume("}");
 
-        return new BlockExpression(
-            address,
-            statements
-        );
+        return new BlockExpression(address, statements);
     }
 
     private Expression exprLogicOr() throws ParserException, IOException {
         Expression expr = this.exprLogicAnd();
 
         while(this.isNext("||"))
-            expr = new BinaryExpression(
-                expr,
-                this.consume(TokenType.OPERATOR),
-                this.exprLogicAnd()
-            );
+            expr = new BinaryExpression(expr, this.consume(TokenType.OPERATOR), this.exprLogicAnd());
 
         return expr;
     }
@@ -401,11 +332,7 @@ public final class Parser {
         Expression expr = this.exprBitwiseOr();
 
         while(this.isNext("&&"))
-            expr = new BinaryExpression(
-                    expr,
-                    this.consume(TokenType.OPERATOR),
-                    this.exprBitwiseOr()
-            );
+            expr = new BinaryExpression(expr, this.consume(TokenType.OPERATOR), this.exprBitwiseOr());
 
         return expr;
     }
@@ -414,11 +341,7 @@ public final class Parser {
         Expression expr = this.exprBitwiseXor();
 
         while(this.isNext("|"))
-            expr = new BinaryExpression(
-                    expr,
-                    this.consume(TokenType.OPERATOR),
-                    this.exprBitwiseXor()
-            );
+            expr = new BinaryExpression(expr, this.consume(TokenType.OPERATOR), this.exprBitwiseXor());
 
         return expr;
     }
@@ -427,11 +350,7 @@ public final class Parser {
         Expression expr = this.exprBitwiseAnd();
 
         while(this.isNext("^"))
-            expr = new BinaryExpression(
-                    expr,
-                    this.consume(TokenType.OPERATOR),
-                    this.exprBitwiseAnd()
-            );
+            expr = new BinaryExpression(expr, this.consume(TokenType.OPERATOR), this.exprBitwiseAnd());
 
         return expr;
     }
@@ -440,11 +359,7 @@ public final class Parser {
         Expression expr = this.exprNullCoalescing();
 
         while(this.isNext("&"))
-            expr = new BinaryExpression(
-                    expr,
-                    this.consume(TokenType.OPERATOR),
-                    this.exprNullCoalescing()
-            );
+            expr = new BinaryExpression(expr, this.consume(TokenType.OPERATOR), this.exprNullCoalescing());
 
         return expr;
     }
@@ -453,11 +368,7 @@ public final class Parser {
         Expression expr = this.exprEquality();
 
         while(this.isNext("?"))
-            expr = new NulllCoalescingExpression(
-                this.consume(TokenType.OPERATOR),
-                expr,
-                this.exprEquality()
-            );
+            expr = new NulllCoalescingExpression(this.consume(TokenType.OPERATOR), expr, this.exprEquality());
 
         return expr;
     }
@@ -465,15 +376,8 @@ public final class Parser {
     private Expression exprEquality() throws ParserException, IOException {
         Expression expr = this.exprComparison();
 
-        while(this.isNext("==") ||
-            this.isNext("!=") ||
-            this.isNext("=")
-        )
-            expr = new BinaryExpression(
-                expr,
-                this.consume(TokenType.OPERATOR),
-                this.exprComparison()
-            );
+        while(this.isNext("==") || this.isNext("!=") || this.isNext("="))
+            expr = new BinaryExpression(expr, this.consume(TokenType.OPERATOR), this.exprComparison());
 
         return expr;
     }
@@ -481,16 +385,8 @@ public final class Parser {
     private Expression exprComparison() throws ParserException, IOException {
         Expression expr = this.exprShift();
 
-        while(this.isNext("<") ||
-            this.isNext("<=") ||
-            this.isNext(">") ||
-            this.isNext(">=")
-        )
-            expr = new BinaryExpression(
-                expr,
-                this.consume(TokenType.OPERATOR),
-                this.exprShift()
-            );
+        while(this.isNext("<") || this.isNext("<=") || this.isNext(">") || this.isNext(">="))
+            expr = new BinaryExpression(expr, this.consume(TokenType.OPERATOR), this.exprShift());
 
         return expr;
     }
@@ -499,11 +395,7 @@ public final class Parser {
         Expression expr = this.exprTerm();
 
         while(this.isNext("<<") || this.isNext(">>"))
-            expr = new BinaryExpression(
-                    expr,
-                    this.consume(TokenType.OPERATOR),
-                    this.exprTerm()
-            );
+            expr = new BinaryExpression(expr, this.consume(TokenType.OPERATOR), this.exprTerm());
 
         return expr;
     }
@@ -512,11 +404,7 @@ public final class Parser {
         Expression expr = this.exprFactor();
 
         while(this.isNext("+") || this.isNext("-"))
-            expr = new BinaryExpression(
-                expr,
-                this.consume(TokenType.OPERATOR),
-                this.exprFactor()
-            );
+            expr = new BinaryExpression(expr, this.consume(TokenType.OPERATOR), this.exprFactor());
 
         return expr;
     }
@@ -524,14 +412,8 @@ public final class Parser {
     private Expression exprFactor() throws ParserException, IOException {
         Expression expr = this.exprPrimary();
 
-        while(this.isNext("*") ||
-            this.isNext("/") ||
-            this.isNext("%"))
-            expr = new BinaryExpression(
-                expr,
-                this.consume(TokenType.OPERATOR),
-                this.exprPrimary()
-            );
+        while(this.isNext("*") || this.isNext("/") || this.isNext("%"))
+            expr = new BinaryExpression(expr, this.consume(TokenType.OPERATOR), this.exprPrimary());
 
         return expr;
     }
@@ -540,16 +422,10 @@ public final class Parser {
         Expression expr = null;
 
         if(this.isNext("+") || this.isNext("-") || this.isNext("~"))
-            expr = new UnaryExpression(
-                this.consume(TokenType.OPERATOR),
-                this.expression()
-            );
+            expr = new UnaryExpression(this.consume(TokenType.OPERATOR), this.expression());
         else if(this.isNext("(")) {
             Token address = this.consume("(");
-            expr = new GroupedExpression(
-                    address,
-                    this.expression()
-            );
+            expr = new GroupedExpression(address, this.expression());
 
             this.consume(")");
         }
@@ -589,14 +465,11 @@ public final class Parser {
                 Expression indexExpr = this.expression();
 
                 this.consume("]");
-                expr = new ArrayAccessExpression(
-                        address,
-                        expr,
-                        indexExpr
-                );
+                expr = new ArrayAccessExpression(address, expr, indexExpr);
             }
         }
-        else expr = this.exprLiteral();
+        else
+            expr = this.exprLiteral();
 
         while(this.isNext("(") || this.isNext("[")) {
             while(this.isNext("(")) {
@@ -611,11 +484,7 @@ public final class Parser {
                 }
 
                 this.consume(")");
-                expr = new FunctionCallExpression(
-                        address,
-                        expr,
-                        args
-                );
+                expr = new FunctionCallExpression(address, expr, args);
             }
 
             while(this.isNext("[")) {
@@ -623,11 +492,7 @@ public final class Parser {
                 Expression indexExpr = this.expression();
 
                 this.consume("]");
-                expr = new ArrayAccessExpression(
-                        address,
-                        expr,
-                        indexExpr
-                );
+                expr = new ArrayAccessExpression(address, expr, indexExpr);
             }
         }
 
@@ -638,10 +503,44 @@ public final class Parser {
         return this.exprLogicOr();
     }
 
+    private Statement testStmt() throws ParserException, IOException {
+        Token address = this.consume("test");
+        this.consume("(");
+
+        Expression testName = this.expression();
+        this.consume(")");
+
+        TestStatement stmt = new TestStatement(address, testName, this.expression());
+        this.consume(";");
+
+        return stmt;
+    }
+
+    private Statement useStmt() throws ParserException, IOException {
+        Token address = this.consume("use");
+        List<Expression> fileNames = new ArrayList<>();
+
+        while(!this.isAtEnd()) {
+            fileNames.add(this.expression());
+
+            if(!this.isAtEnd() && !this.isNext(";"))
+                this.consume(",");
+            else
+                break;
+        }
+
+        this.consume(";");
+        return new UseStatement(address, fileNames);
+    }
+
     private Statement statement() throws ParserException, IOException {
         Statement stmt = null;
 
-        if(this.isNext("break")) {
+        if(this.isNext("use"))
+            stmt = this.useStmt();
+        else if(this.isNext("test"))
+            stmt = this.testStmt();
+        else if(this.isNext("break")) {
             Token address = this.consume("break");
             stmt = new BreakStatement(address);
 
@@ -655,19 +554,13 @@ public final class Parser {
         }
         else if(this.isNext("ret")) {
             Token address = this.consume("ret");
-            stmt = new ReturnStatement(
-                address,
-                this.expression()
-            );
+            stmt = new ReturnStatement(address, this.expression());
 
             this.consume(";");
         }
         else if(this.isNext("throw")) {
             Token address = this.consume("throw");
-            stmt = new ThrowStatement(
-                    address,
-                    this.expression()
-            );
+            stmt = new ThrowStatement(address, this.expression());
 
             this.consume(";");
         }
@@ -675,10 +568,7 @@ public final class Parser {
         if(stmt == null) {
             Expression expr = this.expression();
 
-            stmt = new ExpressionStatement(
-                expr.getAddress(),
-                expr
-            );
+            stmt = new ExpressionStatement(expr.getAddress(), expr);
             this.consume(";");
         }
 
