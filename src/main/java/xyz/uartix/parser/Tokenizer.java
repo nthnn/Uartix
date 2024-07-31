@@ -290,6 +290,29 @@ public final class Tokenizer {
                                     column++;
                                 }
                             }
+
+                            if(!this.isAtEnd() && this.source.charAt(index) == 'e') {
+                                digit.append(this.source.charAt(index));
+                                index++;
+                                column++;
+
+                                if(this.isAtEnd() || !Tokenizer.isDigit(this.source.charAt(index)))
+                                    throw new LexicalAnalysisException("Expecting 'e' followed by decimal digits. " + "(line " + line + ", column " + column + ")");
+
+                                char sign = this.source.charAt(index);
+                                index++;
+                                column++;
+
+                                if(sign != '+' && sign != '-')
+                                    throw new LexicalAnalysisException("Expecting either + or - for decimal notation.");
+                                digit.append(sign);
+
+                                while(!this.isAtEnd() && Tokenizer.isDigit(this.source.charAt(index))) {
+                                    digit.append(this.source.charAt(index));
+                                    index++;
+                                    column++;
+                                }
+                            }
                             break;
                     }
                 }
@@ -307,6 +330,26 @@ public final class Tokenizer {
 
                         if(this.isAtEnd() || !Tokenizer.isDigit(this.source.charAt(index)))
                             throw new LexicalAnalysisException("Expecting decimal digits. " + "(line " + line + ", column " + column + ")");
+
+                        while(!this.isAtEnd() && Tokenizer.isDigit(this.source.charAt(index))) {
+                            digit.append(this.source.charAt(index));
+                            index++;
+                            column++;
+                        }
+                    }
+
+                    if(!this.isAtEnd() && this.source.charAt(index) == 'e') {
+                        digit.append(this.source.charAt(index));
+                        index++;
+                        column++;
+
+                        char sign = this.source.charAt(index);
+                        if(this.isAtEnd() || (sign != '+' && sign != '-'))
+                            throw new LexicalAnalysisException("Expecting 'e' followed by decimal digits. " + "(line " + line + ", column " + column + ")");
+
+                        digit.append(sign);
+                        index++;
+                        column++;
 
                         while(!this.isAtEnd() && Tokenizer.isDigit(this.source.charAt(index))) {
                             digit.append(this.source.charAt(index));
