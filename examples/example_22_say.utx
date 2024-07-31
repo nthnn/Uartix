@@ -1,0 +1,5 @@
+#!/usr/local/bin/uartix
+# Declares `greet` function variable
+
+greet = func(name)
+    render "Hello, " + name;

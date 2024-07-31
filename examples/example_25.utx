@@ -1,17 +1,8 @@
 #!/usr/local/bin/uartix
-# Throw with string expression example.
+# Return value from a function.
 
-check_value = func(value) {
-    if(value < 0) {
-        throw "Negative value not allowed!";
-    };
-
-    ret value;
+add = func(x, y) {
+    ret x + y;
 };
 
-catch {
-    check_value(-1);
-}
-handle error {
-    render "Error: " + error + "\r\n";
-};
+render "The sum of x and y is " + add(8, 9);

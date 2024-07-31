@@ -1,0 +1,11 @@
+#!/usr/local/bin/uartix
+# String escape sequence examples.
+
+render "Hello,\nWorld!\r\n";
+render "Hello,\rWorld!\r\n";
+render "Hello,\tWorld!\r\n";
+render "Hello,\bWorld!\r\n";
+render "Hello,\fWorld!\r\n";
+render "They say, \"Hello, World!\"\r\n";
+render "This is a backslash: \\\r\n";
+render "Smiley face: \u263A\r\n";

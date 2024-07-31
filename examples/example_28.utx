@@ -1,12 +1,5 @@
 #!/usr/local/bin/uartix
-# Different number bases examples.
+# String operation example.
 
-binary_num  = 0b1101;
-trinary_num = 0t102;
-octal_num   = 0c17;
-hex_num     = 0xf;
-
-render binary_num + "\r\n";
-render trinary_num + "\r\n";
-render octal_num + "\r\n";
-render hex_num + "\r\n";
+render (~"Hello") + "\r\n";
+render "Go! " * 3;

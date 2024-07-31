@@ -1,0 +1,5 @@
+#!/usr/local/bin/uartix
+# Uses the `greet` function variable from file `example_22_say.utx`
+
+use "example_22_say.utx";
+greet("world");

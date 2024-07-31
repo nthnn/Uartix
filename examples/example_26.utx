@@ -1,5 +1,17 @@
 #!/usr/local/bin/uartix
-# String operation example.
+# Throw with string expression example.
 
-render (~"Hello") + "\r\n";
-render "Go! " * 3;
+check_value = func(value) {
+    if(value < 0) {
+        throw "Negative value not allowed!";
+    };
+
+    ret value;
+};
+
+catch {
+    check_value(-1);
+}
+handle error {
+    render "Error: " + error + "\r\n";
+};

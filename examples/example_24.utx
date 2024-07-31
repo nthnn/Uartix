@@ -1,8 +1,10 @@
 #!/usr/local/bin/uartix
-# Return value from a function.
+# Skip loop iteration if i is even number.
 
-add = func(x, y) {
-    ret x + y;
+loop(i = 0; i < 10; i = i + 1) {
+    if(i % 2 == 0) {
+        continue;
+    };
+
+    render i + "\r\n";
 };
-
-render "The sum of x and y is " + add(8, 9);

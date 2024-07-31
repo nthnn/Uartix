@@ -1,9 +1,9 @@
 #!/usr/local/bin/uartix
-# Skip loop iteration if i is even number.
+# Break loop if i is 5.
 
 loop(i = 0; i < 10; i = i + 1) {
-    if(i % 2 == 0) {
-        continue;
+    if(i == 5) {
+        break;
     };
 
     render i + "\r\n";
