@@ -180,7 +180,7 @@ html(lang="en")
               br
 
               b(class="pb-2") While Expression 
-              p While expressions execute a block of code as long as a condition is true.
+              p While expressions execute a block of code as long as a specified condition remains true.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_07.utx
@@ -225,7 +225,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Loop Expression 
-              p Loop expressions define a traditional for-loop structure.
+              p Loop expressions provide a traditional for-loop structure for iterating over a range of values or conditions.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_10.utx
@@ -250,6 +250,7 @@ html(lang="en")
                   | <span class="text-primary">unless</span>(x == 0)
                   |     <span class="text-primary">render</span> <span class="text-warning">&quot;x is not zero.\r\n&quot;</span>
                   | <span class="text-primary">else</span> <span class="text-primary">render</span> <span class="text-warning">&quot;x is zero\r\n&quot;</span>;
+              br
 
               b(class="pb-2") When Expression 
               p When expressions are used for pattern matching and conditional execution based on multiple conditions. The concept for this expression is same as the switch statement on other programming languages such as C/C++, Java, or C#.
@@ -272,7 +273,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Maybe Expression 
-              p The maybe expression in Uartix is a boolean value. However, it only acquires a boolean value on runtime with either true or false randomly from the Raspberry Pi Pico.
+              p The maybe expression assigns a boolean value at runtime, randomly choosing between true or false. This value is determined using a random function from the Raspberry Pi Pico.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_13.utx
@@ -287,7 +288,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Function Expression 
-              p Function expressions define a function with optional parameters and a body.
+              p Function expressions define a function, optionally with parameters, which encapsulates a block of code.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_14.utx
@@ -346,7 +347,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Equality and Comparison Expressions
-              p These expressions compare expressions and returns boolean values.
+              p These expressions compare values and return boolean results, useful for conditional logic.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_18.utx
@@ -363,7 +364,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Shift Expressions 
-              p These expressions perform bitwise shift operations.
+              p Shift expressions perform bitwise shifts on numbers, either to the left or right.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_19.utx
@@ -376,7 +377,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Term and Factor Expressions
-              p These expressions perform basic arithmetic operations.
+              p Term and factor expressions involve basic arithmetic operations such as addition, subtraction, multiplication, division, and modulus.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_20.utx
@@ -392,7 +393,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Literal Expressions 
-              p These represent constant values in the language.
+              p Literal expressions represent constant values in the language, such as numbers, booleans, and nil.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_21.utx
@@ -411,7 +412,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Use Statement
-              p Imports variables from the list of specified Uartix script files.
+              p The <code class="d-inline text-dark border border-dark px-1">use</code> statement imports variables, functions, and other elements from specified Uartix script files, allowing for modular and reusable code.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_22_say.utx 
@@ -433,7 +434,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Break Statement 
-              p The break statement exits the nearest enclosing loop.
+              p The <code class="d-inline text-dark border border-dark px-1">break</code> statement exits the nearest enclosing loop prematurely, often used to halt loop execution based on a condition.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_23.utx
@@ -451,7 +452,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Continue Statement
-              p The continue statement skips the current iteration of the nearest enclosing loop and proceeds with the next iteration.
+              p The <code class="d-inline text-dark border border-dark px-1">continue</code> statement skips the current iteration of the nearest enclosing loop and proceeds with the next iteration, typically used to bypass certain conditions within a loop.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_24.utx
@@ -469,7 +470,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Return Statement 
-              p The return statement exits a function and optionally returns a value. If a block is a non-function, do not use return statement instead just put the return value inside an expression statement.
+              p The return (<code class="d-inline text-dark border border-dark px-1">ret</code>) statement exits a function and optionally returns a value. If a block is a non-function, do not use return statement instead just put the return value inside an expression statement.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_25.utx
@@ -485,7 +486,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Throw Statement 
-              p The throw statement raises an exception that can be caught by a catch-handle expression.
+              p The <code class="d-inline text-dark border border-dark px-1">throw</code> statement raises an exception, which can be handled by a <code class="d-inline text-dark border border-dark px-1">catch-handle</code> block. This mechanism is used for error handling in Uartix scripts.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_26.utx
@@ -510,7 +511,7 @@ html(lang="en")
               br
 
               b(class="pb-2") Test Statement 
-              p On-code test units with suite name and expression body for reverse assertion.
+              p The <code class="d-inline text-dark border border-dark px-1">test</code> statement defines a test unit with a suite name and an expression for validation. It is used for on-code testing, providing reverse assertions to verify expected outcomes.
 
               div(class="bg-primary w-100 mt-2")
                 p(class="text-white m-0 ms-2") example_27.utx
@@ -520,6 +521,7 @@ html(lang="en")
                   |
                   | <span class="text-primary">test</span>(<span class="text-warning">&quot;Is 888 Odd or Even Test&quot;</span>)
                   |     (888 % 2 == 0);
+              br
 
               h5(class="border-bottom pb-2 fw-bold") Strings
               p In Uartix, strings are sequences of characters enclosed in double quotes (&quot;). Strings are used to represent text and can contain a variety of characters, including letters, numbers, punctuation, and special characters.
